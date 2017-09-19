@@ -1,0 +1,7 @@
+.btn-floating{
+  display:scroll;
+        position:fixed;
+        bottom:30px;
+        right:30px;
+        border-radius: 30px;
+}

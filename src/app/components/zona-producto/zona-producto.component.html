@@ -1,0 +1,134 @@
+<div class=" col-12" style="margin-left:60px">
+  <h1>Demanda de Productos por Zona</h1>
+  <hr>
+
+  <div class="row" *ngFor="let zona of zonas; let i=index">
+
+    <div class="mb-3 card card-outline-primary col-11 text-center " >
+>
+        <blockquote class="card-blockquote">
+          <h1>{{zona.nombreZona}}</h1>
+        </blockquote>
+
+        <div class="row" style="margin-bottom:30px">
+
+            <div class="col-6" >
+              <chart [options]="graficas[i]" ></chart>
+            </div>
+
+            <div class="col-6" >
+              <div style="height:350px;overflow-y:scroll;overflow-x:hidden;margin-left:30px;padding-left:30px;">
+                <div class="row" *ngFor="let producto of zona.productos" style="margin-bottom:30px" >
+
+                  <table class="table table-responsive table-sm " >
+                    <thead>
+
+                      <tr>
+                        <th>Periodo</th>
+                        <th *ngFor="let periodo of producto.periodos" class="text-center table-info">{{periodo.numPeriodo}}</th>
+                      </tr>
+
+                    </thead>
+
+
+
+                    <tr>
+                      <th>{{getNameById(producto.idProducto)}}</th>
+                      <th *ngFor="let periodo of producto.periodos" class="text-center">{{periodo.cantidad}}</th>
+                    </tr>
+
+                    <tr>
+                      <th></th>
+                      <th *ngFor="let periodo of producto.periodos"><button type="button" class="btn btn-primary text-center"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></th>
+
+                    </tr>
+
+
+                  </table>
+                  <button type="button" class="btn btn-danger offset-1 col-4" >Eliminar</button>
+                  <button type="button" class="btn btn-success offset-2 col-4" >Agregar</button>
+                </div>
+
+              </div>
+
+            </div>
+
+
+        </div>
+
+
+
+
+        <!-- <blockquote class="card-blockquote">
+          <h1>{{zona.nombreZona}}</h1>
+        </blockquote>
+        <div class="offset-1">
+          <chart [options]="graficas[i]" ></chart>
+        </div>
+        <hr>
+        <h3>Demanda de Productos </h3>
+        <br>
+        <div class="row container" *ngFor="let producto of zona.productos;let j=index" style="margin-bottom:20px">
+
+            <h4 class="col-2">{{getNameById(producto.idProducto)}}</h4>
+            <button type="button" class="btn btn-primary col-3" (click)="edita(j,i)" *ngIf="!editaPeriodo[j][i]">Editar</button>
+
+
+
+            <table class="table table-responsive" *ngIf="editaPeriodo[j][i]">
+              <thead>
+                <tr>
+                  <th>Periodo</th>
+                  <th *ngFor="let periodo of producto.periodos" class="text-center">{{periodo.numero}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th class="text-center">Demanda</th>
+                  <th *ngFor="let periodo of producto.periodos; let i=index" class="align-middle">
+
+                      <input type="number" [(ngModel)]="producto.periodos[i].cantidad" style="width:110%" class="text-center">
+
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+
+
+          <div class="row">
+
+            <button type="button"
+            class="btn btn-success offset-1 col-2"
+            *ngIf="editaPeriodo[j][i]"
+            (click)="actualizaGraficas(j,i,zona,producto)">
+            Aplicar
+
+            </button>
+
+
+            <div class="col-5" *ngIf="editaPeriodo[j][i]">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="button" (click)="agregaPeriodo(zona,producto.idproducto)">Agregar</button>
+                </span>
+                <input type="text" class="form-control" [(ngModel)]="newPerido" type="number" placeholder="Cantidad">
+              </div>
+
+
+              </div>
+              <button type="button"
+              class="btn btn-danger col-4"
+              *ngIf="editaPeriodo[j][i]"
+              (click)="eliminaUltimoPeriodo(zona,producto.idproducto)">
+              Eliminar Periodo
+
+              </button>
+
+        </div>
+      </div> -->
+
+
+
+  </div>
+
+</div>

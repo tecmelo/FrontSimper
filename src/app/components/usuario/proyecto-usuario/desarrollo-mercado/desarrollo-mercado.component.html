@@ -1,0 +1,65 @@
+<h2>Zonas de Desarrollo</h2>
+<hr>
+<div class="card-columns" >
+  <div class="card" *ngFor="let zona of productosZonaSinDesarrollar" >
+    <img class="card-img-top img-fluid col-6 offset-3 center-block"  style="margin-top:30px;" src="assets/img/zone.png" alt="Card image cap">
+    <div class="card-block">
+      <div class="card-title">{{zona.nombreZona}}
+      </div>
+    <form [formGroup]="zonaForm" (ngSubmit)="desarrollaZona(zona.idZona,zonaForm.value)">
+
+      <div class="form-group">
+
+        <select class="form-control" formControlName="idProducto">
+          <option *ngFor="let producto of zona.productosSinDes" value="{{producto}}">{{getNameById(producto)}}</option> <!--Aqui va NgFor con los productos de cada zona-->
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-danger col-12" >Desarrollar</button>
+
+    </form>
+
+
+    </div>
+
+  </div>
+
+</div>
+
+<h2>Zonas en Desarrollo</h2>
+<hr>
+
+
+<div class="card-columns" >
+  <div class="card" *ngFor="let zona of productosZonaEnDesarrollo">
+    <img class="card-img-top img-fluid col-6 offset-3 center-block"  style="margin-top:30px;" src="assets/img/zone.png" alt="Card image cap">
+    <div class="card-block">
+      <h2 class="text-center card-title">{{zona.nombreZona}}</h2>
+      <p class="card-text" *ngFor="let producto of zona.productosEnDes">
+        Producto: {{getNameById(producto)}}
+      </p>
+
+    </div>
+      <div class="card-footer">
+          <button type="button" class="btn btn-danger col-12"  (click)="pagarDesarrollo(zona.idZona,zona.productosEnDes)">Pagar Desarrollo</button>
+      </div>
+
+  </div>
+
+</div>
+
+
+<h3>Zonas Desarrolladas</h3>
+<hr>
+
+<div class="card-columns" >
+  <div class="card" *ngFor="let zona of productosZonaDesarrollados">
+  <img class="card-img-top img-fluid col-6 offset-3 center-block" style="margin-top:30px;" src="assets/img/zone.png" alt="Card image cap">
+    <div class="card-block">
+        <h2 class="text-center card-title">{{zona.nombreZona}}</h2>
+        Productos
+        <h3 *ngFor="let producto of zona.productosDes"><span class="badge badge-primary">{{getNameById(producto)}}</span></h3>
+    </div>
+  </div>
+
+</div>

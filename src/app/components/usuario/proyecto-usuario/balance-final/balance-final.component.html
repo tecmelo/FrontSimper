@@ -1,0 +1,184 @@
+<h3 class="text-center">Balance General Final</h3>
+
+<table class="table table-bordered table-responsive" *ngFor="let balance of balanceFinal">
+  <thead>
+    <tr>
+      <th colspan="6" class="text-center">Posición Financiera Final</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th colspan="4" class="text-center">A menos de un año</th>
+      <th colspan="2" class="text-center">A menos de un año</th>
+    </tr>
+    <tr>
+      <td>Caja Bancos</td>
+      <td colspan="3">{{balance.cajaBancos}}</td>
+      <td>IVA por enterar</td>
+      <td>{{balance.IVAPorEnterar}}</td>
+    </tr>
+
+    <tr>
+      <td>Cuentas por Cobrar</td>
+      <td colspan="3">{{balance.cuentasPorCobrar}}</td>
+      <td>Impuestos por Pagar</td>
+      <td>{{balance.imptosPorPagar}}</td>
+    </tr>
+
+    <tr>
+      <td>IVA Acreditable</td>
+      <td colspan="3">{{balance.IVAAcreditable}}</td>
+      <td>Proveedores</td>
+      <td>{{balance.proveedores}}</td>
+    </tr>
+
+    <tr>
+      <td>Almacen de Articulo Terminado</td>
+      <td colspan="3">{{balance.almacenArtTerm}}</td>
+      <td>PTU por Pagar</td>
+      <td>{{balance.PTUPorPagar}}</td>
+    </tr>
+
+    <tr>
+      <td>Alamacén de Materiales</td>
+      <td colspan="3">{{balance.almacenMateriales}}</td>
+      <td>Préstamos Bancarios</td>
+      <td>{{balance.prestamosMenosAnio}}</td>
+    </tr>
+
+    <tr>
+      <th class="text-center">TOTAL</th>
+      <td colspan="3">{{balance.cajaBancos + balance.cuentasPorCobrar + balance.IVAAcreditable
+          + balance.almacenArtTerm + balance.almacenMateriales}}</td>
+      <th class="text-center">TOTAL</th>
+      <td>{{balance.IVAPorEnterar + balance.imptosPorPagar + balance.proveedores + balance.PTUPorPagar + balance.prestamosMenosAnio}}</td>
+    </tr>
+
+    <tr>
+      <th class="text-center" colspan="4">A más de un año</th>
+      <th class="text-center">A más de un año</th>
+      <td></td>
+    </tr>
+
+    <tr>
+      <th class="text-center"></th>
+      <td>I.O.</td>
+      <td>Dep. Acum</td>
+      <td>Neto</td>
+    </tr>
+
+
+    <tr>
+      <td>Terrenos</td>
+      <td>{{balance.terreno}}</td>
+      <td>{{balance.depTerreno}}</td>
+      <td>{{balance.terreno - balance.depTerreno}}</td>
+      <td>Prestamos Totales</td>
+      <td>{{balance.prestamosMasAnio}}</td>
+    </tr>
+
+    <tr>
+      <td>Edificios e Instalaciones</td>
+      <td>{{balance.edifInsta}}</td>
+      <td>{{balance.depEdif}}</td>
+      <td>{{balance.edifInsta - balance.depEdif}}</td>
+      <td colspan="2"></td>
+    </tr>
+
+    <tr>
+      <td>Maquinaria y Equipo</td>
+      <td>{{balance.maqEquipo}}</td>
+      <td>{{balance.depMaqEquipo}}</td>
+      <td>{{balance.maqEquipo - balance.depMaqEquipo}}</td>
+      <td colspan="2"></td>
+    </tr>
+
+    <tr>
+      <td>Muebles y Enseres</td>
+      <td>{{balance.mueblesEnseres}}</td>
+      <td>{{balance.depMueblesEnseres}}</td>
+      <td>{{balance.mueblesEnseres - balance.depMueblesEnseres}}</td>
+      <td colspan="2"></td>
+    </tr>
+
+    <tr>
+      <td>Equipo de Transporte</td>
+      <td>{{balance.eqTrans}}</td>
+      <td>{{balance.depEqTrans}}</td>
+      <td>{{balance.eqTrans - balance.depEqTrans}}</td>
+      <td colspan="2"></td>
+    </tr>
+
+    <tr>
+      <th class="text-center">TOTAL</th>
+      <td></td>
+      <td></td>
+      <td>{{balance.terreno + balance.edifInsta + balance.mueblesEnseres + balance.eqTrans + balance.maqEquipo - balance.depMaqEquipo - balance.depEdif - balance.depMueblesEnseres -balance.depEqTrans}}</td>
+      <th class="text-center">TOTAL</th>
+      <td>{{balance.prestamosMasAnio}}</td>
+    </tr>
+
+    <tr>
+      <th colspan="4" class="text-center">De Aplicación Diferida</th>
+      <th class="text-center" colspan="2">Con los Accionistas</th>
+    </tr>
+
+    <tr>
+      <td>Pagos Hechos por anticipado</td>
+      <td colspan="3">{{balance.pagosAnticipado}}</td>
+      <td>Capital Social</td>
+      <td>{{balance.capitalSocial}}</td>
+    </tr>
+
+    <tr>
+      <td>Gastos por Amortizar</td>
+      <td colspan="3">{{balance.gastosAmortizacion}}</td>
+      <td>Reserva legal</td>
+      <td>{{balance.reservaLegal}}</td>
+    </tr>
+
+    <tr>
+      <td colspan="4"></td>
+      <td>Utilidad Acumulada</td>
+      <td>{{balance.utilidadAcum}}</td>
+    </tr>
+
+    <tr>
+      <td colspan="4"></td>
+      <td >Utilidad del Ejercicio</td>
+      <td>{{balance.utilidadEjercicio}}</td>
+    </tr>
+
+    <tr>
+      <th class="text-center">TOTAL</th>
+      <td colspan="3">{{balance.pagosAnticipado + balance.gastosAmortizacion}}</td>
+      <th class="text-center">TOTAL</th>
+      <td>{{balance.capitalSocial + balance.reservaLegal + balance.utilidadAcum + balance.utilidadEjercicio}}</td>
+    </tr>
+
+
+    <tr>
+      <th >Suma de los Derechos</th>
+      <td colspan="3">{{balance.pagosAnticipado + balance.gastosAmortizacion + balance.terreno
+        + balance.edifInsta + balance.mueblesEnseres + balance.eqTrans + balance.maqEquipo
+        + balance.cajaBancos + balance.cuentasPorCobrar + balance.IVAAcreditable + balance.almacenArtTerm
+        + balance.almacenMateriales - balance.depMaqEquipo - balance.depEdif - balance.depMueblesEnseres -balance.depEqTrans}}</td>
+      <td>Suma de las Obligaciones</td>
+      <td>{{balance.IVAPorEnterar + balance.imptosPorPagar + balance.proveedores + balance.PTUPorPagar
+        + balance.prestamosMenosAnio + balance.prestamosMasAnio + balance.capitalSocial + balance.reservaLegal
+        + balance.utilidadAcum + balance.utilidadEjercicio}}</td>
+    </tr>
+
+    <tr>
+      <th>Diferencia</th>
+      <td colspan="3">{{(balance.pagosAnticipado + balance.gastosAmortizacion + balance.terreno
+        + balance.edifInsta + balance.mueblesEnseres + balance.eqTrans + balance.maqEquipo
+        + balance.cajaBancos + balance.cuentasPorCobrar + balance.IVAAcreditable + balance.almacenArtTerm
+        + balance.almacenMateriales) - (balance.IVAPorEnterar + balance.imptosPorPagar + balance.proveedores + balance.PTUPorPagar
+          + balance.prestamosMenosAnio + balance.prestamosMasAnio + balance.capitalSocial + balance.reservaLegal
+          + balance.utilidadAcum + balance.utilidadEjercicio) - balance.depMaqEquipo - balance.depEdif - balance.depMueblesEnseres -balance.depEqTrans}}</td>
+      <td colspan="2"></td>
+    </tr>
+
+  </tbody>
+</table>

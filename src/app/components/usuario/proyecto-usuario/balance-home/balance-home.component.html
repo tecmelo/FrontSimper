@@ -1,0 +1,47 @@
+<h3>Producción</h3>
+<hr>
+<div class="card-columns">
+  <div class="card" *ngFor="let maquina of maquinasCompradas">
+    <img class="card-img-top img-fluid col-6 offset-3 center-block" style="margin-top:30px;" src="assets/img/machine.png" alt="Card image cap">
+    <div class="card-block">
+        <h2 class="text-center card-title">{{maquina.nombreMaq}}</h2>
+      <p class="card-text">
+        Numero de Maquinas: {{maquina.Cantidad}}
+        <br>
+        Producción Total: {{maquina.cantidadProd * maquina.Cantidad}} (unidades)
+        <br>
+        Producto: {{getNameById(maquina.Producto_idProducto)}}
+      </p>
+    </div>
+
+  </div>
+
+</div>
+
+<h3>Productos Desarrollados</h3>
+<hr>
+
+<div class="card-columns" >
+  <div class="card" *ngFor="let producto of productosDesarollados">
+  <img class="card-img-top img-fluid col-6 offset-3 center-block" style="margin-top:30px;" src="assets/img/box.png" alt="Card image cap">
+    <div class="card-block">
+        <h2 class="text-center card-title">{{producto.nombreProd}}</h2>
+  </div>
+
+</div>
+</div>
+
+<h3>Zonas Desarrolladas</h3>
+<hr>
+
+<div class="card-columns" >
+  <div class="card" *ngFor="let zona of productosZonaDesarrollados">
+  <img class="card-img-top img-fluid col-6 offset-3 center-block" style="margin-top:30px;" src="assets/img/zone.png" alt="Card image cap">
+    <div class="card-block">
+        <h2 class="text-center card-title">{{zona.nombreZona}}</h2>
+        Productos
+        <h3 *ngFor="let producto of zona.productosDes"><span class="badge badge-primary">{{getNameById(producto)}}</span></h3>
+    </div>
+  </div>
+
+</div>

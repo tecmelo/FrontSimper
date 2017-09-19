@@ -1,0 +1,63 @@
+
+  <div class="card card-inverse card-success mb-4 col-3 text-center" *ngFor="let producto of productosOperacion">
+    <div class="card-block">
+      <img class="img-fluid col-6" src="assets/img/box.png" alt="Card image cap">
+      <blockquote class="card-blockquote">
+        <br>
+        <h3>{{getNameByIdProducto(producto.idProducto)}}</h3>
+        <form [formGroup]="ventasForm" (ngSubmit)="venta(ventasForm.value,producto.idProducto)" class="offset-1"  >
+        <div class="col-12 " >
+            <select formControlName="idZona" class="form-control" >
+              <option *ngFor="let option of producto.zonas" value={{option}}>{{getNameByIdZona(option)}}</option>
+            </select>
+            <!-- <div class="form-control-feedback text-center " style="font-size:10px;"
+            [ngClass]="{'has-danger': !editForm.get('Producto_idProducto').valid}"
+            *ngIf="!editForm.controls['Producto_idProducto'].valid">
+              Debes seleccionar un producto
+            </div> -->
+        </div>
+
+
+
+
+
+        <div class="form-group row">
+          <label class="col-12 col-form-label">Cantidad a Almacenanda</label>
+          <label class="col-12 col-form-label ">18,000</label>
+        </div>
+
+
+
+
+        <div class="form-group row">
+          <label class="col-12 col-form-label">Cantidad a Vender</label>
+          <div class="col-12">
+
+            <input class="form-control" formControlName="cantidadVenta"
+            type="number">
+          </div>
+
+
+        </div>
+
+        <div class="form-group row">
+          <label class="col-12 col-form-label">Cantidad a Almacenar</label>
+          <div class="col-12">
+
+            <input class="form-control" formControlName="cantidadAlmacen"
+            type="number">
+          </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary col-5" >Simular</button>
+        <button type="button" class="btn btn-primary col-5" (click)="cobrarVenta(ventasForm.value,producto.idProducto)">Vender</button>
+
+      </form>
+        <br>
+
+      </blockquote>
+
+    </div>
+
+    </div>

@@ -1,0 +1,444 @@
+<h3 class="text-center">Resultado de Operacion</h3>
+
+<h4>Almacen de Artículo Terminado</h4>
+<hr>
+<table class="table table-bordered table-responsive">
+
+  <tbody>
+    <tr>
+      <th class="text-center">Producto</th>
+      <th class="text-center">Unidades</th>
+      <th class="text-center">Costo de Producción</th>
+      <th class="text-center">TOTAL</th>
+    </tr>
+
+    <tr *ngFor="let producto of productosO">
+      <td>{{getNameByIdProducto(producto.idProducto)}}</td>
+      <td>{{producto.AlmacenArtTerminadoI.unidades}}</td>
+      <td>{{producto.AlmacenArtTerminadoI.costoUnitario}}</td>
+      <td>{{producto.AlmacenArtTerminadoI.Total}}</td>
+    </tr>
+
+  </tbody>
+</table>
+
+<hr>
+<h4>Presupuesto Global de Ventas e IVA</h4>
+<hr>
+
+<table class="table table-bordered table-responsive">
+
+  <tbody>
+    <tr>
+      <th class="text-center">Producto</th>
+      <th class="text-center">Unidades a Vender</th>
+      <th class="text-center">Precio de Venta</th>
+      <th class="text-center">Ventas en $</th>
+      <th class="text-center">IVA (15%)</th>
+      <th class="text-center">Importe</th>
+    </tr>
+
+    <tr *ngFor="let producto of productosO">
+      <td>{{getNameByIdProducto(producto.idProducto)}}</td>
+      <td>{{producto.PresupuestoGlobalVentas.unidadesAVender}}</td>
+      <td>{{producto.PresupuestoGlobalVentas.precioVenta}}</td>
+      <td>{{producto.PresupuestoGlobalVentas.ventasEfe}}</td>
+      <td>0</td>
+      <td>{{producto.PresupuestoGlobalVentas.importe}}</td>
+    </tr>
+
+    <tr>
+      <th>TOTAL</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+
+    </tr>
+
+  </tbody>
+</table>
+
+
+<hr>
+<h4>Presupuesto Global de Producción</h4>
+<hr>
+
+<table class="table table-bordered table-responsive">
+
+  <tbody>
+    <tr>
+      <th class="text-center align-middle" rowspan="2">Producto</th>
+      <th class="text-center align-middle" rowspan="2">Unidades a Vender</th>
+      <th class="text-center align-middle" rowspan="2">Inventario Final</th>
+      <th class="text-center align-middle" rowspan="2">Inventario Inicial</th>
+      <th class="text-center align-middle" rowspan="2">Unidades a Producir</th>
+      <th class="text-center align-middle" colspan="2">Materia Prima</th>
+      <th class="text-center align-middle" colspan="2" >Costo de Transformación</th>
+      <th class="text-center align-middle" rowspan="2">Costo de Producción Unitario</th>
+      <th class="text-center align-middle" rowspan="2">Costo de Producción Total</th>
+    </tr>
+    <tr>
+      <th class="text-center align-middle">Costo Unitario</th>
+      <th class="text-center align-middle">Costo Total</th>
+      <th class="text-center align-middle">Costo Unitario</th>
+      <th class="text-center align-middle">Costo Total</th>
+    </tr>
+
+    <tr *ngFor="let producto of productosO">
+      <td>{{getNameByIdProducto(producto.idProducto)}}</td>
+      <td>{{producto.PresupuestoGlobalProduccion.unidadesAVender}}</td>
+      <td>{{producto.PresupuestoGlobalProduccion.inventarioFinal}}</td>
+      <td>{{producto.PresupuestoGlobalProduccion.inventarioInicial}}</td>
+      <td>{{producto.PresupuestoGlobalProduccion.unidadesAProducir}}</td>
+      <td>{{producto.PresupuestoGlobalProduccion.costoUnitarioMP}}</td>
+      <td>{{producto.PresupuestoGlobalProduccion.unidadesAProducir * producto.PresupuestoGlobalProduccion.costoUnitarioMP}}</td>
+      <td>{{producto.PresupuestoGlobalProduccion.costoUnitarioTrans}}</td>
+      <td>{{producto.PresupuestoGlobalProduccion.unidadesAProducir * producto.PresupuestoGlobalProduccion.costoUnitarioTrans}}</td>
+      <td>{{producto.PresupuestoGlobalProduccion.costoProduccionUnitario}}</td>
+      <td>{{producto.PresupuestoGlobalProduccion.costoProduccionTotal}}</td>
+    </tr>
+
+    <tr>
+      <th>TOTAL</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  </tbody>
+</table>
+
+
+
+<hr>
+<h4>Presupuesto Global de Consumo de Materias Primas</h4>
+<hr>
+
+<table class="table table-bordered table-responsive">
+
+  <tbody>
+    <tr>
+      <th class="text-center align-middle" >Producto</th>
+      <th class="text-center align-middle" >Cantidad Unitaria</th>
+      <th class="text-center align-middle" >Costo Unitario</th>
+      <th class="text-center align-middle" >Unidades a Producir</th>
+      <th class="text-center align-middle" >Cantidad</th>
+      <th class="text-center align-middle" >Importe</th>
+
+    </tr>
+
+    <tr *ngFor="let producto of productosO">
+      <td>{{getNameByIdProducto(producto.idProducto)}}</td>
+      <td>{{producto.PresupuestoConsumoMP.cantidadUnitaria}}</td>
+      <td>{{producto.PresupuestoConsumoMP.costoUnitarioMP}}</td>
+      <td>{{producto.PresupuestoConsumoMP.unidadesAProducir}}</td>
+      <td>{{producto.PresupuestoConsumoMP.cantidad}}</td>
+      <td>{{producto.PresupuestoConsumoMP.importe}}</td>
+    </tr>
+
+    <tr>
+      <th>TOTAL</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  </tbody>
+</table>
+
+
+
+<hr>
+<h4>Presupuesto Global de Compras de Materias Primas e IVA</h4>
+<hr>
+
+<table class="table table-bordered table-responsive">
+  <tbody>
+    <tr>
+      <th class="text-center align-middle" >Materiales </th>
+      <th class="text-center align-middle" >Cantidad a Comprar</th>
+      <th class="text-center align-middle"  >Costo Unitario</th>
+      <th class="text-center align-middle" >Importe</th>
+      <th class="text-center align-middle" >IVA Acreditable</th>
+      <th class="text-center align-middle" >Total a Pagar</th>
+    </tr>
+
+
+    <tr *ngFor="let producto of productosO">
+      <td>1</td>
+      <td>{{producto.PresupuestoCompraMP.consumoMP}}</td>
+      <td>{{producto.PresupuestoCompraMP.costoUnitarioMP}}</td>
+      <td>{{producto.PresupuestoCompraMP.importe}}</td>
+      <td>{{producto.PresupuestoCompraMP.IVAAcreditable}}</td>
+      <td>{{producto.PresupuestoCompraMP.importe + producto.PresupuestoCompraMP.IVAAcreditable}}</td>
+    </tr>
+
+
+  </tbody>
+</table>
+
+
+<hr>
+<h4>Presupuesto Global de Costo de Transformación</h4>
+<hr>
+
+<table class="table table-bordered table-responsive">
+
+  <tbody>
+    <tr>
+      <th class="text-center align-middle" rowspan="2">Producto</th>
+      <th class="text-center align-middle" rowspan="2">Unidades a Producir</th>
+      <th class="text-center align-middle" rowspan="2">Costo Unitario Total</th>
+      <th class="text-center align-middle" rowspan="2">Costo de Transformacion</th>
+      <th class="text-center align-middle" colspan="2">Menos</th>
+      <th class="text-center align-middle" colspan="2">Menos partidas que no incluyen IVA</th>
+      <th class="text-center align-middle" rowspan="2" >Neto</th>
+      <th class="text-center align-middle" rowspan="2">IVA</th>
+      <th class="text-center align-middle" rowspan="2">Total a Pagar</th>
+    </tr>
+    <tr>
+      <th class="text-center align-middle">Depreciaciones</th>
+      <th class="text-center align-middle">Neto</th>
+      <th class="text-center align-middle">Sueldos y Salarios</th>
+      <th class="text-center align-middle">Prevención Social</th>
+    </tr>
+
+    <tr *ngFor="let producto of productosO">
+      <td>{{getNameByIdProducto(producto.idProducto)}}</td>
+      <td>{{producto.PresupuestoCostoTransformacion.unidadesAProducir}}</td>
+      <td>{{producto.PresupuestoCostoTransformacion.costoUniTotal}}</td>
+      <td>{{producto.PresupuestoCostoTransformacion.costoTrans}}</td>
+      <td>{{producto.PresupuestoCostoTransformacion.depreciaciones}}</td>
+      <td>{{producto.PresupuestoCostoTransformacion.neto}}</td>
+      <td>{{0}}</td>
+      <td>{{0}}</td>
+      <td>{{producto.PresupuestoCostoTransformacion.neto}}</td>
+      <td>{{producto.PresupuestoCostoTransformacion.IVA}}</td>
+      <td>{{producto.PresupuestoCostoTransformacion.total}}</td>
+    </tr>
+
+
+  </tbody>
+</table>
+
+<table class="table table-bordered table-responsive ">
+  <thead>
+    <tr>
+      <th></th>
+      <th *ngFor="let producto of productosO">{{getNameByIdProducto(producto.idProducto)}}</th>
+    </tr>
+
+
+
+  </thead>
+
+  <tbody>
+    <tr>
+      <th>Unidades  a Vender</th>
+      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoDistribucion.unidadesAVender}}</td>
+    </tr>
+
+    <tr>
+      <th>Cto Unitario Total</th>
+      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoDistribucion.costoUniTotal}}</td>
+    </tr>
+
+    <tr>
+      <th>Cto Distribución</th>
+      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoDistribucion.costoDistribucion}}</td>
+    </tr>
+
+    <tr>
+      <th>Menos</th>
+      <td *ngFor="let producto of productosO">-</td>
+    </tr>
+
+    <tr>
+      <th>Depreciaciones</th>
+      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoDistribucion.depreciaciones}}</td>
+    </tr>
+
+    <tr>
+      <th>Neto</th>
+      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoDistribucion.neto}}</td>
+    </tr>
+
+    <tr>
+      <th>Menos partidas que no Incluyen IVA</th>
+      <td *ngFor="let producto of productosO">-</td>
+    </tr>
+
+    <tr>
+      <th>Sueldos y salarios</th>
+      <td *ngFor="let producto of productosO">-</td>
+    </tr>
+
+    <tr>
+      <th>Prevención Social</th>
+      <td *ngFor="let producto of productosO">-</td>
+    </tr>
+
+    <tr>
+      <th>Neto</th>
+      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoDistribucion.neto}}</td>
+    </tr>
+
+    <tr>
+      <th>IVA</th>
+      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoDistribucion.IVA}}</td>
+    </tr>
+
+    <tr>
+      <th>Total a Pagar</th>
+      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoDistribucion.total}}</td>
+    </tr>
+
+
+  </tbody>
+</table>
+
+<table class="table table-bordered table-responsive ">
+  <thead>
+    <tr>
+      <th></th>
+      <th *ngFor="let producto of productosO">{{getNameByIdProducto(producto.idProducto)}}</th>
+    </tr>
+
+
+
+  </thead>
+
+  <tbody>
+    <tr>
+      <th>Unidades  a Vender</th>
+      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoAdministracion.unidadesAVender}}</td>
+    </tr>
+
+    <tr>
+      <th>Cto Unitario Total</th>
+      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoAdministracion.costoUniTotal}}</td>
+    </tr>
+
+    <tr>
+      <th>Cto Administracion</th>
+      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoAdministracion.costoAdministracion}}</td>
+    </tr>
+
+    <tr>
+      <th>Menos</th>
+      <td *ngFor="let producto of productosO">-</td>
+    </tr>
+
+    <tr>
+      <th>Depreciaciones</th>
+      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoAdministracion.depreciaciones}}</td>
+    </tr>
+
+    <tr>
+      <th>Neto</th>
+      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoAdministracion.neto}}</td>
+    </tr>
+
+    <tr>
+      <th>Menos partidas que no Incluyen IVA</th>
+      <td *ngFor="let producto of productosO">-</td>
+    </tr>
+
+    <tr>
+      <th>Sueldos y salarios</th>
+      <td *ngFor="let producto of productosO">-</td>
+    </tr>
+
+    <tr>
+      <th>Prevención Social</th>
+      <td *ngFor="let producto of productosO">-</td>
+    </tr>
+
+    <tr>
+      <th>Neto</th>
+      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoAdministracion.neto}}</td>
+    </tr>
+
+    <tr>
+      <th>IVA</th>
+      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoAdministracion.IVA}}</td>
+    </tr>
+
+    <tr>
+      <th>Total a Pagar</th>
+      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoAdministracion.total}}</td>
+    </tr>
+
+
+  </tbody>
+</table>
+
+<table class="table table-bordered table-responsive ">
+  <thead>
+    <tr>
+      <th></th>
+      <th *ngFor="let producto of productosO">{{getNameByIdProducto(producto.idProducto)}}</th>
+    </tr>
+
+  </thead>
+
+  <tbody>
+    <tr>
+      <th>Ventas Netas</th>
+      <td *ngFor="let producto of productosO">{{producto.PresupuestoGlobalVentas.ventasEfe}}</td>
+    </tr>
+
+    <tr>
+      <th>Costo de Ventas</th>
+    </tr>
+
+    <tr>
+      <th>Costo de Distribución</th>
+    </tr>
+
+    <tr>
+      <th>Otros Gastos</th>
+    </tr>
+
+    <tr>
+      <th>Costo de Administración</th>
+    </tr>
+
+    <tr>
+      <th>Utilidad en Operación</th>
+    </tr>
+
+    <tr>
+      <th>Intereses</th>
+    </tr>
+
+    <tr>
+      <th>Utilidad antes de Impuestos</th>
+    </tr>
+
+    <tr>
+      <th>ISR</th>
+    </tr>
+
+    <tr>
+      <th>PTU</th>
+    </tr>
+
+    <tr>
+      <th>Utilidad del Ejercicio</th>
+    </tr>
+
+
+  </tbody>
+</table>

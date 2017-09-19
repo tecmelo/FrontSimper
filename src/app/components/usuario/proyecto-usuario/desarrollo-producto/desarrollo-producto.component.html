@@ -1,0 +1,63 @@
+
+<h1>Desarrollo de Productos</h1>
+<hr>
+<div class="card-columns" >
+  <div class="card" *ngFor="let producto of productosSinDesarrollar">
+    <img class="card-img-top img-fluid col-6 offset-3 center-block" style="margin-top:30px;" src="assets/img/box.png" alt="Card image cap">
+    <div class="card-block">
+      <h4 class="card-title">{{producto.nombreProd}}</h4>
+      <p class="card-text">
+        Costo de Desarrollo por Perido: {{producto.costoDes}}
+        <br>
+        Timepo de Desarrollo: {{producto.tiempoDes}}
+        <br>
+      </p>
+
+    </div>
+    <div class="card-footer">
+      <div  class="btn btn-primary col-12" (click) ="desarrollar(producto.idProducto,producto.costoDes)">Comenzar a Desarrollar</div>
+    </div>
+  </div>
+
+</div>
+
+<h2>Productos en Desarrollo</h2>
+<hr>
+<div class="card-columns" >
+  <div class="card" *ngFor="let producto of productosEnDesarrollo">
+  <img class="card-img-top img-fluid col-6 offset-3 center-block" style="margin-top:30px;" src="assets/img/box.png" alt="Card image cap">
+    <div class="card-block">
+        <h2 class="text-center card-title">{{producto.nombreProd}}</h2>
+      <p class="card-text">
+        Inicio de Desarrollo: {{producto.periodoInicio}}
+        <br>
+        Tiempo en Desarrollo: {{producto.periodosDes}}
+        </p>
+
+    </div>
+    <div class="card-footer">
+      <div  class="btn btn-primary col-12" (click) ="pagarDesarrollo(producto.idProducto,producto.costoDes)">Pago de Desarrollo</div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+
+<h2>Productos Desarrollados</h2>
+<hr>
+
+<div class="card-columns" >
+  <div class="card" *ngFor="let producto of productosDesarollados">
+  <img class="card-img-top img-fluid col-6 offset-3 center-block" style="margin-top:30px;" src="assets/img/box.png" alt="Card image cap">
+    <div class="card-block">
+        <h2 class="text-center card-title">{{producto.nombreProd}}</h2>
+      <p class="text-center card-text">
+        Producto desarrollado
+    </div>
+  </div>
+
+</div>
