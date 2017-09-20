@@ -21,15 +21,14 @@ export class GraficasService {
   }
 
 
-  deletePeriodo(idZonaA,idProductoA,numPeriodoA){
+  deletePeriodo(idZonaA,idProductoA){
     let headers = new Headers({
       'Content-Type':'application/json'
     });
 
-    return this.http.post('http://localhost:3000/demanda/registerdemanda/',
+    return this.http.post('http://localhost:3000/demanda/delete/',
     {  idZona:idZonaA,
-	     idProducto:idProductoA,
-	     numPeriodo:numPeriodoA,
+	     idProducto:idProductoA
       },
      {headers}).map( res => res.json());
 
@@ -50,6 +49,8 @@ export class GraficasService {
     this.estableceZonasGraf();
     return this.zonas;
   }
+
+
 
 
 

@@ -67,8 +67,9 @@ productos:any;
 
   }
 
-  borraPeriodo(idZona,idProducto,numPeriodo){
-    this._graficasService.deletePeriodo(idZona,idProducto,numPeriodo).subscribe();
+  borraPeriodo(idZona,idProducto){
+    console.log(idZona,idProducto);
+    this._graficasService.deletePeriodo(idZona,idProducto).subscribe();
   }
 
   numPeriodos(producto){
