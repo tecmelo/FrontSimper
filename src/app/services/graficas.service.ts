@@ -59,6 +59,7 @@ export class GraficasService {
       'Content-Type':'application/json'
     });
 
+    console.log("Servicio",producto)
 
 
     return this.http.post('http://localhost:3000/demanda/registerdemanda/',
