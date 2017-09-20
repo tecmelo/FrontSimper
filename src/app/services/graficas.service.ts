@@ -26,9 +26,45 @@ export class GraficasService {
       'Content-Type':'application/json'
     });
 
+
+
     return this.http.post('http://localhost:3000/demanda/delete/',
     {  idZona:idZonaA,
 	     idProducto:idProductoA
+      },
+     {headers}).map( res => res.json());
+
+  }
+
+  setPeriodo(producto){
+    console.log(producto)
+    let headers = new Headers({
+      'Content-Type':'application/json'
+    });
+
+
+
+    return this.http.post('http://localhost:3000/demanda/modify/',
+    {  idZona:producto.idZona,
+	     idProducto:producto.idProducto,
+       numPeriodo:producto.numPeriodo,
+       cantidad:producto.cantidad
+      },
+     {headers}).map( res => res.json());
+  }
+
+
+  addPeriodo(producto){
+    let headers = new Headers({
+      'Content-Type':'application/json'
+    });
+
+
+
+    return this.http.post('http://localhost:3000/demanda/registerdemanda/',
+    {  idZona:producto.idZona,
+	     idProducto:producto.idProducto,
+       cantidad:producto.cantidad
       },
      {headers}).map( res => res.json());
 

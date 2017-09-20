@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ViewChild} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators,FormArray,FormBuilder} from '@angular/forms';
 import {zona,producto,select,productoPeriodo,periodos,periodosAct} from '../../app.interfaces';
@@ -9,6 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ChartModule } from 'angular2-highcharts';
 import * as highcharts from 'highcharts'
 import {GraficasService} from '../../services/graficas.service';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 
 @Component({
@@ -17,6 +18,8 @@ import {GraficasService} from '../../services/graficas.service';
   styleUrls: ['./zona-producto.component.css']
 })
 export class ZonaProductoComponent implements OnInit {
+  @ViewChild('modalPeriodoNew') public modalPeriodoNew:ModalDirective;
+  @ViewChild('modalPeriodoEdit') public modalPeriodoEdit:ModalDirective;
 
 
 
@@ -35,9 +38,10 @@ zonas:zona[];
 edit:boolean;
 nombreZonasZonas:string[];
 graficas:any[];
-editaPeriodo:boolean[][];
 newPerido:number;
 productos:any;
+formPeriodoNew:FormGroup;
+formPeriodoEdit:FormGroup;
 
 
 
@@ -54,6 +58,18 @@ productos:any;
     // console.log(this.graficas);
     this.productos=this._productosService.returnProductos();
 
+    this.formPeriodoNew= new FormGroup({
+      'idZona':new FormControl('',Validators.required),
+      'idProducto':new FormControl('',Validators.required),
+      'cantidad':new FormControl('',Validators.required)
+    });
+
+    this.formPeriodoEdit= new FormGroup({
+      'idZona':new FormControl('',Validators.required),
+      'idProducto':new FormControl('',Validators.required),
+      'numPeriodo':new FormControl('',Validators.required),
+      'cantidad':new FormControl('',Validators.required)
+    });
 
   }
 
@@ -67,9 +83,61 @@ productos:any;
 
   }
 
+  openModalPeriodo(idZona:number,idProducto:number){
+    this.formPeriodoNew.controls['idZona'].setValue(idZona);
+    this.formPeriodoNew.controls['idProducto'].setValue(idProducto);
+    console.log(idZona,idProducto);
+    this.modalPeriodoNew.show();
+
+
+  }
+
+  openModalPeriodoEdit(idZona,idProducto,numPeriodo){
+    console.log(idZona,idProducto,numPeriodo);
+    this.formPeriodoEdit.get('idZona').setValue(idZona);
+    this.formPeriodoEdit.get('idProducto').setValue(idProducto);
+    this.formPeriodoEdit.get('numPeriodo').setValue(numPeriodo);
+    this.modalPeriodoEdit.show()
+
+  }
+
+  editaPeriodo(producto){
+      this._graficasService.setPeriodo(producto).subscribe();
+      console.log("Coomponent",producto)
+  }
+
   borraPeriodo(idZona,idProducto){
     console.log(idZona,idProducto);
     this._graficasService.deletePeriodo(idZona,idProducto).subscribe();
+  }
+
+  actualizaPeriodoNew(producto){
+    for(let nZona in this.zonas){
+      if(this.zonas[nZona].idZona==producto.idZona){
+        for(let nProductos in this.zonas[nZona].productos){
+          console.log("Comp",this.zonas[nZona].productos[nProductos].idProducto,producto.idProducto )
+          if(this.zonas[nZona].productos[nProductos].idProducto==producto.idProducto ){
+            console.log(this.zonas[nZona].productos[nProductos].periodos);
+            console.log(this.zonas[nZona].productos[nProductos].periodos.length)
+            // this.zonas[nZona].productos[nProductos].periodos.push(
+            //                                                     {
+            //                                                     numPeriodo:this.zonas[nZona].productos[nProductos].periodos.length,
+            //                                                     cantidad:pro
+            //                                                   })
+
+          }
+        }
+      }
+    }
+  }
+
+
+
+  agregaPeriodo(producto){
+    this._graficasService.addPeriodo(producto).subscribe();
+    this.actualizaPeriodoNew(producto);
+    console.log(producto);
+    this.modalPeriodoNew.hide();
   }
 
   numPeriodos(producto){
