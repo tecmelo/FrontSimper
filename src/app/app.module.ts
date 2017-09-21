@@ -17,6 +17,7 @@ import {app_routing} from './app.routes'
 //Servicios
 import {AuthService} from './services/auth.service';
 import {AuthGuard} from './guards/auth.guard';
+import {AuxiliarService} from './services/auxiliar.service';
 import {CompraMaquinariaService} from './services/compra-maquinaria.service';
 import {DesarrolloZonaService} from './services/desarrollo-zona.service';
 import {AdministradoresService} from './services/administradores.service';
@@ -123,6 +124,7 @@ declare var require : any;
               BalanceService,
               DesarrolloZonaService,
               ResultadosService,
+              AuxiliarService,
               CompraMaquinariaService,
               ZonasService,
               ResultadosOperacionService,

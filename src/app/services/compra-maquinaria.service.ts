@@ -44,7 +44,7 @@ export class CompraMaquinariaService {
         this.maquinasCompradas[key$] = data.datos[key$];
       }
     });
-    this.cobrar(costo,dep);
+    //this.cobrar(costo,dep);
   }
 
   cobrar(costo,dep){

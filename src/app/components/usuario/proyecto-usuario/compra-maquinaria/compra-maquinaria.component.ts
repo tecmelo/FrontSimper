@@ -23,7 +23,7 @@ export class CompraMaquinariaComponent implements OnInit {
   ngOnInit() {
   }
 
-  
+
   selectMaquinariaAdd(maquina:any){
     this.maqSelectedAdd=maquina;
     console.log(this.maqSelectedAdd)
@@ -39,9 +39,11 @@ export class CompraMaquinariaComponent implements OnInit {
 
   }
 
-  comprar(id,costo,dep){
+  comprar(id,producto,costo,dep){
     var x = {
+      Balance_numeroPeriodo:parseInt(localStorage.getItem('numeroPeriodo')),
       Maquinaria_idMaquinaria:id,
+      Producto_idProducto:producto,
       Proyectos_idProyecto:parseInt(localStorage.getItem('idProyecto'))
     }
 
