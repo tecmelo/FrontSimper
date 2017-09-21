@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
     <h3 class="offset-4 col-4 text-center">Periodo Corriendo: {{periodo}}</h3>
     <button *ngIf="!opciones" type="button" class="btn btn-danger offset-1 col-2" (click)="openBalances()">Periodos</button>
 
@@ -8,7 +8,22 @@
   <div class="row">
     <button type="button" class="btn btn-primary col-4 offset-4" (click)="pasarPeriodo()">Correr Periodo</button>
   </div>
-  <hr>
+  <hr> -->
+
+  <div style="z-index:1000000;color:white;position:fixed; margin-top:-95px; margin-left:30%">
+    <h4 class=" text-center">Periodo Corriendo: {{periodo}}</h4>
+  </div>
+
+  <!-- <accordion>
+    <accordion-group #group [isOpen]="status.isOpen">
+    <div accordion-heading>
+      <h6 class="offset-4 col-4 text-center">Periodo Corriendo: {{periodo}}</h6>
+      <i class="pull-right float-xs-right glyphicon"
+         [ngClass]="{'glyphicon-chevron-down': group?.isOpen, 'glyphicon-chevron-right': !group?.isOpen}"></i>
+    </div>
+
+  </accordion-group>
+  </accordion> -->
 
 
 

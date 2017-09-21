@@ -54,7 +54,7 @@ formPeriodoEdit:FormGroup;
   ) {
     this.zonas=_graficasService.returnZonas();
     console.log("Original",this.zonas)
-    this.graficas=this.setGraficas();
+    this.graficas=this._graficasService.setGraficas();
     // console.log(this.graficas);
     this.productos=this._productosService.returnProductos();
 
@@ -86,58 +86,46 @@ formPeriodoEdit:FormGroup;
   openModalPeriodo(idZona:number,idProducto:number){
     this.formPeriodoNew.controls['idZona'].setValue(idZona);
     this.formPeriodoNew.controls['idProducto'].setValue(idProducto);
-    console.log(idZona,idProducto);
+    // console.log(idZona,idProducto);
     this.modalPeriodoNew.show();
 
 
   }
 
-  openModalPeriodoEdit(idZona,idProducto,numPeriodo){
-    console.log(idZona,idProducto,numPeriodo);
+  openModalPeriodoEdit(idZona,idProducto,numPeriodo,cantidad){
+    // console.log(idZona,idProducto,numPeriodo);
+    console.log(cantidad)
     this.formPeriodoEdit.get('idZona').setValue(idZona);
     this.formPeriodoEdit.get('idProducto').setValue(idProducto);
     this.formPeriodoEdit.get('numPeriodo').setValue(numPeriodo);
+    this.formPeriodoEdit.get('cantidad').setValue(cantidad);
+
     this.modalPeriodoEdit.show()
 
   }
 
   editaPeriodo(producto){
-      this._graficasService.setPeriodo(producto).subscribe();
-      console.log("Coomponent",producto)
+      this._graficasService.editaPeriodo(producto);
+      // console.log("Coomponent",producto)
   }
 
   borraPeriodo(idZona,idProducto){
-    console.log(idZona,idProducto);
-    this._graficasService.deletePeriodo(idZona,idProducto).subscribe();
+    // console.log(idZona,idProducto);
+    this._graficasService.eliminaPeriodo(idZona,idProducto);
   }
 
-  actualizaPeriodoNew(producto){
-    for(let nZona in this.zonas){
-      if(this.zonas[nZona].idZona==producto.idZona){
-        for(let nProductos in this.zonas[nZona].productos){
-          console.log("Comp",this.zonas[nZona].productos[nProductos].idProducto,producto.idProducto )
-          if(this.zonas[nZona].productos[nProductos].idProducto==producto.idProducto ){
-            console.log(this.zonas[nZona].productos[nProductos].periodos);
-            console.log(this.zonas[nZona].productos[nProductos].periodos.length)
-            // this.zonas[nZona].productos[nProductos].periodos.push(
-            //                                                     {
-            //                                                     numPeriodo:this.zonas[nZona].productos[nProductos].periodos.length,
-            //                                                     cantidad:pro
-            //                                                   })
 
-          }
-        }
-      }
-    }
-  }
 
 
 
   agregaPeriodo(producto){
-    this._graficasService.addPeriodo(producto).subscribe();
-    this.actualizaPeriodoNew(producto);
-    console.log(producto);
+    // this._graficasService.addPeriodo(producto).subscribe();
+    this._graficasService.agregaPeriodo(producto);
+    console.log(this.zonas);
+    // console.log(producto);
+
     this.modalPeriodoNew.hide();
+    this.graficas=this._graficasService.returnGraficas();
   }
 
   numPeriodos(producto){
@@ -150,70 +138,6 @@ formPeriodoEdit:FormGroup;
 
   }
 
-  setGraficas(){
-    let graficas:any[];
-    let grafica:any[];
-    graficas=new Array;
-
-
-      this._graficasService.getZonas().subscribe(data => {
-        for(let key$ in data.datos){
-          console.log("Zona completa",data.datos[key$])
-          graficas.push(
-            {
-              title:data.datos[key$].nombreZona,
-              series: this.getSeries(data.datos[key$]),
-              xAxis: [{
-                    categories: [1,2,3,4,5,6,7,8,9,10,11],
-                    crosshair: true
-                }],
-
-
-            }
-          )
-
-        }
-      })
-
-    //console.log(graficas);
-
-    return graficas;
-
-  }
-
-
-  getSeries(zona:any){
-    console.log(zona);
-    let series:any;
-    series=new Array;
-    for(let producto of zona.productos){
-      console.log("Aqui",producto)
-      series.push(
-        {
-          name:this.getNameById(producto.Producto_idProducto),
-          data:this.getDataPeriodos(producto.periodos)
-        }
-      )
-
-
-    }
-
-    return series;
-
-  }
-
-  getDataPeriodos(periodos:any[]){
-    let data:number[];
-    data=new Array();
-
-      for(let periodo of periodos){
-        data.push(periodo.cantidad);
-        //console.log(periodo)
-      }
-      data.splice(0,1)
-
-    return data;
-  }
 
   getNameById(id:number){
 

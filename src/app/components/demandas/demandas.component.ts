@@ -47,6 +47,7 @@ export class DemandasComponent implements OnInit {
       label:""
     }
   ];
+  public alerts: any = [];
 
 
 
@@ -132,6 +133,8 @@ export class DemandasComponent implements OnInit {
       this.editForm.controls.productos=this._fb.array([]);
       this.modalEdit.hide();
 
+
+
     }
 
     deleteProducto(i:number,form:FormGroup){
@@ -188,6 +191,12 @@ export class DemandasComponent implements OnInit {
     this._demandaService.guardarZona(zona);
     this.modalNew.hide();
 
+    this.alerts.push({
+      type: 'success',
+      msg: `Zona "${(zona.nombreZona)}" agregada`,
+      timeout: 2000
+    });
+
   }
 
   editaZona(zona:zona){
@@ -197,6 +206,12 @@ export class DemandasComponent implements OnInit {
     this._demandaService.setZona(zona).subscribe();
     this.modalEdit.hide();
     this.editForm.controls.productos=this._fb.array([]);
+
+    this.alerts.push({
+      type: 'success',
+      msg: `Zona "${(zona.nombreZona)}" editada`,
+      timeout: 2000
+    });
 
   }
 
@@ -211,6 +226,12 @@ export class DemandasComponent implements OnInit {
   eliminaZona(id:number){
     this._demandaService.deleteZona(id).subscribe();
     this.modalConfDelete.hide();
+
+    this.alerts.push({
+      type: 'danger',
+      msg: `Zona Eliminada`,
+      timeout: 2000
+    });
 
   }
 

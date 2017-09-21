@@ -100,7 +100,6 @@ export class ProductosComponent implements OnInit {
   guarda(producto:producto){
     this._productoService.guardarProducto(producto);
     this.modalNew.hide();
-    this._flashMessagesService.show('Producto "'+ producto.nombreProd + '" guardado ', { cssClass: 'alert-success' });
     this.alerts.push({
       type: 'success',
       msg: `Producto "${(producto.nombreProd)}" agregado`,

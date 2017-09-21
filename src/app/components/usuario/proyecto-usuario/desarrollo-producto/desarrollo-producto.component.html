@@ -1,7 +1,69 @@
+<div class="row">
+  <div class="col-4 offset-1">
+      <h3 class="text-center">Desarrollo de Productos</h3>
+      <hr>
+        <div class="card" *ngFor="let producto of productosSinDesarrollar">
+          <div class="card-block">
+            <div class="row">
+              <img  src="assets/img/box.png" style="height:40px;margin-left:10px;">
 
-<h1>Desarrollo de Productos</h1>
-<hr>
-<div class="card-columns" >
+              <div class="col-6">
+                <h4 class="card-title">{{producto.nombreProd}}</h4>
+              </div>
+              <!-- <div class=" col-3 ">
+                <button type="button" class="btn btn-success" (click)= "agregarMaquinaria(maquina)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+              </div> -->
+            </div>
+          </div>
+        </div>
+
+  </div>
+
+  <div class="offset-2 col-4">
+    <div class="row" style="height:200px;overflow:scroll">
+      <div class="col-12">
+        <h3 style="text-center">Productos Desarrollados</h3>
+        <hr>
+        <div class="card" *ngFor="let producto of productosDesarollados">
+          <div class="card-block">
+            <div class="row">
+              <img  src="assets/img/box.png" style="height:40px;margin-left:10px;">
+
+              <div class="col-6">
+                <h4 class="card-title">{{producto.nombreProd}}</h4>
+              </div>
+              <!-- <div class=" col-3 ">
+                <button type="button" class="btn btn-success" (click)= "agregarMaquinaria(maquina)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <h2>Productos en Desarrollo</h2>
+      <hr>
+      <div class="card" *ngFor="let producto of productosEnDesarrollo">
+        <div class="card-block">
+          <div class="row">
+            <img  src="assets/img/box.png" style="height:40px;margin-left:10px;">
+
+            <div class="col-6">
+              <h4 class="card-title">{{producto.nombreProd}}</h4>
+            </div>
+            <!-- <div class=" col-3 ">
+              <button type="button" class="btn btn-success" (click)= "agregarMaquinaria(maquina)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="card-columns" >
   <div class="card" *ngFor="let producto of productosSinDesarrollar">
     <img class="card-img-top img-fluid col-6 offset-3 center-block" style="margin-top:30px;" src="assets/img/box.png" alt="Card image cap">
     <div class="card-block">
@@ -19,11 +81,10 @@
     </div>
   </div>
 
-</div>
+</div> -->
 
-<h2>Productos en Desarrollo</h2>
-<hr>
-<div class="card-columns" >
+
+<!-- <div class="card-columns" >
   <div class="card" *ngFor="let producto of productosEnDesarrollo">
   <img class="card-img-top img-fluid col-6 offset-3 center-block" style="margin-top:30px;" src="assets/img/box.png" alt="Card image cap">
     <div class="card-block">
@@ -40,17 +101,16 @@
     </div>
   </div>
 
-</div>
+</div> -->
 
 
 
 
 
 
-<h2>Productos Desarrollados</h2>
-<hr>
 
-<div class="card-columns" >
+
+<!-- <div class="card-columns" >
   <div class="card" *ngFor="let producto of productosDesarollados">
   <img class="card-img-top img-fluid col-6 offset-3 center-block" style="margin-top:30px;" src="assets/img/box.png" alt="Card image cap">
     <div class="card-block">
@@ -60,4 +120,4 @@
     </div>
   </div>
 
-</div>
+</div> -->

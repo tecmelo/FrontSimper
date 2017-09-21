@@ -22,6 +22,7 @@ export interface ProductoVenta{
   EstadoResultados:EstadoResultados;
 }
 
+
 export interface AlmacenArticuloTerminadoI{
   unidades:number;
   costoUnitario:number;

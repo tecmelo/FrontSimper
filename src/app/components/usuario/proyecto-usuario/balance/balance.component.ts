@@ -21,6 +21,11 @@ export class BalanceComponent implements OnInit {
   periodo:number;
   periodos = [];
 
+  public status: any = {
+    isFirstOpen: true,
+    isOpen: true
+  };
+
   constructor(private _proyectoService:ProyectosService,
               private _balanceService:BalanceService,
               private _desarrolloZona:DesarrolloZonaService,
