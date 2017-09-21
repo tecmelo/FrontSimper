@@ -5,6 +5,7 @@ import {UsuarioMaquinariaService} from './usuario-maquinaria.service';
 import {UsuarioProductoService} from './usuario-producto.service';
 import {UsuarioZonaService} from './usuario-zona.service';
 import {DesarrolloProductoService} from './desarrollo-producto.service';
+import {AuxiliarService} from './auxiliar.service';
 import {DesarrolloZonaService} from './desarrollo-zona.service';
 import {CompraMaquinariaService} from './compra-maquinaria.service';
 import { BalanceService} from './balance.service';
@@ -21,6 +22,7 @@ export class ProyectosService {
               private _usuarioMaquinariaService:UsuarioMaquinariaService,
               private _usuarioProductoService:UsuarioProductoService,
               private router:Router,
+              private _auxiliarService:AuxiliarService,
               private _desarrolloProductoService:DesarrolloProductoService,
               private _desarrolloZonaService:DesarrolloZonaService,
               private _usuarioZonaService:UsuarioZonaService,
@@ -73,6 +75,7 @@ returnUsuarios(){
     this.buscarPeriodos(idProyecto).subscribe(data => {
       if(data.datos.length == 0){
         this.asignarMaquinaria(idProyecto,localStorage.getItem('idUsuario'));
+        this.crearAuxiliar(idProyecto);
         this.asginarProductos(idProyecto,localStorage.getItem('idUsuario'));
         this.asignarZonas(idProyecto,localStorage.getItem('idUsuario'));
         this.asginarPeriodoCero(idProyecto);
@@ -104,6 +107,14 @@ returnUsuarios(){
 
   entrar(){
     this.router.navigate(['Usuario/proyecto']);
+  }
+
+  crearAuxiliar(idProyecto){
+    var x = {
+      Proyectos_idProyecto:idProyecto,
+      Balance_numeroPeriodo:1
+    }
+    this._auxiliarService.addAuxiliar(x).subscribe();
   }
 
   asignarZonas(idProyecto, idUsuario){
