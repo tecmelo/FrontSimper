@@ -2,29 +2,8 @@
   <div class="col-4 offset-1">
       <h3 class="text-center">Desarrollo de Productos</h3>
       <hr>
-        <div class="card" *ngFor="let producto of productosSinDesarrollar">
-          <div class="card-block">
-            <div class="row">
-              <img  src="assets/img/box.png" style="height:40px;margin-left:10px;">
-
-              <div class="col-6">
-                <h4 class="card-title">{{producto.nombreProd}}</h4>
-              </div>
-              <!-- <div class=" col-3 ">
-                <button type="button" class="btn btn-success" (click)= "agregarMaquinaria(maquina)"><i class="fa fa-plus" aria-hidden="true"></i></button>
-              </div> -->
-            </div>
-          </div>
-        </div>
-
-  </div>
-
-  <div class="offset-2 col-4">
-    <div class="row" style="height:200px;overflow:scroll">
-      <div class="col-12">
-        <h3 style="text-center">Productos Desarrollados</h3>
-        <hr>
-        <div class="card" *ngFor="let producto of productosDesarollados">
+      <div class="col-12" style="height:550px; overflow-y:scroll">
+        <div class="card" *ngFor="let producto of productosSinDesarrollar" (click)="selectProducto(producto)">
           <div class="card-block">
             <div class="row">
               <img  src="assets/img/box.png" style="height:40px;margin-left:10px;">
@@ -40,10 +19,39 @@
         </div>
       </div>
 
+  </div>
+
+  <div class="col-2">
+    <button type="button" class="btn btn-primary col-10 offset-1" style="margin-top:300px;"
+    (click)="desarrollar()">></button>
+  </div>
+
+  <div class=" col-4">
+    <h3 style="text-center col-12">Productos Desarrollados</h3>
+    <hr>
+    <div class="row" >
+      <div class="col-12" style="height:250px;overflow:scroll">
+
+        <div class="card" *ngFor="let producto of productosDesarollados">
+          <div class="card-block">
+            <div class="row">
+              <img  src="assets/img/box.png" style="height:40px;margin-left:10px;">
+
+              <div class="col-6" style="margin-top:20px">
+                <h4 class="card-title">{{producto.nombreProd}}</h4>
+              </div>
+              <!-- <div class=" col-3 ">
+                <button type="button" class="btn btn-success" (click)= "agregarMaquinaria(maquina)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="row">
-      <h2>Productos en Desarrollo</h2>
+    <div class="row" style="margin-top:20px;">
+      <h2 class="text-center col-12">Productos en Desarrollo</h2>
       <hr>
       <div class="card" *ngFor="let producto of productosEnDesarrollo">
         <div class="card-block">

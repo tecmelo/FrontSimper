@@ -140,7 +140,7 @@ export interface producto{
   nombreProd:string;
   costoDes:number;
   tiempoDes:number;
-  costoProd:number;
+  precioVenta:number;
   costoFijoFabri:number;
   costosVarFabri:number;
   costosVarUniDist:number;
