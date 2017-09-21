@@ -86,7 +86,8 @@ formPeriodoEdit:FormGroup;
   openModalPeriodo(idZona:number,idProducto:number){
     this.formPeriodoNew.controls['idZona'].setValue(idZona);
     this.formPeriodoNew.controls['idProducto'].setValue(idProducto);
-    // console.log(idZona,idProducto);
+
+    console.log("Datos de Entrada",idZona,idProducto);
     this.modalPeriodoNew.show();
 
 
