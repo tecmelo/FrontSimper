@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {ProyectosService} from '../../../../services/proyectos.service';
 import {DesarrolloProductoService} from '../../../../services/desarrollo-producto.service';
 import {DesarrolloZonaService} from '../../../../services/desarrollo-zona.service';
+import {AuxiliarService} from '../../../../services/auxiliar.service';
 import {BalanceService} from '../../../../services/balance.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
@@ -28,6 +29,7 @@ export class BalanceComponent implements OnInit {
 
   constructor(private _proyectoService:ProyectosService,
               private _balanceService:BalanceService,
+              private _auxiliarService:AuxiliarService,
               private _desarrolloZona:DesarrolloZonaService,
               private router:Router,
               private _desarrolloProducto:DesarrolloProductoService) {
@@ -73,6 +75,7 @@ export class BalanceComponent implements OnInit {
       this._balanceService.crearBalance(proyecto,data.datos[0],periodoNuevo).subscribe(data => {
         if(data.success){
           localStorage.setItem('numeroPeriodo',periodoNuevo.toString());
+
           this.periodo = this.periodo + 1 ;
           var y = {
             nombre: "Periodo "+this.periodo,
