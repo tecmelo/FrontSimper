@@ -1,25 +1,22 @@
 <div class=" col-12" style="margin-left:60px">
-  <h1>Demanda de Productos por Zona</h1>
+  <h1 class="text-center">Demanda de Productos por Zona</h1>
   <hr>
-
-
-     <button type="button" (click)="agrega()">agrega</button>
   <div class="row" *ngFor="let zona of zonas; let i=index">
 
     <div class="mb-3 card card-outline-primary col-11 text-center " >
 
-        <blockquote class="card-blockquote">
+        <blockquote class="card-blockquote" style="margin-top:30px">
           <h1>{{zona.nombreZona}}</h1>
         </blockquote>
 
-        <div class="row" style="margin-bottom:30px">
+        <div class="row" style="margin-bottom:30px;margin-top:30px">
 
             <div class="col-6" >
               <nvd3 [options]="options" [data]="graficas[i]"></nvd3>
             </div>
-            
+
             <div class="col-6" >
-              <div style="height:350px;overflow-y:scroll;overflow-x:hidden;margin-left:30px;padding-left:30px;">
+              <div style="height:480px;overflow-y:scroll;overflow-x:hidden;margin-left:30px;padding-left:30px;">
                 <div class="row" *ngFor="let producto of zona.productos" style="margin-bottom:30px" >
 
                   <table class="table table-responsive table-sm " >

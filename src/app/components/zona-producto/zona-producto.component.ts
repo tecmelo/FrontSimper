@@ -71,10 +71,10 @@ options;
         y: function(d){ return d.y; },
         useInteractiveGuideline: true,
         xAxis: {
-          axisLabel: 'Time (ms)'
+          axisLabel: 'Periodos'
         },
         yAxis: {
-          axisLabel: 'Voltage (v)',
+          axisLabel: 'Demanda Existente',
           tickFormat: function(d){
             return d3.format('.02f')(d);
           },
