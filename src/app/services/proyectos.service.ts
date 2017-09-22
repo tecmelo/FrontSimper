@@ -75,7 +75,6 @@ returnUsuarios(){
     this.buscarPeriodos(idProyecto).subscribe(data => {
       if(data.datos.length == 0){
         this.asignarMaquinaria(idProyecto,localStorage.getItem('idUsuario'));
-        this.crearAuxiliar(idProyecto);
         this.asginarProductos(idProyecto,localStorage.getItem('idUsuario'));
         this.asignarZonas(idProyecto,localStorage.getItem('idUsuario'));
         this.asginarPeriodoCero(idProyecto);
@@ -152,7 +151,11 @@ returnUsuarios(){
     this.buscarDatosUsuario().subscribe(data => {
       for(let key$ in data){
         if(data[key$].idUsuario == localStorage.getItem('idUsuario')){
-          this.crearBalanceUno(idProyecto,data[key$],1).subscribe();
+          this.crearBalanceUno(idProyecto,data[key$],1).subscribe(data => {
+            if(data.success){
+              this.crearAuxiliar(idProyecto);
+            }
+          });
           this.crearBalanceCero(idProyecto,data[key$],0).subscribe();
           break;
         }
