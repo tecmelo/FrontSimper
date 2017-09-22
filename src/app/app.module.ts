@@ -6,7 +6,6 @@ import {Http, Headers,HttpModule} from '@angular/http';
 import {SelectModule} from 'angular2-select';
 import { AlertModule, ModalModule } from 'ngx-bootstrap';
 import { DatePipe } from '@angular/common';
-import {NG2D3Module} from 'ng2d3';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AccordionModule } from 'ngx-bootstrap';
 import { PaginationModule } from 'ngx-bootstrap';
@@ -107,8 +106,7 @@ import 'nvd3';
   ],
   imports: [
     FlashMessagesModule,
-    NG2D3Module,
-     NvD3Module,
+    NvD3Module,
     ModalModule.forRoot(),
     AlertModule.forRoot(),
     TabsModule.forRoot(),

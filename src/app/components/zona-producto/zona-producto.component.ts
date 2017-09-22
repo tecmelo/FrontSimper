@@ -1,5 +1,4 @@
 import { Component, OnInit , ViewChild,NgModule} from '@angular/core';
-import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators,FormArray,FormBuilder} from '@angular/forms';
 import {zona,producto,select,productoPeriodo,periodos,periodosAct} from '../../app.interfaces';
