@@ -6,10 +6,14 @@ import {Http, Headers,HttpModule} from '@angular/http';
 import {SelectModule} from 'angular2-select';
 import { AlertModule, ModalModule } from 'ngx-bootstrap';
 import { DatePipe } from '@angular/common';
+import {NG2D3Module} from 'ng2d3';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AccordionModule } from 'ngx-bootstrap';
 import { PaginationModule } from 'ngx-bootstrap';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { NvD3Module } from 'ng2-nvd3';
+
+
 //Rutas
 import {app_routing} from './app.routes'
 
@@ -69,6 +73,8 @@ import { BalanceFinalComponent } from './components/usuario/proyecto-usuario/bal
 import { BalanceHomeComponent } from './components/usuario/proyecto-usuario/balance-home/balance-home.component';
 import { OperacionComponent } from './components/usuario/proyecto-usuario/operacion/operacion.component';
 declare var require : any;
+import 'd3';
+import 'nvd3';
 
 @NgModule({
   declarations: [
@@ -101,6 +107,8 @@ declare var require : any;
   ],
   imports: [
     FlashMessagesModule,
+    NG2D3Module,
+     NvD3Module,
     ModalModule.forRoot(),
     AlertModule.forRoot(),
     TabsModule.forRoot(),

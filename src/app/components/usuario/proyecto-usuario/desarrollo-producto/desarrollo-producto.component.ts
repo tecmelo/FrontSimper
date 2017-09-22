@@ -30,7 +30,9 @@ export class DesarrolloProductoComponent implements OnInit {
   }
 
   selectProducto(producto){
-    this.selectProducto=producto;
+    console.log(producto)
+    this.productoSelected=producto;
+
 
   }
 

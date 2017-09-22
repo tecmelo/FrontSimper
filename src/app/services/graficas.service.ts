@@ -135,69 +135,50 @@ export class GraficasService {
   }
 
   setGraficas(){
-    let graficas:any[];
+    let graficas:any[]=[];
     let grafica:any[];
     graficas=new Array;
 
-
-      this.getZonas().subscribe(data => {
-        for(let key$ in data.datos){
-          // console.log("Zona completa",data.datos[key$])
-          graficas.push(
-            {
-              title:data.datos[key$].nombreZona,
-              series: this.getSeries(data.datos[key$]),
-              xAxis: [{
-                    categories: [1,2,3,4,5,6,7,8,9,10,11],
-                    crosshair: true
-                }],
-
-
-            }
-          )
-
-        }
-      })
-
-    //console.log(graficas);
+    this.getZonas().subscribe(data=>{
+      for(let num in data.datos){
+        graficas.push(this.setProductos(data.datos[num]))
+      }
+    })
 
     return graficas;
 
+
   }
 
 
-  getSeries(zona:any){
-    // console.log(zona);
-    let series:any;
-    series=new Array;
+  setProductos(zona){
+    let data:any[]=[];
+
     for(let producto of zona.productos){
-      // console.log("Aqui",producto)
-      series.push(
-        {
-          name:this.getNameById(producto.Producto_idProducto),
-          data:this.getDataPeriodos(producto.periodos)
-        }
-      )
-
-
+      data.push({
+        values:this.setPeriodos(producto),
+        key:this.getNameById(producto.idProducto),
+        color:"#"+Math.random().toString(16).slice(2, 8)
+      })
     }
-
-    return series;
-
+    return data
   }
 
-  getDataPeriodos(periodos:any[]){
-    let data:number[];
-    data=new Array();
 
-      for(let periodo of periodos){
-        data.push(periodo.cantidad);
-        //console.log(periodo)
-      }
-      data.splice(0,1)
-
-    return data;
+setPeriodos(producto){
+  let data:any[]=[];
+  for(let periodo of producto.periodos){
+    data.push({x:periodo.numPeriodo,y:periodo.cantidad})
   }
+  
+  return data;
+
+}
+
+
+
+
+
 
   getNameById(id:number){
 
