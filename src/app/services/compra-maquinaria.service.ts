@@ -47,28 +47,28 @@ export class CompraMaquinariaService {
     //this.cobrar(costo,dep);
   }
 
-  cobrar(costo,dep){
-    this._balanceService.getBalance().subscribe( data => {
-        var id = data.datos[0].idBalance;
-        var x = {
-          cajaBancos:data.datos[0].cajaBancos,
-          maqEquipo:data.datos[0].maqEquipo,
-          IVAPorEnterar:data.datos[0].IVAPorEnterar,
-          utilidadAcum: data.datos[0].utilidadAcum,
-          depMaqEquipo: data.datos[0].depMaqEquipo
-        }
-        var iva11 = (((costo*.15)/12)*11);
-        var ivaMaq = (costo*.15);
-        var depMaq = costo*(dep/100);
-        x.IVAPorEnterar = x.IVAPorEnterar - (iva11/11);
-        x.depMaqEquipo = x.depMaqEquipo + depMaq;
-        x.cajaBancos= x.cajaBancos - (costo + ivaMaq - iva11);
-        x.maqEquipo =(x.maqEquipo +costo);
-        x.utilidadAcum = x.utilidadAcum - depMaq;
-
-        this._balanceService.editarBalance(id,x).subscribe();
-    });
-  }
+  // cobrar(costo,dep){
+  //   this._balanceService.getBalance().subscribe( data => {
+  //       var id = data.datos[0].idBalance;
+  //       var x = {
+  //         cajaBancos:data.datos[0].cajaBancos,
+  //         maqEquipo:data.datos[0].maqEquipo,
+  //         IVAPorEnterar:data.datos[0].IVAPorEnterar,
+  //         utilidadAcum: data.datos[0].utilidadAcum,
+  //         depMaqEquipo: data.datos[0].depMaqEquipo
+  //       }
+  //       var iva11 = (((costo*.15)/12)*11);
+  //       var ivaMaq = (costo*.15);
+  //       var depMaq = costo*(dep/100);
+  //       x.IVAPorEnterar = x.IVAPorEnterar - (iva11/11);
+  //       x.depMaqEquipo = x.depMaqEquipo + depMaq;
+  //       x.cajaBancos= x.cajaBancos - (costo + ivaMaq - iva11);
+  //       x.maqEquipo =(x.maqEquipo +costo);
+  //       x.utilidadAcum = x.utilidadAcum - depMaq;
+  //
+  //       this._balanceService.editarBalance(id,x).subscribe();
+  //   });
+  // }
 
   comprar(x){
     let headers = new Headers({

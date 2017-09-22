@@ -39,11 +39,9 @@ export class CompraMaquinariaComponent implements OnInit {
 
   }
 
-  comprar(id,producto,costo,dep){
+  comprar(id,costo,dep){
     var x = {
-      Balance_numeroPeriodo:parseInt(localStorage.getItem('numeroPeriodo')),
       Maquinaria_idMaquinaria:id,
-      Producto_idProducto:producto,
       Proyectos_idProyecto:parseInt(localStorage.getItem('idProyecto'))
     }
 
