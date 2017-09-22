@@ -16,6 +16,7 @@ export class SidenavPComponent implements OnInit {
   verProyectos(){
     localStorage.removeItem('numeroPeriodo');
     localStorage.removeItem('idProyecto');
+    localStorage.removeItem('numeroRPeriodos');
     this.router.navigate(['/Usuario/proyectos']);
   }
 }

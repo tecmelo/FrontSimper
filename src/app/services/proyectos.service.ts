@@ -79,10 +79,12 @@ returnUsuarios(){
         this.asignarZonas(idProyecto,localStorage.getItem('idUsuario'));
         this.asginarPeriodoCero(idProyecto);
         localStorage.setItem('numeroPeriodo','1');
+        localStorage.setItem('numeroRPeriodos','1');
       }
       else{
         var num = parseInt(data.datos.length) - 1;
         localStorage.setItem('numeroPeriodo',num.toString());
+        localStorage.setItem('numeroRPeriodos',num.toString());
       }
     });
   }
