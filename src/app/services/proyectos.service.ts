@@ -108,9 +108,10 @@ returnUsuarios(){
     this.router.navigate(['Usuario/proyecto']);
   }
 
-  crearAuxiliar(idProyecto){
+  crearAuxiliar(idProyecto,dep){
     var x = {
       Proyectos_idProyecto:idProyecto,
+      costoTransformacionMaq:dep,
       Balance_numeroPeriodo:1
     }
     this._auxiliarService.addAuxiliar(x).subscribe();
@@ -151,9 +152,10 @@ returnUsuarios(){
     this.buscarDatosUsuario().subscribe(data => {
       for(let key$ in data){
         if(data[key$].idUsuario == localStorage.getItem('idUsuario')){
+          var dep = data[key$].maqEquipo*.10;
           this.crearBalanceUno(idProyecto,data[key$],1).subscribe(data => {
             if(data.success){
-              this.crearAuxiliar(idProyecto);
+              this.crearAuxiliar(idProyecto,dep);
             }
           });
           this.crearBalanceCero(idProyecto,data[key$],0).subscribe();
@@ -168,7 +170,6 @@ returnUsuarios(){
   }
 
   crearBalanceUno(idProyecto,data,num){
-    var dep = data.maqEquipo*.10;
     var Balance = {
     "IVAPorEnterar":data.IVAPorEnterar,
     "numeroPeriodo":num,
@@ -190,13 +191,13 @@ returnUsuarios(){
     "gastosAmortizacion":data.gastosAmortizacion,
     "capitalSocial":data.capitalSocial,
     "reservaLegal":data.reservaLegal,
-    "utilidadAcum":data.utilidadAcum - dep,
+    "utilidadAcum":data.utilidadAcum,
     "depEdif":0,
     "depMueblesEnseres":0,
     "eqTrans":data.eqTrans,
     "Proyectos_idProyecto":idProyecto,
     "depTerreno":0,
-    "depMaqEquipo":dep,
+    "depMaqEquipo":0,
     "depEqTrans":0
     }
     let headers = new Headers({

@@ -45,6 +45,12 @@ export class CompraMaquinariaComponent implements OnInit {
       Proyectos_idProyecto:parseInt(localStorage.getItem('idProyecto'))
     }
 
-    this._CompraMaquinariaService.compraMaquinaria(x,costo,dep);
+    var y = {
+      Balance_numeroPeriodo:parseInt(localStorage.getItem('numeroPeriodo')),
+      Proyectos_idProyecto:parseInt(localStorage.getItem('idProyecto')),
+      costo:costo,
+      dep:dep
+    }
+    this._CompraMaquinariaService.compraMaquinaria(x,y);
   }
 }
