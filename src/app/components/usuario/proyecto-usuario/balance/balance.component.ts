@@ -75,6 +75,7 @@ export class BalanceComponent implements OnInit {
       this._balanceService.crearBalance(proyecto,data.datos[0],periodoNuevo).subscribe(data => {
         if(data.success){
           localStorage.setItem('numeroPeriodo',periodoNuevo.toString());
+          localStorage.setItem('numeroRPeriodos',periodoNuevo.toString());
 
           this.periodo = this.periodo + 1 ;
           var y = {
