@@ -6,7 +6,8 @@ import { ProductoService } from '../../../../services/producto.service';
 
 @Component({
   selector: 'app-compra-maquinaria',
-  templateUrl: './compra-maquinaria.component.html'
+  templateUrl: './compra-maquinaria.component.html',
+  styleUrls: ['./compra-maquinaria.component.css']
 })
 export class CompraMaquinariaComponent implements OnInit {
   maquinas:maquinaria[]=new Array();
@@ -18,11 +19,26 @@ export class CompraMaquinariaComponent implements OnInit {
     this.productos = this._productosService.returnProductos();
     this.maquinas = this._maquinariaService.returnMaquinas();
     this.maquinasCompradas = this._CompraMaquinariaService.returnMaquinasCompradas();
+    setTimeout(() => {
+     this.maqSelectedAdd=this.maquinas[0];
+   }, 2000);
+
+    console.log(this.maqSelectedAdd);
   }
 
   ngOnInit() {
   }
 
+  comprueba(maquina){
+    if(maquina.idMaquinaria==this.maqSelectedAdd.idMaquinaria){
+      return true;
+
+    }
+
+    else{
+      return false
+    }
+      }
 
   selectMaquinariaAdd(maquina:any){
     this.maqSelectedAdd=maquina;

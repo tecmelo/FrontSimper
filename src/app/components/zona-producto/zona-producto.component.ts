@@ -27,16 +27,6 @@ export class ZonaProductoComponent implements OnInit {
 
 
 
-// options:any = {
-//         title : { text : 'simple chart' },
-//         series: [{
-//           name: 'Sea-Level Pressure',
-//
-//           data: [1016, 1016, 1015.9, 1015.5, 1012.3, 1009.5, 1009.6, 1010.2, 1013.1, 1016.9, 1018.2, 1016.7],
-//           dashStyle: 'shortdot'
-//
-//         }]
-//     };
 
 zonas:zona[];
 edit:boolean;
@@ -71,10 +61,10 @@ options;
         y: function(d){ return d.y; },
         useInteractiveGuideline: true,
         xAxis: {
-          axisLabel: 'Time (ms)'
+          axisLabel: 'Periodos'
         },
         yAxis: {
-          axisLabel: 'Voltage (v)',
+          axisLabel: 'Demanda Existente',
           tickFormat: function(d){
             return d3.format('.02f')(d);
           },

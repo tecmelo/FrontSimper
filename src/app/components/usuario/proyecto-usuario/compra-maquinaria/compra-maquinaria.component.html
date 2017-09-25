@@ -3,7 +3,8 @@
 
 <div class="row">
   <div class="offset-1 col-4">
-    <div class="card" *ngFor="let maquina of maquinas" (click)="selectMaquinariaAdd(maquina)">
+    <div class="card" *ngFor="let maquina of maquinas" (click)="selectMaquinariaAdd(maquina)"
+    [ngClass]="{'resaltar':maquina.idMaquinaria==this.maqSelectedAdd.idMaquinaria}">
       <div class="card-block">
         <div class="row">
           <img  src="assets/img/machine.png" style="height:40px;margin-left:10px;">
@@ -38,6 +39,7 @@
 
               <div class="col-6">
                 <h4 class="card-title">{{maquina.nombreMaq}}</h4>
+                {{maquina.Cantidad}}
               </div>
               <!-- <div class="col-3 ">
                 <button type="button" class="btn btn-success" (click)= "agregarMaquinaria(maquina)"><i class="fa fa-plus" aria-hidden="true"></i></button>
