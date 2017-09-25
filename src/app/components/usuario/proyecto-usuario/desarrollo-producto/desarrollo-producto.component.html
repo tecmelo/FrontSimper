@@ -2,8 +2,10 @@
   <div class="col-4 offset-1">
       <h3 class="text-center">Desarrollo de Productos</h3>
       <hr>
+  
       <div class="col-12" style="height:550px; overflow-y:scroll;overflow-x:hidden">
-        <div class="card" *ngFor="let producto of productosSinDesarrollar" (click)="selectProducto(producto)">
+        <div class="card" *ngFor="let producto of productosSinDesarrollar" (click)="selectProducto(producto)"
+        [ngClass]="{'resaltar':producto.idProducto==this.productoSelectedAdd.idProducto}">
           <div class="card-block">
             <div class="row">
               <img  src="assets/img/box.png" style="height:40px;margin-left:10px;">

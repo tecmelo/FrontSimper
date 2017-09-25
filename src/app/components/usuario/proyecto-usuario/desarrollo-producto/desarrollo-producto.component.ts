@@ -10,19 +10,23 @@ export class DesarrolloProductoComponent implements OnInit {
   productosDesarollados:any[] = [];
   productosEnDesarrollo:any[] = [];
   productosSinDesarrollar:any[] = [];
-  productoSelected:any;
+  productoSelectedAdd:any;
 
   constructor(private _desarrolloProducto:DesarrolloProductoService) {
     this.productosSinDesarrollar = this._desarrolloProducto.returnProductosSinDesarrollar();
     this.productosEnDesarrollo = this._desarrolloProducto.returnProductosEnDesarrollo();
     this.productosDesarollados = this._desarrolloProducto.returnProductosDesarrollados();
+    setTimeout(() => {
+     this.productoSelectedAdd=this.productosSinDesarrollar[0];
+   }, 2000);
+
    }
 
   ngOnInit() {
   }
 
   desarrollar(){
-      this._desarrolloProducto.comenzarDesarrollo(this.productoSelected.idProducto,this.productoSelected.costoDes);
+      this._desarrolloProducto.comenzarDesarrollo(this.productoSelectedAdd.idProducto,this.productoSelectedAdd.costoDes);
   }
 
   pagarDesarrollo(id,costo){
@@ -31,7 +35,7 @@ export class DesarrolloProductoComponent implements OnInit {
 
   selectProducto(producto){
     console.log(producto)
-    this.productoSelected=producto;
+    this.productoSelectedAdd=producto;
 
 
   }

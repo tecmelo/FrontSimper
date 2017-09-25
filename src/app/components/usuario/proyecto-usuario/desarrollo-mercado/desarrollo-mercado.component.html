@@ -1,6 +1,39 @@
-<h2>Zonas de Desarrollo</h2>
-<hr>
-<div class="card-columns" >
+
+
+<div class="container">
+  <h2 class="col-12 text-center">Zonas de Desarrollo</h2>
+  <hr>
+</div>
+
+<div class="row">
+  <div class="col-4 offset-1">
+    <div class="card" *ngFor="let zona of productosZonaSinDesarrollar">
+      <div class="card-block">
+        <div class="row">
+          <img  src="assets/img/zone.png" style="height:40px;margin-left:10px;">
+          <div class="col-6">
+            <h4 class="card-title">{{zona.nombreZona}}</h4>
+          </div>
+          <!-- <div class=" col-3 ">
+            <button type="button" class="btn btn-success" (click)= "agregarMaquinaria(maquina)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+          </div> -->
+        </div>
+        <div class="card-footer" style="margin-top:20px;">
+          <div class="col-12" *ngFor="let producto of zona.productosSinDes" >
+            <h5>{{getNameById(producto)}}</h5>
+          </div>
+
+        </div>
+      </div>
+  </div>
+
+  <div class="col-4 offser-2">
+
+  </div>
+
+</div>
+
+<!-- <div class="card-columns" >
   <div class="card" *ngFor="let zona of productosZonaSinDesarrollar" >
     <img class="card-img-top img-fluid col-6 offset-3 center-block"  style="margin-top:30px;" src="assets/img/zone.png" alt="Card image cap">
     <div class="card-block">
@@ -11,7 +44,7 @@
       <div class="form-group">
 
         <select class="form-control" formControlName="idProducto">
-          <option *ngFor="let producto of zona.productosSinDes" value="{{producto}}">{{getNameById(producto)}}</option> <!--Aqui va NgFor con los productos de cada zona-->
+          <option *ngFor="let producto of zona.productosSinDes" value="{{producto}}">{{getNameById(producto)}}</option>
         </select>
       </div>
 
@@ -24,8 +57,8 @@
 
   </div>
 
-</div>
-
+</div> -->
+<!--
 <h2>Zonas en Desarrollo</h2>
 <hr>
 
@@ -62,4 +95,4 @@
     </div>
   </div>
 
-</div>
+</div> -->

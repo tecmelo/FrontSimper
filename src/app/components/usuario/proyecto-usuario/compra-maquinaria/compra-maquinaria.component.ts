@@ -29,16 +29,7 @@ export class CompraMaquinariaComponent implements OnInit {
   ngOnInit() {
   }
 
-  comprueba(maquina){
-    if(maquina.idMaquinaria==this.maqSelectedAdd.idMaquinaria){
-      return true;
 
-    }
-
-    else{
-      return false
-    }
-      }
 
   selectMaquinariaAdd(maquina:any){
     this.maqSelectedAdd=maquina;

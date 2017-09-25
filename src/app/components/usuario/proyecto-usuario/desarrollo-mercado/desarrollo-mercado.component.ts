@@ -18,6 +18,7 @@ export class DesarrolloMercadoComponent implements OnInit {
   productosZonaEnDesarrollo: any[] = [];
   productosZonaDesarrollados: any[] = [];
   zonaForm:FormGroup;
+  productoSelectedAdd:any;
 
   constructor(private _zonasService: ZonasService,
               private _desarrolloZonaService:DesarrolloZonaService,
@@ -108,6 +109,11 @@ export class DesarrolloMercadoComponent implements OnInit {
           }
         }
     }
+  }
+
+
+  selectProductoAdd(producto){
+    this.productoSelectedAdd=producto;
   }
 
 }
