@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DesarrolloProductoService } from '../../../../services/desarrollo-producto.service';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-desarrollo-producto',
@@ -11,6 +12,13 @@ export class DesarrolloProductoComponent implements OnInit {
   productosEnDesarrollo:any[] = [];
   productosSinDesarrollar:any[] = [];
   productoSelectedAdd:any;
+  productoSelectedPago={
+    id:null,
+    costo:null
+  };
+
+  @ViewChild('modalConfDes') public modalConfDes:ModalDirective;
+  @ViewChild('modalConfPago') public modalConfPago:ModalDirective;
 
   constructor(private _desarrolloProducto:DesarrolloProductoService) {
     this.productosSinDesarrollar = this._desarrolloProducto.returnProductosSinDesarrollar();
@@ -27,11 +35,23 @@ export class DesarrolloProductoComponent implements OnInit {
 
   desarrollar(){
       this._desarrolloProducto.comenzarDesarrollo(this.productoSelectedAdd.idProducto,this.productoSelectedAdd.costoDes);
+      this.modalConfDes.hide();
   }
 
-  pagarDesarrollo(id,costo){
-    this._desarrolloProducto.pagarDesarrollo(id,costo)
+  pagarDesarrollo(){
+    this._desarrolloProducto.pagarDesarrollo(this.productoSelectedPago.id,this.productoSelectedPago.costo)
   }
+
+  confPago(id,costo){
+    this.productoSelectedPago={
+      id:id,
+      costo:costo
+    }
+    console.log(this.productoSelectedPago);
+    this.modalConfPago.show()
+  }
+
+
 
   selectProducto(producto){
     console.log(producto)
