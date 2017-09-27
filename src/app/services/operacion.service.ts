@@ -35,11 +35,8 @@ export class OperacionService {
       "unidadesAlmacenadas":unidadesAlmacenadas,
       "unidadesVendidas":unidadesVendidas
     }
-    this.addOperacion(x).subscribe(data => {
-      // for(let key$ in data.datos){
-      //   this.productosOperacion[key$] = data.datos[key$];
-      // }
-    });
+    this.addOperacion(x).subscribe();
+    this.sell(x).subscribe();
   }
 
   //Peticiones
@@ -50,6 +47,10 @@ export class OperacionService {
       "idUsuario":localStorage.getItem('idUsuario')
     }
     return this.http.post('http://localhost:3000/productoszonasproyectos/zonasporproducto/',x,this.headers).map(res => res.json());
+  }
+
+  sell(x){
+    return this.http.post('http://localhost:3000/operacion/selling/',x,this.headers).map(res => res.json());
   }
 
   getAllOperaciones(){
