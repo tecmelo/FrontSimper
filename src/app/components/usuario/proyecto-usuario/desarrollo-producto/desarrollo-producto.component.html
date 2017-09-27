@@ -2,7 +2,7 @@
   <div class="col-4 offset-1">
       <h3 class="text-center">Desarrollo de Productos</h3>
       <hr>
-  
+
       <div class="col-12" style="height:550px; overflow-y:scroll;overflow-x:hidden">
         <div class="card" *ngFor="let producto of productosSinDesarrollar" (click)="selectProducto(producto)"
         [ngClass]="{'resaltar':producto.idProducto==this.productoSelectedAdd.idProducto}">
@@ -25,7 +25,7 @@
 
   <div class="col-2">
     <button type="button" class="btn btn-primary col-10 offset-1" style="margin-top:300px;"
-    (click)="desarrollar()">></button>
+    (click)="this.modalConfDes.show()"><i class="material-icons">keyboard_arrow_right</i></button>
   </div>
 
   <div class=" col-4">
@@ -64,6 +64,10 @@
               <div class="col-6">
                 <h4 class="card-title">{{producto.nombreProd}}</h4>
               </div>
+
+              <button type="button" (click)="confPago(producto.idProducto,producto.costoDes)"
+              class="btn btn-primary">Pagar</button>
+
               <!-- <div class=" col-3 ">
                 <button type="button" class="btn btn-success" (click)= "agregarMaquinaria(maquina)"><i class="fa fa-plus" aria-hidden="true"></i></button>
               </div> -->
@@ -76,6 +80,61 @@
     </div>
   </div>
 </div>
+
+
+<div bsModal #modalConfDes="bs-modal" class="modal fade"
+tabindex="-1" role="dialog"
+style="z-index:100000">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class=" col-12 text-center">Confirmación</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row text-center">
+          ¿Estas seguro que deseas empezar a desarrollar el producto?
+          <br>
+        </div>
+        <br>
+        <div class="row">
+          <button type="button" class="btn btn-danger offset-2 col-3"  (click)="desarrollar()">Si</button>
+          <button type="button" class="btn btn-primary offset-2 col-3" (click)="modalConfDes.hide()">No</button>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div bsModal #modalConfPago="bs-modal" class="modal fade"
+tabindex="-1" role="dialog"
+style="z-index:100000">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class=" col-12 text-center">Confirmación</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row text-center">
+          ¿Estas seguro que deseas pagar el desarrollo del producto {{productoSelectedPago.id}}?
+          <br>
+        </div>
+        <br>
+        <div class="row">
+          <button type="button" class="btn btn-danger offset-2 col-3"  (click)="pagarDesarrollo()">Si</button>
+          <button type="button" class="btn btn-primary offset-2 col-3" (click)="modalConfPago.hide()">No</button>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- <div class="card-columns" >
   <div class="card" *ngFor="let producto of productosSinDesarrollar">
