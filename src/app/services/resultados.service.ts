@@ -31,12 +31,15 @@ export class ResultadosService {
   getBalanceFinal(){
     this.balanceFinal.length = 0;
     this._balanceService.getBalance().subscribe(data => {
-      for(let p in data.datos){
-        this.balanceFinal.push(data.datos[p]);
-        break;
+      for(let key in data.datos){
+        this.balanceFinal.push(data.datos[key])
       }
     });
     return this.balanceFinal;
+  }
+
+  getReadyF(){
+    this._balanceService.getBalanceFinal().subscribe();
   }
 
 }

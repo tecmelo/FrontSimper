@@ -21,6 +21,18 @@ periodoActual=localStorage.getItem('numeroPeriodo');
     return this.http.post('http://localhost:3000/balance/',x,{headers}).map(res => res.json());
   }
 
+  getBalanceFinal(){
+    var x = {
+      idProyecto:parseInt(localStorage.getItem('idProyecto')),
+      numeroPeriodo:parseInt(localStorage.getItem('numeroPeriodo')) - 1
+    };
+    let headers = new Headers({
+      'Content-Type':'application/json'
+    });
+    return this.http.post('http://localhost:3000/balance/final',x,{headers}).map(res => res.json());
+  }
+
+
   getBalanceByIds(idProyecto,numeroPeriodo){
     var x = {
       idProyecto:parseInt(idProyecto),
@@ -44,7 +56,6 @@ periodoActual=localStorage.getItem('numeroPeriodo');
   }
 
   crearBalance(idProyecto,data, numPeriodo){
-    var dep = data.maqEquipo*.10;
     var Balance = {
     "IVAPorEnterar":data.IVAPorEnterar,
     "numeroPeriodo":numPeriodo,
@@ -66,13 +77,13 @@ periodoActual=localStorage.getItem('numeroPeriodo');
     "gastosAmortizacion":data.gastosAmortizacion,
     "capitalSocial":data.capitalSocial,
     "reservaLegal":data.reservaLegal,
-    "utilidadAcum":data.utilidadAcum - dep,
+    "utilidadAcum":data.utilidadAcum,
     "depEdif":data.depEdif,
     "depMueblesEnseres":data.depMueblesEnseres,
     "eqTrans":data.eqTrans,
     "Proyectos_idProyecto":idProyecto,
     "depTerreno":data.depTerreno,
-    "depMaqEquipo":data.depMaqEquipo + dep,
+    "depMaqEquipo":data.depMaqEquipo,
     "depEqTrans":data.depEqTrans
     }
     let headers = new Headers({

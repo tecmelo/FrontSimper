@@ -22,10 +22,10 @@
 
 
 
-        <div class="form-group row">
+        <!-- <div class="form-group row">
           <label class="col-12 col-form-label">Cantidad a Almacenanda</label>
           <label class="col-12 col-form-label ">18,000</label>
-        </div>
+        </div> -->
 
 
 
@@ -34,7 +34,7 @@
           <label class="col-12 col-form-label">Cantidad a Vender</label>
           <div class="col-12">
 
-            <input class="form-control" formControlName="cantidadVenta"
+            <input class="form-control" formControlName="cantidadVenta" value="0"
             type="number">
           </div>
 
@@ -45,13 +45,11 @@
           <label class="col-12 col-form-label">Cantidad a Almacenar</label>
           <div class="col-12">
 
-            <input class="form-control" formControlName="cantidadAlmacen"
+            <input class="form-control" formControlName="cantidadAlmacen" value="0"
             type="number">
           </div>
         </div>
 
-
-        <button type="submit" class="btn btn-primary col-5" >Simular</button>
         <button type="button" class="btn btn-primary col-5" (click)="cobrarVenta(ventasForm.value,producto.idProducto)">Vender</button>
 
       </form>

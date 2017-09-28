@@ -33,16 +33,15 @@ export class VentaProductosComponent implements OnInit {
 
 
   venta(form,id){
-    console.log(form)
-    console.log(id)
     this._operacionService.registerOperacion(id,form.idZona,form.cantidadAlmacen,form.cantidadVenta);
   }
 
   cobrarVenta(form,id){
-    var p = this.getProducto(id);
+    var p = id;
+    var idZ = form.idZona;
     var cv = form.cantidadVenta;
     var ca = form.cantidadAlmacen;
-    this._operacionService.cobrarVenta(p,cv,ca);
+    this._operacionService.registerOperacion(p,idZ,ca,cv);
   }
 
   getNameByIdProducto(id:number){

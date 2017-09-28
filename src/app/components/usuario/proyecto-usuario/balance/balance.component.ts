@@ -72,6 +72,7 @@ export class BalanceComponent implements OnInit {
     var proyecto = localStorage.getItem('idProyecto');
     let periodoNuevo = parseInt(p) + 1;
     this._balanceService.getBalanceByIds(proyecto,p).subscribe(data => {
+      var dep = data.datos[0].maqEquipo*.10;
       this._balanceService.crearBalance(proyecto,data.datos[0],periodoNuevo).subscribe(data => {
         if(data.success){
           localStorage.setItem('numeroPeriodo',periodoNuevo.toString());
@@ -83,6 +84,7 @@ export class BalanceComponent implements OnInit {
             numero: this.periodo
           }
           this.periodos.push(y);
+          this.crearAuxiliar(periodoNuevo,proyecto,dep);
         }
       });
     });
@@ -108,6 +110,14 @@ export class BalanceComponent implements OnInit {
     this.modalPeriodos.hide();
   }
 
+  crearAuxiliar(numeroPeriodo,idProyecto,dep){
+    var x = {
+      Proyectos_idProyecto:idProyecto,
+      costoTransformacionMaq:dep,
+      Balance_numeroPeriodo:numeroPeriodo
+    }
+    this._auxiliarService.addAuxiliar(x).subscribe();
+  }
 
 
 

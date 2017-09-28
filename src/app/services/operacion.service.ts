@@ -26,14 +26,22 @@ export class OperacionService {
   }
 
   registerOperacion(idProducto,idZona,unidadesAlmacenadas,unidadesVendidas){
+    var uniA = 0;
+    var uniV = 0;
+    if(unidadesAlmacenadas != null){
+      uniA = unidadesAlmacenadas;
+    }
+    if(unidadesVendidas != null){
+      uniV = unidadesVendidas;
+    }
     var x = {
       "Producto_idProducto":idProducto,
       "Zona_idZonas":idZona,
       "Proyecto_idProyecto":localStorage.getItem('idProyecto'),
       "Usuario_idUsuario":localStorage.getItem('idUsuario'),
       "numeroPeriodo":localStorage.getItem('numeroPeriodo'),
-      "unidadesAlmacenadas":unidadesAlmacenadas,
-      "unidadesVendidas":unidadesVendidas
+      "unidadesAlmacenadas":uniA,
+      "unidadesVendidas":uniV
     }
     this.addOperacion(x).subscribe();
     this.sell(x).subscribe();
