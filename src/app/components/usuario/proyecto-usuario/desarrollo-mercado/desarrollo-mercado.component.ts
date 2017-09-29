@@ -36,6 +36,7 @@ export class DesarrolloMercadoComponent implements OnInit {
     this.productosZonaSinDesarrollar = this._desarrolloZonaService.returnProductosDeZonaSinDesarrollar();
     this.productosZonaEnDesarrollo = this._desarrolloZonaService.returnProductosDeZonaEnDesarrollo();
     this.productosZonaDesarrollados = this._desarrolloZonaService.returnProductosDeZonaDesarrollados();
+    console.log(this.productosZonaEnDesarrollo)
     this.zonaForm=new FormGroup({
       'idProducto':new FormControl('',Validators.required)
     });
