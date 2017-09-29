@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {ZonasService} from '../../../../services/zonas.service';
 import {ProductoService} from '../../../../services/producto.service';
 import {DesarrolloZonaService} from '../../../../services/desarrollo-zona.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {producto} from '../../../../app.interfaces';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+
 
 @Component({
   selector: 'app-desarrollo-mercado',
@@ -12,6 +14,10 @@ import {producto} from '../../../../app.interfaces';
 })
 export class DesarrolloMercadoComponent implements OnInit {
 
+  @ViewChild('modalConfDes') public modalConfDes:ModalDirective;
+  @ViewChild('modalConfPago') public modalConfPago:ModalDirective;
+
+
   zonas=[]
   productos:producto[]=[];
   productosZonaSinDesarrollar:any[] = [];
@@ -19,6 +25,7 @@ export class DesarrolloMercadoComponent implements OnInit {
   productosZonaDesarrollados: any[] = [];
   zonaForm:FormGroup;
   productoSelectedAdd:any;
+  productoSelectedPago:any;
 
   constructor(private _zonasService: ZonasService,
               private _desarrolloZonaService:DesarrolloZonaService,
@@ -29,12 +36,27 @@ export class DesarrolloMercadoComponent implements OnInit {
     this.productosZonaSinDesarrollar = this._desarrolloZonaService.returnProductosDeZonaSinDesarrollar();
     this.productosZonaEnDesarrollo = this._desarrolloZonaService.returnProductosDeZonaEnDesarrollo();
     this.productosZonaDesarrollados = this._desarrolloZonaService.returnProductosDeZonaDesarrollados();
+    console.log(this.productosZonaEnDesarrollo)
     this.zonaForm=new FormGroup({
       'idProducto':new FormControl('',Validators.required)
     });
+
+    this.productoSelectedAdd={
+      idProducto:null,
+      idZona:null
+    };
+
+    console.log(this.productosZonaDesarrollados);
    }
 
   ngOnInit() {
+  }
+
+  selecciona(producto,idZona){
+    if(producto==this.productoSelectedAdd.idProducto && idZona==this.productoSelectedAdd.idZona)
+      return true
+    else
+      return false
   }
 
   getNameById(id:number){
@@ -72,11 +94,13 @@ export class DesarrolloMercadoComponent implements OnInit {
     return 0;
   }
 
-  pagarDesarrollo(idZona,idProducto){
-    var costo = this.getCosto(idZona,idProducto[0]);
+  pagarDesarrollo(){
+    this.modalConfPago.hide();
+    console.log(this.productoSelectedPago.idProducto)
+    var costo = this.getCosto(this.productoSelectedPago.idZona,this.productoSelectedPago.idProducto);
     var x = {
-      Producto_idProducto:idProducto[0],
-      Zona_idZonas:idZona,
+      Producto_idProducto:this.productoSelectedPago.idProducto,
+      Zona_idZonas:this.productoSelectedPago.idZona,
       Proyecto_idProyecto:localStorage.getItem('idProyecto'),
       Proyecto_Usuario_idUsuario:localStorage.getItem('idUsuario'),
       ultimoPeriodoDes:localStorage.getItem('numeroPeriodo')
@@ -85,17 +109,18 @@ export class DesarrolloMercadoComponent implements OnInit {
     this._desarrolloZonaService.cobrarDesarrollo(costo).subscribe();
   }
 
-  desarrollaZona(idZona,formZona){
-    this.quitaProducto(idZona,formZona);
+  desarrollaZona(producto){
+    this.modalConfDes.hide();
+    this.quitaProducto(producto.idZona,producto.idProducto);
     var x = {
-      Producto_idProducto:formZona.idProducto,
-      Zona_idZonas:idZona,
+      Producto_idProducto:producto.idProducto,
+      Zona_idZonas:producto.idZona,
       Proyecto_idProyecto:localStorage.getItem('idProyecto'),
       Proyecto_Usuario_idUsuario:localStorage.getItem('idUsuario'),
       periodoInicio:localStorage.getItem('numeroPeriodo'),
       ultimoPeriodoDes:localStorage.getItem('numeroPeriodo')
     }
-    var costo = this.getCosto(idZona,formZona.idProducto);
+    var costo = this.getCosto(producto.idZona,producto.idProducto);
     this._desarrolloZonaService.cobrarDesarrollo(costo).subscribe();
     this._desarrolloZonaService.comenzarDesarrolloZona(x);
   }
@@ -104,16 +129,31 @@ export class DesarrolloMercadoComponent implements OnInit {
     for(let i in this.productosZonaSinDesarrollar){
       if(this.productosZonaSinDesarrollar[i].idZona==zona)
         for(let j in this.productosZonaSinDesarrollar[i].productosSinDes){
-          if(this.productosZonaSinDesarrollar[i].productosSinDes[j]==producto.idProducto){
+          if(this.productosZonaSinDesarrollar[i].productosSinDes[j]==producto){
             this.productosZonaSinDesarrollar[i].productosSinDes.splice(parseInt(j),1);
           }
         }
     }
   }
 
+  confPago(idZona,idProducto){
 
-  selectProductoAdd(producto){
-    this.productoSelectedAdd=producto;
+    this.productoSelectedPago={
+      idZona:idZona,
+      idProducto:idProducto
+    };
+    console.log(this.productoSelectedPago)
+    this.modalConfPago.show();
+  }
+
+
+  selectProductoAdd(idProducto,idZona){
+
+    this.productoSelectedAdd={
+      idProducto:idProducto,
+      idZona:idZona
+    };
+      console.log(this.productoSelectedAdd);
   }
 
 }

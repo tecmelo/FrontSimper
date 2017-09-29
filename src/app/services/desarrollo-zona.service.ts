@@ -10,6 +10,7 @@ export class DesarrolloZonaService {
   constructor(private http:Http) { }
 
   comenzarDesarrolloZona(x){
+    console.log(x)
     this.addZona(x).subscribe(data => {
       if(data.success){
         this.getProductosDeZonaEnDesarrollo().subscribe(data => {
@@ -32,6 +33,24 @@ export class DesarrolloZonaService {
       'Content-Type':'application/json'
     });
     return this.http.post('http://localhost:3000/productoszonasproyectos/desarrollozona/',x, {headers}).map(res => res.json());
+  }
+
+  returnDemanda(nP, idZ, idP){
+    this.getDemanda(nP, idZ, idP).subscribe(data => {
+      return data.datos[0];
+    });
+  }
+
+  getDemanda(nP, idZ, idP){
+    var x = {
+      numPeriodo:nP,
+      idZona:idZ,
+      idProducto:idP
+    }
+    let headers = new Headers({
+      'Content-Type':'application/json'
+    });
+    return this.http.post('http://localhost:3000/demanda/getdemanda',x, {headers}).map(res => res.json());
   }
 
   cobrarDesarrollo(costoDes){

@@ -26,20 +26,25 @@ export class OperacionService {
   }
 
   registerOperacion(idProducto,idZona,unidadesAlmacenadas,unidadesVendidas){
+    var uniA = 0;
+    var uniV = 0;
+    if(unidadesAlmacenadas != null){
+      uniA = unidadesAlmacenadas;
+    }
+    if(unidadesVendidas != null){
+      uniV = unidadesVendidas;
+    }
     var x = {
       "Producto_idProducto":idProducto,
       "Zona_idZonas":idZona,
       "Proyecto_idProyecto":localStorage.getItem('idProyecto'),
       "Usuario_idUsuario":localStorage.getItem('idUsuario'),
       "numeroPeriodo":localStorage.getItem('numeroPeriodo'),
-      "unidadesAlmacenadas":unidadesAlmacenadas,
-      "unidadesVendidas":unidadesVendidas
+      "unidadesAlmacenadas":uniA,
+      "unidadesVendidas":uniV
     }
-    this.addOperacion(x).subscribe(data => {
-      // for(let key$ in data.datos){
-      //   this.productosOperacion[key$] = data.datos[key$];
-      // }
-    });
+    this.addOperacion(x).subscribe();
+    this.sell(x).subscribe();
   }
 
   //Peticiones
@@ -50,6 +55,10 @@ export class OperacionService {
       "idUsuario":localStorage.getItem('idUsuario')
     }
     return this.http.post('http://localhost:3000/productoszonasproyectos/zonasporproducto/',x,this.headers).map(res => res.json());
+  }
+
+  sell(x){
+    return this.http.post('http://localhost:3000/operacion/selling/',x,this.headers).map(res => res.json());
   }
 
   getAllOperaciones(){

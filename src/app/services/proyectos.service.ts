@@ -119,6 +119,15 @@ returnUsuarios(){
     this._auxiliarService.addAuxiliar(x).subscribe();
   }
 
+  crearAuxiliar0(idProyecto,dep){
+    var x = {
+      Proyectos_idProyecto:idProyecto,
+      costoTransformacionMaq:dep,
+      Balance_numeroPeriodo:0
+    }
+    this._auxiliarService.addAuxiliar(x).subscribe();
+  }
+
   asignarZonas(idProyecto, idUsuario){
     this._usuarioZonaService.getZonasU(idUsuario).subscribe(data => {
       for(let key$ in data.datos){
@@ -158,6 +167,7 @@ returnUsuarios(){
           this.crearBalanceUno(idProyecto,data[key$],1).subscribe(data => {
             if(data.success){
               this.crearAuxiliar(idProyecto,dep);
+              this.crearAuxiliar0(idProyecto,dep);
             }
           });
           this.crearBalanceCero(idProyecto,data[key$],0).subscribe();
