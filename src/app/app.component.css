@@ -1,4 +1,3 @@
 .meanPage{
-  overflow-x: hidden;
-  overflow-y:visible;
+overflow: hidden;
 }

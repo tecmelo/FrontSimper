@@ -11,7 +11,8 @@ import { AccordionModule } from 'ngx-bootstrap';
 import { PaginationModule } from 'ngx-bootstrap';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NvD3Module } from 'ng2-nvd3';
-
+import { ScrollToModule } from 'ng2-scroll-to-el';
+import { PdfmakeModule } from 'ng-pdf-make';
 
 //Rutas
 import {app_routing} from './app.routes'
@@ -106,11 +107,12 @@ import 'nvd3';
   ],
   imports: [
     FlashMessagesModule,
+    BrowserModule,
     NvD3Module,
+    ScrollToModule.forRoot(),
     ModalModule.forRoot(),
     AlertModule.forRoot(),
     TabsModule.forRoot(),
-    BrowserModule,
     app_routing,
     AccordionModule.forRoot(),
     NgbModule.forRoot(),
@@ -120,7 +122,6 @@ import 'nvd3';
     ReactiveFormsModule,
     HttpModule,
     SelectModule,
-    ChartModule.forRoot(require('highcharts'))
   ],
   providers: [UsuariosService,
               AuthService,

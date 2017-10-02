@@ -68,7 +68,11 @@ export class ProyectosComponent implements OnInit {
   eliminaProyecto(id:number){
     this.confModalDelete.hide();
     this._proyectosService.eliminaProyecto(id).subscribe();
-
+    this.alerts.push({
+      type: 'danger',
+      msg: `Proyecto Eliminado`,
+      timeout: 2000
+    });
 
 
   }

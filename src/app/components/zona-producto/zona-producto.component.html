@@ -1,5 +1,5 @@
 <div class=" col-12" style="margin-left:60px">
-  <h1 class="text-center">Demanda de Productos por Zona</h1>
+  <h1  class="text-center" ngModel="top">Demanda de Productos por Zona</h1>
   <hr>
   <div class="row" *ngFor="let zona of zonas; let i=index">
 
@@ -17,7 +17,8 @@
 
             <div class="col-6" >
               <div style="height:480px;overflow-y:scroll;overflow-x:hidden;margin-left:30px;padding-left:30px;">
-                <div class="row" *ngFor="let producto of zona.productos" style="margin-bottom:30px" >
+                <div class="row" *ngFor="let producto of zona.productos" style="margin-bottom:30px"
+                (click)="selectProductoScroll(top)">
 
                   <table class="table table-responsive table-sm " >
                     <thead>

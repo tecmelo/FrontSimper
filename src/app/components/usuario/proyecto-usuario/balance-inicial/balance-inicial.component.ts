@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ResultadosService} from '../../../../services/resultados.service';
+import { PdfmakeService } from 'ng-pdf-make/pdfmake/pdfmake.service';
+import { Cell, Row, Table } from 'ng-pdf-make/objects/table';
 
 @Component({
   selector: 'app-balance-inicial',
@@ -8,9 +10,12 @@ import {ResultadosService} from '../../../../services/resultados.service';
 })
 export class BalanceInicialComponent implements OnInit {
   balanceInicial:any;
-  constructor(private _resultadosService:ResultadosService) {
+  constructor(private _resultadosService:ResultadosService,
+              private pdfmake: PdfmakeService) {
     this.balanceInicial = this._resultadosService.balanceInicialAnterior();
+    console.log(this.balanceInicial)
   }
+  
 
   ngOnInit() {
   }

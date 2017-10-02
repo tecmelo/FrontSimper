@@ -1,11 +1,12 @@
-<div *ngFor="let alert of alerts" style="position:fixed;z-index:10000;width:100%">
-  <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
-</div>
 
-<div style="margin-top:90px">
+
+<div style="margin-top:90px" class="container">
   <div class="section" style="margin-bottom:50px;">
     <h1 class="text-center">Proyectos</h1>
     <hr>
+    <div class="text-center" *ngFor="let alert of alerts" style="z-index:10000;width:100%; ">
+      <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout"><h3>{{ alert.msg }}</h3></alert>
+    </div>
   </div>
 
 

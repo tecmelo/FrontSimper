@@ -7,9 +7,9 @@ import {ZonasService} from '../../services/zonas.service';
 import {Router} from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { ChartModule } from 'angular2-highcharts';
-import * as highcharts from 'highcharts'
 import {GraficasService} from '../../services/graficas.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { ScrollToService } from 'ng2-scroll-to-el';
 // import {BrowserAnimationsModule} from '@angular/platform-browser-animations';
 
 
@@ -35,7 +35,12 @@ newPerido:number;
 productos:any;
 formPeriodoNew:FormGroup;
 formPeriodoEdit:FormGroup;
-
+selectedZona:any;
+selectedProducto:any;
+zonaScrollSelected={
+  zona:null,
+  producto:null
+};
 
 
 
@@ -118,7 +123,8 @@ options;
     private _demandaService:ZonasService,
     private _productosService:ProductoService,
     private modalService:NgbModal,
-    private _graficasService:GraficasService
+    private _graficasService:GraficasService,
+    private scrollService: ScrollToService
   ) {
     this.zonas=_graficasService.returnZonas();
     console.log("Original",this.zonas)
@@ -172,16 +178,19 @@ options;
   }
 
   editaPeriodo(producto){
-
+      console.log("Producto",producto);
       this._graficasService.editaPeriodo(producto);
-
+      //this.scrollService.scrollTo(this.zonaScrollSelected.zona+this.zonaScrollSelected.producto)
       this.modalPeriodoEdit.hide();
       setTimeout(() =>
   {
       this.graficas=this._graficasService.returnGraficas();
   },
       1000);
+
+
       // console.log("Coomponent",producto)
+      //this.scrollService.scrollTo(zona.idZona.toS);
   }
 
   borraPeriodo(idZona,idProducto){
@@ -193,6 +202,16 @@ options;
 },
     1000);
 
+
+  }
+
+selectProductoScroll(element){
+  // this.zonaScrollSelected={
+  //   zona:zona.idZona,
+  //   producto:producto.idProducto
+  // };
+  console.log(element)
+  //console.log(this.zonaScrollSelected.zona+this.zonaScrollSelected.producto)
 
   }
 
@@ -246,40 +265,6 @@ options;
 
 
 
-  onSelect(event) {
-    console.log(event);
-  }
 
 
-  sinAndCos() {
-      var sin = [],sin2 = [],
-        cos = [];
-
-      //Data is represented as an array of {x,y} pairs.
-      for (var i = 0; i < 100; i++) {
-        sin.push({x: i, y: Math.sin(i/10)});
-        sin2.push({x: i, y: i % 10 == 5 ? null : Math.sin(i/10) *0.25 + 0.5});
-        cos.push({x: i, y: .5 * Math.cos(i/10+ 2) + Math.random() / 10});
-      }
-
-      //Line chart data should be sent as an array of series objects.
-      return [
-        {
-          values: sin,      //values - represents the array of {x,y} data points
-          key: 'Sine Wave', //key  - the name of the series.
-          color: '#ff7f0e'  //color - optional: choose your own line color.
-        },
-        {
-          values: cos,
-          key: 'Cosine Wave',
-          color: '#2ca02c'
-        },
-        {
-          values: sin2,
-          key: 'Another sine wave',
-          color: '#7777ff',
-          area: true      //area - set to true if you want this line to turn into a filled area chart.
-        }
-      ];
-    }
   }
