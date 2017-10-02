@@ -11,13 +11,17 @@ export class BalanceFinalComponent implements OnInit {
   balanceFinal:any;
 
   constructor(private _resultadosService:ResultadosService, private _balanceService:BalanceService) {
-    this._balanceService.getBalanceFinal().subscribe();
-    setTimeout(() => {
-     this.balanceFinal = this._resultadosService.getBalanceFinal();
-   }, 1000);
+    this._resultadosService.vender();
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      this._balanceService.getBalanceFinal().subscribe( data => {
+        if(data.success){
+          this.balanceFinal = this._resultadosService.getBalanceFinal();
+        }
+      });
+    }, 1500);
   }
 
 }

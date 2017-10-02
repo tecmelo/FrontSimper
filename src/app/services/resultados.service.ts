@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import {UsuariosService} from './usuarios.service';
 import {BalanceService} from './balance.service';
+import {OperacionService} from "./operacion.service";
 
 @Injectable()
 export class ResultadosService {
   balanceInicial:any=[];
   balanceFinal:any=[];
 
-  constructor(private _usuariosService:UsuariosService, private _balanceService:BalanceService) { }
+  constructor(private _usuariosService:UsuariosService, private _balanceService:BalanceService, private _operacionService:OperacionService)
+   { }
 
   balanceInicialUsuario(){
     this.balanceInicial.length = 0;
@@ -38,8 +40,13 @@ export class ResultadosService {
     return this.balanceFinal;
   }
 
-  getReadyF(){
-    this._balanceService.getBalanceFinal().subscribe();
+  vender(){
+    this._operacionService.getAllOperaciones().subscribe( data => {
+      for(let key$ in data.datos){
+        console.log(1);
+        this._operacionService.sell(data.datos[key$]).subscribe();
+      }
+    });
   }
 
 }
