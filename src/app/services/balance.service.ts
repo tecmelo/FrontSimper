@@ -8,6 +8,7 @@ balancesArray:any[] = [];
 balances:any[]=[];
 periodoActual=localStorage.getItem('numeroPeriodo');
 
+
   constructor(private http:Http) { }
 
   getBalance(){
