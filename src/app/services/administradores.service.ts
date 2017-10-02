@@ -4,6 +4,7 @@ import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { HttpModule } from '@angular/http';
 
+
 @Injectable()
 export class AdministradoresService {
   Administrador:admin;
