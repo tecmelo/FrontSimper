@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import {OperacionService} from '../../../../services/operacion.service';
 import {ProductoService} from '../../../../services/producto.service';
 import {ZonasService} from '../../../../services/zonas.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import {NgProgressService} from "ng2-progressbar";
 
 @Component({
   selector: 'app-venta-productos',
@@ -14,10 +16,13 @@ export class VentaProductosComponent implements OnInit {
   productos=[];
   zonas=[];
   ventasForm:FormGroup;
+  valueBar:number;
+  @ViewChild('modalProgressVenta') public modalProgressVenta:ModalDirective;
 
   constructor(private _operacionService:OperacionService,
               private _zonasService: ZonasService,
-              private _productoService:ProductoService) {
+              private _productoService:ProductoService,
+            private pService: NgProgressService) {
     this.zonas=this._zonasService.returnZonasNormales();
     this.productos=this._productoService.returnProductos();
     this.productosOperacion = this._operacionService.returnProductosOperacion();
@@ -34,6 +39,23 @@ export class VentaProductosComponent implements OnInit {
 
   venta(form,id){
     this._operacionService.registerOperacion(id,form.idZona,form.cantidadAlmacen,form.cantidadVenta);
+
+  }
+
+
+
+  progressVenta(){
+    this.modalProgressVenta.show();
+    this.pService.start();
+    this.valueBar=0;
+    for(let i=0;i<=100;i++){
+      setTimeout(function() {
+
+      console.log(this.valueBar)
+    }, 1000);
+      this.valueBar=i;
+    }
+
   }
 
   cobrarVenta(form,id){
@@ -42,6 +64,7 @@ export class VentaProductosComponent implements OnInit {
     var cv = form.cantidadVenta;
     var ca = form.cantidadAlmacen;
     this._operacionService.registerOperacion(p,idZ,ca,cv);
+      this.progressVenta();
   }
 
   getNameByIdProducto(id:number){

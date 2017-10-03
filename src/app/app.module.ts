@@ -13,6 +13,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NvD3Module } from 'ng2-nvd3';
 import { ScrollToModule } from 'ng2-scroll-to-el';
 import { PdfmakeModule } from 'ng-pdf-make';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 //Rutas
 import {app_routing} from './app.routes'
@@ -109,6 +110,7 @@ import 'nvd3';
     FlashMessagesModule,
     BrowserModule,
     NvD3Module,
+    ProgressbarModule.forRoot(),
     ScrollToModule.forRoot(),
     ModalModule.forRoot(),
     AlertModule.forRoot(),

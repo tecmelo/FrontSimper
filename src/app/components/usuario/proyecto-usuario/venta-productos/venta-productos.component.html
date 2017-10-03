@@ -44,7 +44,6 @@
         <div class="form-group row">
           <label class="col-12 col-form-label">Cantidad a Almacenar</label>
           <div class="col-12">
-
             <input class="form-control" formControlName="cantidadAlmacen" value="0"
             type="number">
           </div>
@@ -62,4 +61,25 @@
     </div>
 
 
+</div>
+
+
+
+<div bsModal #modalProgressVenta="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+style="z-index:100000">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class=" ">Confirmación</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="col-12">
+    <progressbar class="progress-striped" value={{valueBar}} type="danger">{{valueBar}}%</progressbar>
+  </div>
+  {{valueBar}}
+
+      </div>
+    </div>
+  </div>
 </div>
