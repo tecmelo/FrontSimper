@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Pipe, ViewChild } from '@angular/core';
 import {maquinaria} from '../../../../app.interfaces';
 import { CompraMaquinariaService } from '../../../../services/compra-maquinaria.service';
 import { MaquinariaService } from '../../../../services/maquinaria.service';
 import { ProductoService } from '../../../../services/producto.service';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-compra-maquinaria',
@@ -11,18 +12,56 @@ import { ProductoService } from '../../../../services/producto.service';
 })
 export class CompraMaquinariaComponent implements OnInit {
   maquinas:maquinaria[]=new Array();
+  directional: boolean = false;
+  openLoad: boolean;
+  openConf:boolean;
   productos = new Array();
   maquinasCompradas:any[]=[];
-  maqSelectedAdd:any;
+  maqSelectedAdd:any={
+    idMaquinaria:null,
+    roducto_idProducto:null,
+    cantidadProd:null,
+    costo:null,
+    depAcum:null,
+    nombreMaq:null
 
-  constructor(private _CompraMaquinariaService:CompraMaquinariaService, private _productosService:ProductoService, private _maquinariaService:MaquinariaService) {
+  };
+
+  maqSelectedLess:any={
+    idMaquinaria:null,
+    Producto_idProducto:null,
+    cantidadProd:null,
+    costo:null,
+    cantidad:null,
+    Proyectos_idProyecto:null,
+    Maquinaria_idMaquinaria:null,
+    depAcum:null,
+    nombreMaq:null,
+    imgMaq:null
+
+  };
+
+
+
+
+  @ViewChild('modalConfCompra') public modalConfCompra:ModalDirective;
+  @ViewChild('modalLoadCompra') public modalLoadCompra:ModalDirective;
+
+
+  constructor(private _CompraMaquinariaService:CompraMaquinariaService,
+    private _productosService:ProductoService,
+    private _maquinariaService:MaquinariaService) {
     this.productos = this._productosService.returnProductos();
     this.maquinas = this._maquinariaService.returnMaquinas();
     this.maquinasCompradas = this._CompraMaquinariaService.returnMaquinasCompradas();
+    console.log(this.maquinasCompradas)
     setTimeout(() => {
      this.maqSelectedAdd=this.maquinas[0];
-   }, 2000);
+   }, 200);
 
+   setTimeout(() => {
+    this.maqSelectedLess=this.maquinasCompradas[0];
+  }, 400);
     console.log(this.maqSelectedAdd);
   }
 
@@ -30,10 +69,14 @@ export class CompraMaquinariaComponent implements OnInit {
   }
 
 
-
   selectMaquinariaAdd(maquina:any){
     this.maqSelectedAdd=maquina;
     console.log(this.maqSelectedAdd)
+  }
+
+  selectMaquinariaLess(maquina){
+    this.maqSelectedLess=maquina;
+    console.log(this.maqSelectedLess);
   }
 
 
@@ -46,18 +89,28 @@ export class CompraMaquinariaComponent implements OnInit {
 
   }
 
-  comprar(id,costo,dep){
+async comprar(){
+    this.modalConfCompra.hide()
+    this.openLoad=true;
+    setTimeout(()=>this.openLoad=false, 2000);
     var x = {
-      Maquinaria_idMaquinaria:id,
+      Maquinaria_idMaquinaria:this.maqSelectedAdd.idMaquinaria,
       Proyectos_idProyecto:parseInt(localStorage.getItem('idProyecto'))
     }
 
     var y = {
       Balance_numeroPeriodo:parseInt(localStorage.getItem('numeroPeriodo')),
       Proyectos_idProyecto:parseInt(localStorage.getItem('idProyecto')),
-      costo:costo,
-      dep:dep
+      costo:this.maqSelectedAdd.costo,
+      dep:this.maqSelectedAdd.depAcum
     }
     this._CompraMaquinariaService.compraMaquinaria(x,y);
+
+
+
+
   }
+
+
+
 }

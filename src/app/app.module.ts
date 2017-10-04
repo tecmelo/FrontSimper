@@ -14,7 +14,9 @@ import { NvD3Module } from 'ng2-nvd3';
 import { ScrollToModule } from 'ng2-scroll-to-el';
 import { PdfmakeModule } from 'ng-pdf-make';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
-
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {SlimLoadingBarModule} from 'ng2-slim-loading-bar';
+import {NglModule} from 'ng-lightning/ng-lightning';
 //Rutas
 import {app_routing} from './app.routes'
 
@@ -110,7 +112,7 @@ import 'nvd3';
     FlashMessagesModule,
     BrowserModule,
     NvD3Module,
-    ProgressbarModule.forRoot(),
+    NglModule.forRoot(),
     ScrollToModule.forRoot(),
     ModalModule.forRoot(),
     AlertModule.forRoot(),

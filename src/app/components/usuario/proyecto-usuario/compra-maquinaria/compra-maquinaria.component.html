@@ -1,38 +1,96 @@
-<h2 class="offset-1 col-4 text-center">Maquinas para Comprar</h2>
-<hr>
+
 
 <div class="row">
-  <div class="offset-1 col-4">
-    <div class="card" *ngFor="let maquina of maquinas" (click)="selectMaquinariaAdd(maquina)"
-    [ngClass]="{'resaltar':maquina.idMaquinaria==this.maqSelectedAdd.idMaquinaria}">
-      <div class="card-block">
-        <div class="row">
-          <img  src="assets/img/machine.png" style="height:40px;margin-left:10px;">
+  <div class="offset-1 col-4" >
+    <h2 class="col-12 text-center">Maquinas para Comprar</h2>
+    <hr>
+    <div class="col-12"  style="overflow-y:scroll;height:550px">
+      <div class="card" *ngFor="let maquina of maquinas" (click)="selectMaquinariaAdd(maquina)"
+      [ngClass]="{'resaltar':maquina.idMaquinaria==this.maqSelectedAdd.idMaquinaria}">
+        <div class="card-block"
+        [ngClass]="{'letra-resaltar':maquina.idMaquinaria==this.maqSelectedAdd.idMaquinaria}">
+          <div class="row">
+            <img  src="assets/img/machine.png" style="height:60px;margin-left:10px;">
 
-          <div class="col-6">
-            <h4 class="card-title">{{maquina.nombreMaq}}</h4>
+            <div class="col-6">
+              <h4 class="card-title">{{maquina.nombreMaq}}</h4>
+              <h6 class="card-subtitle">Costo: {{ maquina.costo | currency:'USD':true }} </h6>
+
+
+            </div>
+            <!-- <div class=" col-3 ">
+              <button type="button" class="btn btn-success" (click)= "agregarMaquinaria(maquina)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            </div> -->
           </div>
-          <!-- <div class=" col-3 ">
-            <button type="button" class="btn btn-success" (click)= "agregarMaquinaria(maquina)"><i class="fa fa-plus" aria-hidden="true"></i></button>
-          </div> -->
         </div>
+        <div class="card-footer">
+          <div class="row">
+            <img src="assets/img/box.png" style="height:35px;margin-left:10px;margin-top:6px; margin-right:10px">
+            <div class="col-6">
+              <span class="row sma">Producto: {{getNameById(maquina.Producto_idProducto)}}</span>
+              <span class="row sma">Producción: {{maquina.cantidadProd}}u</span>
+            </div>
+
+          </div>
+
+
+        </div>
+
       </div>
 
     </div>
-
 
   </div>
 
   <div class="col-2">
     <button type="button" class="offset-1 col-10 btn btn-primary "
-    (click) ="comprar(maqSelectedAdd.idMaquinaria, maqSelectedAdd.costo,maqSelectedAdd.depAcum)" style="margin-top:130px"><i class="material-icons">keyboard_arrow_right</i></button>
+    (click) ="openConf=true" style="margin-top:250px"><i class="material-icons">keyboard_arrow_right</i></button>
     <button type="button" class="offset-1 col-10 btn btn-danger " style="margin-top:50px"><i class="material-icons">keyboard_arrow_left</i></button>
   </div>
 
   <div class="col-4">
+    <h2 class="col-12 text-center">Maquinas Compradas</h2>
+    <hr>
+
+    <div class="col-12" style="overflow-y:scroll;height:550px">
+      <div class="card" *ngFor="let maquina of maquinasCompradas" (click)="selectMaquinariaLess(maquina)"
+      [ngClass]="{'resaltarLess':maquina.idMaquinaria==this.maqSelectedLess.idMaquinaria}">
+        <div class="card-block"
+        [ngClass]="{'letra-resaltar':maquina.idMaquinaria==this.maqSelectedLess.idMaquinaria}">
+          <div class="row">
+            <img  src="assets/img/machine.png" style="height:60px;margin-left:10px;">
+
+            <div class="col-6">
+              <h4 class="card-title">{{maquina.nombreMaq}}</h4>
+              <h6 class="card-subtitle">Cantidad:<ngl-badge type="success" class="slds-l-horizontal--large">{{maquina.Cantidad}}</ngl-badge></h6>
 
 
-        <div class="card" *ngFor="let maquina of maquinasCompradas" >
+
+            </div>
+
+            <!-- <div class=" col-3 ">
+              <button type="button" class="btn btn-success" (click)= "agregarMaquinaria(maquina)"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            </div> -->
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="row">
+            <img src="assets/img/box.png" style="height:35px;margin-left:10px;margin-top:6px; margin-right:10px">
+            <div class="col-6">
+              <span class="row sma">Producto: {{getNameById(maquina.Producto_idProducto)}}</span>
+              <span class="row sma">Producción: {{maquina.cantidadProd*maquina.Cantidad}}u</span>
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+
+
+        <!-- <div class="card" *ngFor="let maquina of maquinasCompradas" >
           <div class="card-block">
             <div class="row">
               <img  src="assets/img/machine.png" style="height:40px;margin-left:10px;">
@@ -41,74 +99,91 @@
                 <h4 class="card-title">{{maquina.nombreMaq}}</h4>
                 {{maquina.Cantidad}}
               </div>
-              <!-- <div class="col-3 ">
-                <button type="button" class="btn btn-success" (click)= "agregarMaquinaria(maquina)"><i class="fa fa-plus" aria-hidden="true"></i></button>
-              </div> -->
             </div>
           </div>
 
+        </div> -->
+
+
+
+
+
+
+  </div>
+</div>
+
+
+
+<div bsModal #modalConfCompra="bs-modal" class="modal fade"
+tabindex="-1" role="dialog"
+style="z-index:100000">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class=" col-12 text-center">Confirmación</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row text-center container">
+          ¿Estas seguro que deseas comprar la maquina "{{maqSelectedAdd.nombreMaq}}"?
+          <br>
+        </div>
+        <br>
+        <div class="row">
+          <button type="button" class="btn btn-danger offset-2 col-3"  (click)="comprar()">Si</button>
+          <button type="button" class="btn btn-primary offset-2 col-3" (click)="modalConfCompra.hide()">No</button>
         </div>
 
 
-
-
-
-
+      </div>
+    </div>
   </div>
 </div>
 
 
-<!-- <div class="card-columns">
-  <div class="card" *ngFor="let maquina of maquinas" >
-    <img class="card-img-top img-fluid col-6 offset-3 center-block" style="margin-top:30px;" src="assets/img/machine.png" alt="Card image cap">
-    <div class="card-block">
-      <h2 class="text-center card-title">{{maquina.nombreMaq}}</h2>
-      <p class="card-text">Costo: {{maquina.costo}}
-        <br>
-        Producción: {{maquina.cantidadProd}} (unidades)
-        <br>
-        Producto: {{getNameById(maquina.Producto_idProducto)}}
-      </p>
 
 
+<div bsModal #modalLoadCompra="bs-modal" class="modal fade"
+tabindex="-1" role="dialog"
+style="z-index:100000">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class=" col-12 text-center">Comprando Maquinaria</h4>
+      </div>
+      <div class="modal-body">
+        <h6 class="col-12 text-center">Realizando Operación</h6>
+
+
+      </div>
     </div>
-    <div class="card-footer">
-      <button type="button" class="btn btn-danger col-12" (click) ="comprar(maquina.idMaquinaria,maquina.costo,maquina.depAcum)" >Comprar</button>
-    </div>
-  </div>
-
-</div> -->
-
-
-<!-- <h2>Maquinas Compradas</h2>
-<hr>
-
-<div class="card-columns">
-  <div class="card" *ngFor="let maquina of maquinasCompradas">
-    <img class="card-img-top img-fluid col-6 offset-3 center-block" style="margin-top:30px;" src="assets/img/machine.png" alt="Card image cap">
-    <div class="card-block">
-        <h2 class="text-center card-title">{{maquina.nombreMaq}}</h2>
-      <p class="card-text">Costo: {{maquina.costo}}
-        <br>
-        Numero de Maquinas: {{maquina.Cantidad}}
-        <br>
-        Producción Total: {{maquina.cantidadProd * maquina.Cantidad}} (unidades)
-        <br>
-        Producto: {{getNameById(maquina.Producto_idProducto)}}
-      </p>
-    </div>
-
-  </div>
-
-</div> -->
-
-<!-- <div class="col-6">
-  <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-  <div class="card-header">Header</div>
-  <div class="card-body">
-    <h4 class="card-title">Primary card title</h4>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
   </div>
 </div>
 
-</div> -->
+
+
+<ngl-modal  [(open)]="openLoad" size="small" directional="false">
+  <div body>
+        <h2 class="col-12 text-center">Comprando Maquinaria</h2>
+    <h6 class="col-12 text-center">Realizando Operación</h6>
+    <div style="position:relative; height:6.25rem; z-index:0;">
+      <ngl-spinner size="large" type="brand"></ngl-spinner>
+    </div>
+
+  </div>
+  </ngl-modal>
+
+
+  <ngl-modal header="Confirmación"  [(open)]="openConf" size="x-small" directional="false">
+
+    <div body>
+      <div class="col-12 text-center container">
+        ¿Estas seguro que deseas comprar la maquina "{{maqSelectedAdd.nombreMaq}}"?
+        <br>
+      </div>
+    </div>
+
+    <ng-template ngl-modal-footer>
+    <button class="btn btn-primary" (click)="cancel()">Cancel</button>
+    <button class="slds-button slds-button--brand">Save</button>
+  </ng-template>
+    </ngl-modal>
