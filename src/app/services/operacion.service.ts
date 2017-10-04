@@ -44,7 +44,6 @@ export class OperacionService {
       "unidadesVendidas":uniV
     }
     this.addOperacion(x).subscribe();
-    this.sell(x).subscribe();
   }
 
   //Peticiones

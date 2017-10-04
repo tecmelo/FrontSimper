@@ -66,7 +66,6 @@ import { ChartModule } from 'angular2-highcharts';
 import {LoginComponent} from './components/login/login.component';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
 
-import * as highcharts from 'highcharts';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { NavbarUsuarioComponent } from './components/usuario/navbar-usuario/navbar-usuario.component';
 import { ProyectoUsuarioComponent } from './components/usuario/proyecto-usuario/proyecto-usuario.component';
@@ -126,6 +125,7 @@ import 'nvd3';
     ReactiveFormsModule,
     HttpModule,
     SelectModule,
+    SelectModule
   ],
   providers: [UsuariosService,
               AuthService,
