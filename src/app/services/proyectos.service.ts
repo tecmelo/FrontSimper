@@ -147,17 +147,18 @@ returnUsuarios(){
   }
 
   asignarMaquinaria(idProyecto, idUsuario){
-    this._usuarioMaquinariaService.getMaquinariasU(idUsuario).subscribe(data => {
-      for(let key$ in data.datos){
-        var x = {
-          Maquinaria_idMaquinaria:data.datos[key$].idMaquinaria,
-          Proyectos_idProyecto:idProyecto,
-          cantidad:data.datos[key$].cantidad
+      this._usuarioMaquinariaService.getMaquinariasU(idUsuario).subscribe(data => {
+        for(let key$ in data.datos){
+          var x = {
+            Maquinaria_idMaquinaria:data.datos[key$].idMaquinaria,
+            Maquinaria_idProducto:data.datos[key$].Producto_idProducto,
+            Proyectos_idProyecto:idProyecto,
+            Cantidad:data.datos[key$].cantidad
+          }
+          this._CompraMaquinariaService.asingar(x).subscribe();
         }
-        this._CompraMaquinariaService.comprar(x).subscribe();
-      }
-    });
-  }
+      });
+    }
 
   asginarPeriodoCero(idProyecto){
     this.buscarDatosUsuario().subscribe(data => {
