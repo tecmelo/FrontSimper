@@ -12,11 +12,11 @@
       <th class="text-center">TOTAL</th>
     </tr>
 
-    <tr *ngFor="let producto of productosO">
-      <td>{{getNameByIdProducto(producto.idProducto)}}</td>
-      <td>{{producto.AlmacenArtTerminadoI.unidades}}</td>
-      <td>{{producto.AlmacenArtTerminadoI.costoUnitario}}</td>
-      <td>{{producto.AlmacenArtTerminadoI.Total}}</td>
+    <tr *ngFor="let producto of auxiliaresAnteriores">
+      <td>{{getNameByIdProducto(producto.Producto_idProducto)}}</td>
+      <td>{{producto.unidadesAlmacenadas}}</td>
+      <td>{{(producto.inventarioFinal / producto.unidadesAlmacenadas) | number}}</td>
+      <td>{{producto.inventarioFinal | number}}</td>
     </tr>
 
   </tbody>
@@ -38,23 +38,13 @@
       <th class="text-center">Importe</th>
     </tr>
 
-    <tr *ngFor="let producto of productosO">
-      <td>{{getNameByIdProducto(producto.idProducto)}}</td>
-      <td>{{producto.PresupuestoGlobalVentas.unidadesAVender}}</td>
-      <td>{{producto.PresupuestoGlobalVentas.precioVenta}}</td>
-      <td>{{producto.PresupuestoGlobalVentas.ventasEfe}}</td>
-      <td>0</td>
-      <td>{{producto.PresupuestoGlobalVentas.importe}}</td>
-    </tr>
-
-    <tr>
-      <th>TOTAL</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-
+    <tr *ngFor="let producto of auxiliares">
+      <td>{{getNameByIdProducto(producto.Producto_idProducto)}}</td>
+      <td>{{producto.unidadesVendidas}}</td>
+      <td>{{getPrecioVenta(producto.Producto_idProducto)}}</td>
+      <td>{{producto.Ventas - producto.IVAxVentas}}</td>
+      <td>{{0}}</td>
+      <td>{{producto.Ventas}}</td>
     </tr>
 
   </tbody>
@@ -86,32 +76,18 @@
       <th class="text-center align-middle">Costo Total</th>
     </tr>
 
-    <tr *ngFor="let producto of productosO">
-      <td>{{getNameByIdProducto(producto.idProducto)}}</td>
-      <td>{{producto.PresupuestoGlobalProduccion.unidadesAVender}}</td>
-      <td>{{producto.PresupuestoGlobalProduccion.inventarioFinal}}</td>
-      <td>{{producto.PresupuestoGlobalProduccion.inventarioInicial}}</td>
-      <td>{{producto.PresupuestoGlobalProduccion.unidadesAProducir}}</td>
-      <td>{{producto.PresupuestoGlobalProduccion.costoUnitarioMP}}</td>
-      <td>{{producto.PresupuestoGlobalProduccion.unidadesAProducir * producto.PresupuestoGlobalProduccion.costoUnitarioMP}}</td>
-      <td>{{producto.PresupuestoGlobalProduccion.costoUnitarioTrans}}</td>
-      <td>{{producto.PresupuestoGlobalProduccion.unidadesAProducir * producto.PresupuestoGlobalProduccion.costoUnitarioTrans}}</td>
-      <td>{{producto.PresupuestoGlobalProduccion.costoProduccionUnitario}}</td>
-      <td>{{producto.PresupuestoGlobalProduccion.costoProduccionTotal}}</td>
-    </tr>
-
-    <tr>
-      <th>TOTAL</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
+    <tr *ngFor="let producto of auxiliares">
+      <td>{{getNameByIdProducto(producto.Producto_idProducto)}}</td>
+      <td>{{producto.unidadesVendidas}}</td>
+      <td>{{producto.unidadesAlmacenadas}}</td>
+      <td>{{getUnidadesAlmacenadasAnterior(producto.Producto_idProducto)}}</td>
+      <td>{{producto.unidadesProducidas}}</td>
+      <td>{{getMPPuniProd(producto.Producto_idProducto)}}</td>
+      <td>{{producto.materiaCosumida}}</td>
+      <td>{{(producto.costoTransformacionVentas + producto.costoTransformacionMaq)/producto.unidadesProducidas | number}}</td>
+      <td>{{producto.costoTransformacionVentas + producto.costoTransformacionMaq}}</td>
+      <td>{{getMPPuniProd(producto.Producto_idProducto) + (producto.costoTransformacionVentas + producto.costoTransformacionMaq)/producto.unidadesProducidas | number}}</td>
+      <td>{{producto.costoTransformacionVentas + producto.costoTransformacionMaq + producto.materiaCosumida}}</td>
     </tr>
 
   </tbody>
@@ -136,22 +112,13 @@
 
     </tr>
 
-    <tr *ngFor="let producto of productosO">
-      <td>{{getNameByIdProducto(producto.idProducto)}}</td>
-      <td>{{producto.PresupuestoConsumoMP.cantidadUnitaria}}</td>
-      <td>{{producto.PresupuestoConsumoMP.costoUnitarioMP}}</td>
-      <td>{{producto.PresupuestoConsumoMP.unidadesAProducir}}</td>
-      <td>{{producto.PresupuestoConsumoMP.cantidad}}</td>
-      <td>{{producto.PresupuestoConsumoMP.importe}}</td>
-    </tr>
-
-    <tr>
-      <th>TOTAL</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
+    <tr *ngFor="let producto of auxiliares">
+      <td>{{getNameByIdProducto(producto.Producto_idProducto)}}</td>
+      <td>{{getUniMP(producto.Producto_idProducto)}}</td>
+      <td>{{getCostoUni(producto.Producto_idProducto)}}</td>
+      <td>{{producto.unidadesProducidas}}</td>
+      <td>{{getUniMP(producto.Producto_idProducto) * producto.unidadesProducidas}}</td>
+      <td>{{getCostoUni(producto.Producto_idProducto) * producto.unidadesProducidas}}</td>
     </tr>
 
   </tbody>
@@ -175,13 +142,13 @@
     </tr>
 
 
-    <tr *ngFor="let producto of productosO">
+    <tr>
       <td>1</td>
-      <td>{{producto.PresupuestoCompraMP.consumoMP}}</td>
-      <td>{{producto.PresupuestoCompraMP.costoUnitarioMP}}</td>
-      <td>{{producto.PresupuestoCompraMP.importe}}</td>
-      <td>{{producto.PresupuestoCompraMP.IVAAcreditable}}</td>
-      <td>{{producto.PresupuestoCompraMP.importe + producto.PresupuestoCompraMP.IVAAcreditable}}</td>
+      <td>{{getUniMPTotal() | number}}</td>
+      <td>69</td>
+      <td>{{getUniMPTotalCash() | number}}</td>
+      <td>{{getIVAMP() | number}}</td>
+      <td>{{getTotalMP() | number}}</td>
     </tr>
 
 
@@ -214,229 +181,303 @@
       <th class="text-center align-middle">Prevención Social</th>
     </tr>
 
-    <tr *ngFor="let producto of productosO">
-      <td>{{getNameByIdProducto(producto.idProducto)}}</td>
-      <td>{{producto.PresupuestoCostoTransformacion.unidadesAProducir}}</td>
-      <td>{{producto.PresupuestoCostoTransformacion.costoUniTotal}}</td>
-      <td>{{producto.PresupuestoCostoTransformacion.costoTrans}}</td>
-      <td>{{producto.PresupuestoCostoTransformacion.depreciaciones}}</td>
-      <td>{{producto.PresupuestoCostoTransformacion.neto}}</td>
+    <tr *ngFor="let producto of auxiliares">
+      <td>{{getNameByIdProducto(producto.Producto_idProducto)}}</td>
+      <td>{{producto.unidadesProducidas |number}}</td>
+      <td>{{(producto.costoTransformacionVentas + producto.costoTransformacionMaq )/ producto.unidadesProducidas |number }}</td>
+      <td>{{producto.costoTransformacionVentas + producto.costoTransformacionMaq |number}}</td>
+      <td>{{producto.costoTransformacionMaq |number}}</td>
+      <td>{{producto.costoTransformacionVentas |number}}</td>
       <td>{{0}}</td>
       <td>{{0}}</td>
-      <td>{{producto.PresupuestoCostoTransformacion.neto}}</td>
-      <td>{{producto.PresupuestoCostoTransformacion.IVA}}</td>
-      <td>{{producto.PresupuestoCostoTransformacion.total}}</td>
+      <td>{{producto.costoTransformacionVentas |number}}</td>
+      <td>{{-producto.IVATrans |number}}</td>
+      <td>{{producto.costoTransformacionVentas - producto.IVATrans |number}}</td>
     </tr>
 
 
   </tbody>
 </table>
 
+<hr>
+<h4>Presupuesto Global de Costo de Distribución</h4>
+<hr>
+
 <table class="table table-bordered table-responsive ">
   <thead>
     <tr>
       <th></th>
-      <th *ngFor="let producto of productosO">{{getNameByIdProducto(producto.idProducto)}}</th>
+      <th *ngFor="let producto of auxiliares">{{getNameByIdProducto(producto.Producto_idProducto)}}</th>
     </tr>
-
-
-
   </thead>
 
   <tbody>
     <tr>
       <th>Unidades  a Vender</th>
-      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoDistribucion.unidadesAVender}}</td>
+      <td *ngFor="let producto of auxiliares">{{producto.unidadesVendidas}}</td>
     </tr>
 
     <tr>
       <th>Cto Unitario Total</th>
-      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoDistribucion.costoUniTotal}}</td>
+      <td *ngFor="let producto of auxiliares">{{producto.costoDistribucion / producto.unidadesVendidas}}</td>
     </tr>
 
     <tr>
       <th>Cto Distribución</th>
-      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoDistribucion.costoDistribucion}}</td>
+      <td *ngFor="let producto of auxiliares">{{producto.costoDistribucion}}</td>
     </tr>
 
     <tr>
       <th>Menos</th>
-      <td *ngFor="let producto of productosO">-</td>
+      <td *ngFor="let producto of auxiliares">-</td>
     </tr>
 
     <tr>
       <th>Depreciaciones</th>
-      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoDistribucion.depreciaciones}}</td>
+      <td *ngFor="let producto of auxiliares">{{producto.costoDistribucion - producto.costoDistDep}}</td>
     </tr>
 
     <tr>
       <th>Neto</th>
-      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoDistribucion.neto}}</td>
+      <td *ngFor="let producto of auxiliares">{{producto.costoDistDep}}</td>
     </tr>
 
     <tr>
       <th>Menos partidas que no Incluyen IVA</th>
-      <td *ngFor="let producto of productosO">-</td>
+      <td *ngFor="let producto of auxiliares">-</td>
     </tr>
 
     <tr>
       <th>Sueldos y salarios</th>
-      <td *ngFor="let producto of productosO">-</td>
+      <td *ngFor="let producto of auxiliares">-</td>
     </tr>
 
     <tr>
       <th>Prevención Social</th>
-      <td *ngFor="let producto of productosO">-</td>
+      <td *ngFor="let producto of auxiliares">-</td>
     </tr>
 
     <tr>
       <th>Neto</th>
-      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoDistribucion.neto}}</td>
+      <td *ngFor="let producto of auxiliares">{{producto.costoDistDep}}</td>
     </tr>
 
     <tr>
       <th>IVA</th>
-      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoDistribucion.IVA}}</td>
+      <td *ngFor="let producto of auxiliares">{{-producto.IVADist}}</td>
     </tr>
 
     <tr>
       <th>Total a Pagar</th>
-      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoDistribucion.total}}</td>
+      <td *ngFor="let producto of auxiliares">{{producto.costoDistDep - producto.IVADist}}</td>
     </tr>
 
 
   </tbody>
 </table>
 
+<hr>
+<h4>Presupuesto Global de Costo de Administración</h4>
+<hr>
+
 <table class="table table-bordered table-responsive ">
   <thead>
     <tr>
       <th></th>
-      <th *ngFor="let producto of productosO">{{getNameByIdProducto(producto.idProducto)}}</th>
+      <th *ngFor="let producto of auxiliares">{{getNameByIdProducto(producto.Producto_idProducto)}}</th>
     </tr>
-
-
-
   </thead>
 
   <tbody>
     <tr>
       <th>Unidades  a Vender</th>
-      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoAdministracion.unidadesAVender}}</td>
+      <td *ngFor="let producto of auxiliares">{{producto.unidadesVendidas}}</td>
     </tr>
 
     <tr>
       <th>Cto Unitario Total</th>
-      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoAdministracion.costoUniTotal}}</td>
+      <td *ngFor="let producto of auxiliares">{{producto.costoAdministrativo}}</td>
     </tr>
 
     <tr>
       <th>Cto Administracion</th>
-      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoAdministracion.costoAdministracion}}</td>
+      <td *ngFor="let producto of auxiliares">{{producto.costoAdministrativo / producto.unidadesVendidas}}</td>
     </tr>
 
     <tr>
       <th>Menos</th>
-      <td *ngFor="let producto of productosO">-</td>
+      <td *ngFor="let producto of auxiliares">-</td>
     </tr>
 
     <tr>
       <th>Depreciaciones</th>
-      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoAdministracion.depreciaciones}}</td>
+      <td *ngFor="let producto of auxiliares">{{producto.costoAdministrativo - producto.costoAdminDep}}</td>
     </tr>
 
     <tr>
       <th>Neto</th>
-      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoAdministracion.neto}}</td>
+      <td *ngFor="let producto of auxiliares">{{producto.costoAdminDep}}</td>
     </tr>
 
     <tr>
       <th>Menos partidas que no Incluyen IVA</th>
-      <td *ngFor="let producto of productosO">-</td>
+      <td *ngFor="let producto of auxiliares">-</td>
     </tr>
 
     <tr>
       <th>Sueldos y salarios</th>
-      <td *ngFor="let producto of productosO">-</td>
+      <td *ngFor="let producto of auxiliares">-</td>
     </tr>
 
     <tr>
       <th>Prevención Social</th>
-      <td *ngFor="let producto of productosO">-</td>
+      <td *ngFor="let producto of auxiliares">-</td>
     </tr>
 
     <tr>
       <th>Neto</th>
-      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoAdministracion.neto}}</td>
+      <td *ngFor="let producto of auxiliares">{{producto.costoAdminDep}}</td>
     </tr>
 
     <tr>
       <th>IVA</th>
-      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoAdministracion.IVA}}</td>
+      <td *ngFor="let producto of auxiliares">{{-producto.IVAAdmon}}</td>
     </tr>
 
     <tr>
       <th>Total a Pagar</th>
-      <td *ngFor="let producto of productosO">{{producto.PresupuestoCostoAdministracion.total}}</td>
+      <td *ngFor="let producto of auxiliares">{{producto.costoAdminDep - producto.IVAAdmon}}</td>
     </tr>
 
 
   </tbody>
 </table>
 
+<hr>
+<h4>Costo de Producción y Ventas</h4>
+<hr>
+
 <table class="table table-bordered table-responsive ">
   <thead>
     <tr>
       <th></th>
-      <th *ngFor="let producto of productosO">{{getNameByIdProducto(producto.idProducto)}}</th>
+      <th *ngFor="let producto of auxiliares">{{getNameByIdProducto(producto.Producto_idProducto)}}</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <th>Materia Prima Consumida</th>
+      <td *ngFor="let producto of auxiliares">{{producto.materiaCosumida |number}}</td>
     </tr>
 
+    <tr>
+      <th>Indirectos de Producción</th>
+      <td *ngFor="let producto of auxiliares">{{producto.costoTransformacionVentas + producto.costoTransformacionMaq |number}}</td>
+    </tr>
+
+    <tr>
+      <th>Costo de Producción</th>
+      <td *ngFor="let producto of auxiliares">{{producto.materiaCosumida + producto.costoTransformacionVentas + producto.costoTransformacionMaq |number}}</td>
+    </tr>
+
+    <tr>
+      <th>I.F. de Producto terminado</th>
+      <td *ngFor="let producto of auxiliares">{{producto.inventarioFinal |number}}</td>
+    </tr>
+
+    <tr>
+      <th>Costo de Ventas</th>
+      <td *ngFor="let producto of auxiliares">{{producto.costoVentas |number}}</td>
+    </tr>
+
+  </tbody>
+</table>
+
+<hr>
+<h4>Estado de Resultados</h4>
+<hr>
+
+<table class="table table-bordered table-responsive ">
+  <thead>
+    <tr>
+      <th></th>
+      <th *ngFor="let producto of auxiliares">{{getNameByIdProducto(producto.Producto_idProducto)}}</th>
+      <th>Total</th>
+    </tr>
   </thead>
 
   <tbody>
     <tr>
       <th>Ventas Netas</th>
-      <td *ngFor="let producto of productosO">{{producto.PresupuestoGlobalVentas.ventasEfe}}</td>
+      <td *ngFor="let producto of auxiliares">{{producto.Ventas - producto.IVAxVentas |number}}</td>
+      <td *ngFor="let aux of auxiliarC">{{getTotalVentas() |number}}</td>
     </tr>
 
     <tr>
       <th>Costo de Ventas</th>
+      <td *ngFor="let producto of auxiliares">{{producto.costoVentas |number}}</td>
+      <td *ngFor="let aux of auxiliarC">{{getTotalCostosVentas() |number}}</td>
     </tr>
 
     <tr>
-      <th>Costo de Distribución</th>
+      <th>Utilidad Bruta</th>
+      <td *ngFor="let producto of auxiliares">{{producto.Ventas - producto.costoVentas - producto.IVAxVentas |number}}</td>
+      <td *ngFor="let aux of auxiliarC">{{getUtilidadBruta() |number}}</td>
+    </tr>
+
+    <tr>
+      <th>Costo de distribucion</th>
+      <td *ngFor="let producto of auxiliares">{{producto.costoDistribucion |number}}</td>
+      <td *ngFor="let aux of auxiliarC">{{getDistTotal() |number}}</td>
     </tr>
 
     <tr>
       <th>Otros Gastos</th>
+      <td *ngFor="let producto of auxiliares">-</td>
+      <td *ngFor="let aux of auxiliarC">{{aux.desarrolloMercado + aux.desarrolloProducto}}</td>
     </tr>
 
     <tr>
       <th>Costo de Administración</th>
+      <td *ngFor="let producto of auxiliares">{{producto.costoAdministrativo |number}}</td>
+      <td *ngFor="let aux of auxiliarC">{{getAdminTotal() |number}}</td>
     </tr>
 
     <tr>
       <th>Utilidad en Operación</th>
+      <td *ngFor="let producto of auxiliares">{{producto.Ventas - producto.IVAxVentas - producto.costoVentas - producto.costoDistribucion - producto.costoAdministrativo |number}}</td>
+      <td *ngFor="let aux of auxiliarC">{{getUtilidadAntes() |number}}</td>
     </tr>
 
     <tr>
       <th>Intereses</th>
+      <td *ngFor="let producto of auxiliares">-</td>
+      <td *ngFor="let aux of auxiliarC">-</td>
     </tr>
 
     <tr>
       <th>Utilidad antes de Impuestos</th>
+      <td *ngFor="let producto of auxiliares">{{producto.Ventas - producto.IVAxVentas - producto.costoVentas - producto.costoDistribucion - producto.costoAdministrativo |number}}</td>
+      <td *ngFor="let aux of auxiliarC">{{getUtilidadAntes() |number}}</td>
     </tr>
 
     <tr>
       <th>ISR</th>
+      <td *ngFor="let producto of auxiliares">-</td>
+      <td *ngFor="let aux of auxiliarC">{{getISR()}}</td>
     </tr>
 
     <tr>
       <th>PTU</th>
+      <td *ngFor="let producto of auxiliares">-</td>
+      <td *ngFor="let aux of auxiliarC">{{getPTU()}}</td>
     </tr>
 
     <tr>
       <th>Utilidad del Ejercicio</th>
+      <td *ngFor="let producto of auxiliares">-</td>
+      <td *ngFor="let aux of auxiliarC">{{getUtilidadAntes() - getISR() - getPTU() |number}}</td>
     </tr>
 
 

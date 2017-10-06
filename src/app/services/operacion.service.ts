@@ -11,6 +11,9 @@ export class OperacionService {
     'Content-Type':'application/json'
   });
   productosOperacion = [];
+  auxiliares = [];
+  auxiliaresAnteriores = [];
+  auxiliarC = [];
 
   constructor(private http:Http, private balanceService:BalanceService,
               private productoService:ProductoService) { }
@@ -149,6 +152,63 @@ export class OperacionService {
       });
 
     });
+  }
+
+  returnAuxiliares(){
+    this.auxiliares.length = 0;
+    this.getAuxiliares().subscribe(data => {
+      console.log("Auxes Acutuales",data)
+      for(let key in data.datos) {
+          this.auxiliares.push(data.datos[key]);
+      }
+    });
+    return this.auxiliares;
+  }
+
+  returnAuxiliaresAnteriores(){
+    this.auxiliaresAnteriores.length = 0;
+    this.getAuxiliaresAnteriores().subscribe(data => {
+      console.log("Auxes Anteriores",data)
+      for(let key in data.datos) {
+          this.auxiliaresAnteriores.push(data.datos[key]);
+      }
+    });
+    return this.auxiliaresAnteriores;
+  }
+
+  returnAuxiliarC(){
+    this.auxiliarC.length = 0;
+    this.getAuxiliarC().subscribe(data => {
+      console.log("Auxes C",data)
+      for(let key in data.datos) {
+          this.auxiliarC.push(data.datos[key]);
+      }
+    });
+    return this.auxiliarC;
+  }
+
+  getAuxiliares(){
+    var x = {
+      "Proyectos_idProyecto":localStorage.getItem('idProyecto'),
+      "Balance_numeroPeriodo":localStorage.getItem('numeroPeriodo')
+    }
+    return this.http.post('http://localhost:3000/operacion/getventas/',x,this.headers).map(res => res.json());
+  }
+
+  getAuxiliarC(){
+    var x = {
+      "Proyectos_idProyecto":localStorage.getItem('idProyecto'),
+      "Balance_numeroPeriodo":localStorage.getItem('numeroPeriodo')
+    }
+    return this.http.post('http://localhost:3000/operacion/getauxiliar/',x,this.headers).map(res => res.json());
+  }
+
+  getAuxiliaresAnteriores(){
+    var x = {
+      "Proyectos_idProyecto":localStorage.getItem('idProyecto'),
+      "Balance_numeroPeriodo":parseInt(localStorage.getItem('numeroPeriodo')) -1
+    }
+    return this.http.post('http://localhost:3000/operacion/getventas/',x,this.headers).map(res => res.json());
   }
 
 
