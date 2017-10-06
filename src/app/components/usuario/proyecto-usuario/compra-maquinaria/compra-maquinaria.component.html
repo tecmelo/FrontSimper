@@ -177,13 +177,29 @@ style="z-index:100000">
 
     <div body>
       <div class="col-12 text-center container">
-        ¿Estas seguro que deseas comprar la maquina "{{maqSelectedAdd.nombreMaq}}"?
+        <h5 style="margin-bottom:30px">¿Estas seguro que deseas comprar la maquina "{{maqSelectedAdd.nombreMaq}}"?</h5>
+        <div class="row">
+          <div class="col-3 offset-2">
+            <img  src="assets/img/machine.png" class="img-fluid">
+          </div>
+          <div class="col-5 ">
+            <p>
+            <h5 class="text-left"><b>Costo: </b>{{ maqSelectedAdd.costo | currency:'USD':true }}</h5>
+            <p>
+            <h5 class="text-left"><b>Producto: </b>{{getNameById(maqSelectedAdd.Producto_idProducto)}}</h5>
+            <p>
+            <h5 class="text-left"><b>Producción: </b>{{maqSelectedAdd.cantidadProd}}u</h5>
+          </div>
+        </div>
+        <div class="row">
+
+        </div>
         <br>
       </div>
     </div>
 
     <ng-template ngl-modal-footer>
-    <button class="btn btn-primary" (click)="cancel()">Cancel</button>
-    <button class="slds-button slds-button--brand">Save</button>
+    <button class="btn btn-danger" (click)="openConf=false">Cancel</button>
+    <button class="btn btn-primary" (click)="comprar()">Comprar</button>
   </ng-template>
     </ngl-modal>
