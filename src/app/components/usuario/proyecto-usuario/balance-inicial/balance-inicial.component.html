@@ -3,7 +3,7 @@
 <table class="table table-bordered table-responsive" *ngFor="let balance of balanceInicial">
   <thead>
     <tr>
-      <th colspan="6" class="text-center">Posición Financiera Inicial</th>
+      <th colspan="6" class="text-center">Posición Financiera Final</th>
     </tr>
   </thead>
   <tbody>
@@ -13,7 +13,6 @@
     </tr>
     <tr>
       <td>Caja Bancos</td>
-
       <td colspan="3">{{balance.cajaBancos}}</td>
       <td>IVA por enterar</td>
       <td>{{balance.IVAPorEnterar}}</td>
@@ -68,6 +67,7 @@
       <td>Neto</td>
     </tr>
 
+
     <tr>
       <td>Terrenos</td>
       <td>{{balance.terreno}}</td>
@@ -113,14 +113,14 @@
       <th class="text-center">TOTAL</th>
       <td></td>
       <td></td>
-      <td >{{balance.terreno + balance.edifInsta + balance.mueblesEnseres + balance.eqTrans + balance.maqEquipo - balance.depMaqEquipo}}</td>
+      <td>{{balance.terreno + balance.edifInsta + balance.mueblesEnseres + balance.eqTrans + balance.maqEquipo - balance.depMaqEquipo - balance.depEdif - balance.depMueblesEnseres -balance.depEqTrans}}</td>
       <th class="text-center">TOTAL</th>
       <td>{{balance.prestamosMasAnio}}</td>
     </tr>
 
     <tr>
       <th colspan="4" class="text-center">De Aplicación Diferida</th>
-      <th class="text-center" colspan="2" >Con los Accionistas</th>
+      <th class="text-center" colspan="2">Con los Accionistas</th>
     </tr>
 
     <tr>
@@ -139,7 +139,7 @@
 
     <tr>
       <td colspan="4"></td>
-      <td >Utilidad Acumulada</td>
+      <td>Utilidad Acumulada</td>
       <td>{{balance.utilidadAcum}}</td>
     </tr>
 
@@ -162,7 +162,7 @@
       <td colspan="3">{{balance.pagosAnticipado + balance.gastosAmortizacion + balance.terreno
         + balance.edifInsta + balance.mueblesEnseres + balance.eqTrans + balance.maqEquipo
         + balance.cajaBancos + balance.cuentasPorCobrar + balance.IVAAcreditable + balance.almacenArtTerm
-        + balance.almacenMateriales - balance.depMaqEquipo}}</td>
+        + balance.almacenMateriales - balance.depMaqEquipo - balance.depEdif - balance.depMueblesEnseres -balance.depEqTrans}}</td>
       <td>Suma de las Obligaciones</td>
       <td>{{balance.IVAPorEnterar + balance.imptosPorPagar + balance.proveedores + balance.PTUPorPagar
         + balance.prestamosMenosAnio + balance.prestamosMasAnio + balance.capitalSocial + balance.reservaLegal
@@ -176,7 +176,7 @@
         + balance.cajaBancos + balance.cuentasPorCobrar + balance.IVAAcreditable + balance.almacenArtTerm
         + balance.almacenMateriales) - (balance.IVAPorEnterar + balance.imptosPorPagar + balance.proveedores + balance.PTUPorPagar
           + balance.prestamosMenosAnio + balance.prestamosMasAnio + balance.capitalSocial + balance.reservaLegal
-          + balance.utilidadAcum + balance.utilidadEjercicio) - balance.depMaqEquipo}}</td>
+          + balance.utilidadAcum + balance.utilidadEjercicio) - balance.depMaqEquipo - balance.depEdif - balance.depMueblesEnseres -balance.depEqTrans}}</td>
       <td colspan="2"></td>
     </tr>
 
