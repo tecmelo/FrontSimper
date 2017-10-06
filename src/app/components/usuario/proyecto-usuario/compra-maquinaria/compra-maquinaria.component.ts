@@ -89,7 +89,7 @@ export class CompraMaquinariaComponent implements OnInit {
 
   }
 
-async comprar(){
+comprar(){
     this.openConf=false;
     this.openLoad=true;
     setTimeout(()=>this.openLoad=false, 2000);

@@ -11,23 +11,62 @@ export class DesarrolloProductoComponent implements OnInit {
   productosDesarollados:any[] = [];
   productosEnDesarrollo:any[] = [];
   productosSinDesarrollar:any[] = [];
-  productoSelectedAdd:any;
-  productoSelectedPago={
-    id:null,
-    costo:null
+  productoSelectedAdd:any={
+    costoDes:null,
+    costoUni:null,
+    costoVarUniDist:null,
+    costoVarUniFabri:null,
+    costosFijosFabri:null,
+    costosMPPUniProd:null,
+    depAdmon:null,
+    depDistribucion:null,
+    gastosFijosAdmon:null,
+    gastosFijosDist:null,
+    idProducto:null,
+    nombreProd:null,
+    precioVenta:null,
+    tiempoDes:null,
+    uniMP:null
   };
+  productoSelectedPago:any={
 
-  @ViewChild('modalConfDes') public modalConfDes:ModalDirective;
-  @ViewChild('modalConfPago') public modalConfPago:ModalDirective;
+  };
+  openConf:boolean=false;
+  openLoad:boolean=false;
+  openPago:boolean=false;
+  openLoadPago:boolean=false;
 
   constructor(private _desarrolloProducto:DesarrolloProductoService) {
     this.productosSinDesarrollar = this._desarrolloProducto.returnProductosSinDesarrollar();
     this.productosEnDesarrollo = this._desarrolloProducto.returnProductosEnDesarrollo();
     this.productosDesarollados = this._desarrolloProducto.returnProductosDesarrollados();
-    console.log(this.productosEnDesarrollo);
-    setTimeout(() => {
-     this.productoSelectedAdd=this.productosSinDesarrollar[0];
-   }, 2000);
+    console.log("array en desarrolloo",this.productosEnDesarrollo);
+    setTimeout(()=>{
+      if(this.productosSinDesarrollar.length==0){
+        console.log("ARREGLO VACIO");
+        this.productoSelectedAdd={
+          costoDes:null,
+          costoUni:null,
+          costoVarUniDist:null,
+          costoVarUniFabri:null,
+          costosFijosFabri:null,
+          costosMPPUniProd:null,
+          depAdmon:null,
+          depDistribucion:null,
+          gastosFijosAdmon:null,
+          gastosFijosDist:null,
+          idProducto:null,
+          nombreProd:null,
+          precioVenta:null,
+          tiempoDes:null,
+          uniMP:null
+        };
+      }else{
+        console.log("ARREGLO LLENO")
+        this.productoSelectedAdd=this.productosSinDesarrollar[0];
+      }
+    }, 2000)
+
 
    }
 
@@ -35,26 +74,36 @@ export class DesarrolloProductoComponent implements OnInit {
   }
 
   desarrollar(){
+      this.openConf=false;
+      this.openLoad=true;
+      setTimeout(()=>{this.openLoad=false;
+      }, 2000);
       this._desarrolloProducto.comenzarDesarrollo(this.productoSelectedAdd.idProducto,this.productoSelectedAdd.costoDes);
-      this.modalConfDes.hide();
+
+
+
+
   }
 
   pagarDesarrollo(){
-    this._desarrolloProducto.pagarDesarrollo(this.productoSelectedPago.id,this.productoSelectedPago.costo)
+    this.openPago=false;
+    this.openLoadPago=true;
+    setTimeout(()=>this.openLoadPago=false, 2000);
+
+    this._desarrolloProducto.pagarDesarrollo(this.productoSelectedPago.idProducto,this.productoSelectedPago.costoDes)
   }
+
 
   revisaPeriodo(producto){
     console.log(producto.ultimoPeriodoDes==localStorage.getItem('numeroPeriodo'));
     return producto.ultimoPeriodoDes==localStorage.getItem('numeroPeriodo');
   }
 
-  confPago(id,costo){
-    this.productoSelectedPago={
-      id:id,
-      costo:costo
-    }
-    console.log(this.productoSelectedPago);
-    this.modalConfPago.show()
+
+
+  confPago(producto){
+    this.productoSelectedPago=producto;
+    this.openPago=true;
   }
 
 

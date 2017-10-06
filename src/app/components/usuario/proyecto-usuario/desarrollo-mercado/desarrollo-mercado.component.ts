@@ -36,7 +36,17 @@ export class DesarrolloMercadoComponent implements OnInit {
     this.productosZonaSinDesarrollar = this._desarrolloZonaService.returnProductosDeZonaSinDesarrollar();
     this.productosZonaEnDesarrollo = this._desarrolloZonaService.returnProductosDeZonaEnDesarrollo();
     this.productosZonaDesarrollados = this._desarrolloZonaService.returnProductosDeZonaDesarrollados();
+    setTimeout(() => {
+     this.productoSelectedAdd={
+       idZona:this.productosZonaSinDesarrollar[0].idZona,
+       idProducto:this.productosZonaSinDesarrollar[0].productosSinDes[0]
+     }
+
+   }, 400);
+
+    console.log(this.productosZonaSinDesarrollar)
     console.log(this.productosZonaEnDesarrollo)
+    console.log(this.productosZonaDesarrollados)
     this.zonaForm=new FormGroup({
       'idProducto':new FormControl('',Validators.required)
     });
