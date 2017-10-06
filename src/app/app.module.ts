@@ -11,12 +11,8 @@ import { AccordionModule } from 'ngx-bootstrap';
 import { PaginationModule } from 'ngx-bootstrap';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NvD3Module } from 'ng2-nvd3';
-import { ScrollToModule } from 'ng2-scroll-to-el';
-import { PdfmakeModule } from 'ng-pdf-make';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {SlimLoadingBarModule} from 'ng2-slim-loading-bar';
-import {NglModule} from 'ng-lightning/ng-lightning';
 //Rutas
 import {app_routing} from './app.routes'
 
@@ -65,6 +61,7 @@ import { AdministradoresComponent } from './components/administradores/administr
 import { ChartModule } from 'angular2-highcharts';
 import {LoginComponent} from './components/login/login.component';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
+import {NglModule} from 'ng-lightning/ng-lightning';
 
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { NavbarUsuarioComponent } from './components/usuario/navbar-usuario/navbar-usuario.component';
@@ -111,12 +108,11 @@ import 'nvd3';
     FlashMessagesModule,
     BrowserModule,
     NvD3Module,
-    NglModule.forRoot(),
-    ScrollToModule.forRoot(),
     ModalModule.forRoot(),
     AlertModule.forRoot(),
     TabsModule.forRoot(),
     app_routing,
+    NglModule.forRoot(),
     AccordionModule.forRoot(),
     NgbModule.forRoot(),
     PaginationModule.forRoot(),

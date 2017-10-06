@@ -9,7 +9,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ChartModule } from 'angular2-highcharts';
 import {GraficasService} from '../../services/graficas.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { ScrollToService } from 'ng2-scroll-to-el';
 // import {BrowserAnimationsModule} from '@angular/platform-browser-animations';
 
 
@@ -123,8 +122,7 @@ options;
     private _demandaService:ZonasService,
     private _productosService:ProductoService,
     private modalService:NgbModal,
-    private _graficasService:GraficasService,
-    private scrollService: ScrollToService
+    private _graficasService:GraficasService
   ) {
     this.zonas=_graficasService.returnZonas();
     console.log("Original",this.zonas)

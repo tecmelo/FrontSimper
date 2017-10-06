@@ -4,7 +4,6 @@ import {ProductoService} from '../../../../services/producto.service';
 import {ZonasService} from '../../../../services/zonas.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import {NgProgressService} from "ng2-progressbar";
 
 @Component({
   selector: 'app-venta-productos',
@@ -21,8 +20,7 @@ export class VentaProductosComponent implements OnInit {
 
   constructor(private _operacionService:OperacionService,
               private _zonasService: ZonasService,
-              private _productoService:ProductoService,
-            private pService: NgProgressService) {
+              private _productoService:ProductoService) {
     this.zonas=this._zonasService.returnZonasNormales();
     this.productos=this._productoService.returnProductos();
     this.productosOperacion = this._operacionService.returnProductosOperacion();
@@ -46,7 +44,6 @@ export class VentaProductosComponent implements OnInit {
 
   progressVenta(){
     this.modalProgressVenta.show();
-    this.pService.start();
     this.valueBar=0;
     for(let i=0;i<=100;i++){
       setTimeout(function() {
