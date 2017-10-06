@@ -61,4 +61,12 @@ export class CompraMaquinariaService {
     return this.http.post('http://localhost:3000/maquinariacomprada/compra/', x, {headers}).map( res => res.json());
   }
 
+  asingar(x){
+    let headers = new Headers({
+      'Content-Type':'application/json'
+    });
+    console.log(x)
+    return this.http.post('http://localhost:3000/maquinariacomprada/asignar/', x, {headers}).map( res => res.json());
+  }
+
 }
