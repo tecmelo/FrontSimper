@@ -95,7 +95,7 @@ async comprar(){
     setTimeout(()=>this.openLoad=false, 2000);
     var x = {
       Maquinaria_idMaquinaria:this.maqSelectedAdd.idMaquinaria,
-      Maquinaria_idProducto:this.maqSelectedAdd.Producto_idProducto,
+      Producto_idProducto :this.maqSelectedAdd.Producto_idProducto,
       Proyectos_idProyecto:parseInt(localStorage.getItem('idProyecto'))
     }
 
