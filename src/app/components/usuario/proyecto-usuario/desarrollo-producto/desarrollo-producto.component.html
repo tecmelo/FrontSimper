@@ -6,16 +6,18 @@
       <div class="col-12" style="height:550px; overflow-y:scroll;overflow-x:hidden">
         <div class="card" *ngFor="let producto of productosSinDesarrollar" (click)="selectProducto(producto)"
         [ngClass]="{'resaltar':producto.idProducto==this.productoSelectedAdd.idProducto}">
-          <div class="card-block">
+          <div class="card-block"
+          [ngClass]="{'letra-resaltar':producto.idProducto==this.productoSelectedAdd.idProducto}">
             <div class="row">
-              <img  src="assets/img/box.png" style="height:40px;margin-left:10px;">
+              <img  src="assets/img/box.png" style="height:70px;margin-left:10px;">
 
-              <div class="col-6">
+              <div class="col-8">
                 <h4 class="card-title">{{producto.nombreProd}}</h4>
+                <h6 class="card-subtitle">Costo por periodo: <b>{{ producto.costoDes | currency:'USD':true }}</b> </h6>
+                <h6 class="card-subtitle" style="margin-top:5px">Tiempo de desarrollo: {{producto.tiempoDes}}</h6>
+
               </div>
-              <!-- <div class=" col-3 ">
-                <button type="button" class="btn btn-success" (click)= "agregarMaquinaria(maquina)"><i class="fa fa-plus" aria-hidden="true"></i></button>
-              </div> -->
+
             </div>
           </div>
         </div>
@@ -25,7 +27,7 @@
 
   <div class="col-2">
     <button type="button" class="btn btn-primary col-10 offset-1" style="margin-top:300px;"
-    (click)="this.modalConfDes.show()"><i class="material-icons">keyboard_arrow_right</i></button>
+    (click)="openConf=true"><i class="material-icons">keyboard_arrow_right</i></button>
   </div>
 
   <div class=" col-4">
@@ -34,7 +36,7 @@
     <div class="row" >
       <div class="col-12" style="height:250px; overflow-y:scroll;overflow-x:hidden">
 
-        <div class="card" *ngFor="let producto of productosDesarollados">
+        <!-- <div class="card" *ngFor="let producto of productosDesarollados">
           <div class="card-block">
             <div class="row">
               <img  src="assets/img/box.png" style="height:40px;margin-left:10px;">
@@ -42,9 +44,22 @@
               <div class="col-6" style="margin-top:20px">
                 <h4 class="card-title">{{producto.nombreProd}}</h4>
               </div>
-              <!-- <div class=" col-3 ">
-                <button type="button" class="btn btn-success" (click)= "agregarMaquinaria(maquina)"><i class="fa fa-plus" aria-hidden="true"></i></button>
-              </div> -->
+
+            </div>
+          </div>
+        </div> -->
+        <div class="card" *ngFor="let producto of productosDesarollados">
+          <div class="card-block">
+            <div class="row">
+              <img  src="assets/img/box.png" style="height:70px;margin-left:10px;">
+
+              <div class="col-8">
+                <h4 class="card-title">{{producto.nombreProd}}</h4>
+                <h6 class="card-subtitle">Costo total: <b>{{ producto.costoDes * producto.tiempoDes | currency:'USD':true }}</b> </h6>
+                <h6 class="card-subtitle" style="margin-top:5px">Tiempo de desarrollo: {{producto.tiempoDes}}</h6>
+
+              </div>
+
             </div>
           </div>
         </div>
@@ -56,7 +71,7 @@
       <h2 class="text-center col-12">Productos en Desarrollo</h2>
       <hr>
       <div class="col-12" style="height:250px; overflow-y:scroll;overflow-x:hidden">
-        <div class="card" *ngFor="let producto of productosEnDesarrollo">
+        <!-- <div class="card" *ngFor="let producto of productosEnDesarrollo">
           <div class="card-block">
             <div class="row">
               <img  src="assets/img/box.png" style="height:40px;margin-left:10px;">
@@ -68,9 +83,27 @@
               <button type="button" (click)="confPago(producto.idProducto,producto.costoDes)"
               class="btn btn-primary" [disabled]="revisaPeriodo(producto)">Pagar</button>
 
-              <!-- <div class=" col-3 ">
-                <button type="button" class="btn btn-success" (click)= "agregarMaquinaria(maquina)"><i class="fa fa-plus" aria-hidden="true"></i></button>
-              </div> -->
+
+            </div>
+          </div>
+        </div> -->
+        <div class="card" *ngFor="let producto of productosEnDesarrollo">
+          <div class="card-block">
+            <div class="row">
+              <img  src="assets/img/box.png" style="height:70px;margin-left:10px;margin-top:10px">
+
+              <div class="col-7">
+                <h4 class="card-title">{{producto.nombreProd}}</h4>
+                <h6 class="card-subtitle">Costo: <b>{{ producto.costoDes | currency:'USD':true }}</b> </h6>
+                <h6 class="card-subtitle" style="margin-top:5px">Tiempo de desarrollo: {{producto.tiempoDes}}</h6>
+                <h6 class="card-subtitle" style="margin-top:5px">Tiempo desarrollado: {{producto.periodosDes}}</h6>
+
+              </div>
+
+              <button type="button" (click)="confPago(producto)"
+              class="btn btn-primary" [disabled]="revisaPeriodo(producto)">Pagar</button>
+
+
             </div>
           </div>
         </div>
@@ -82,115 +115,87 @@
 </div>
 
 
-<div bsModal #modalConfDes="bs-modal" class="modal fade"
-tabindex="-1" role="dialog"
-style="z-index:100000">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class=" col-12 text-center">Confirmación</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row text-center">
-          ¿Estas seguro que deseas empezar a desarrollar el producto?
-          <br>
+<ngl-modal header="Confirmación"  [(open)]="openConf" size="x-small" directional="false">
+
+  <div body>
+    <div class="col-12 text-center container">
+      <h5 style="margin-bottom:30px">¿Estas seguro que deseas empezar a desarrollar "{{productoSelectedAdd.nombreProd}}"?</h5>
+      <div class="row">
+        <div class="col-4 offset-2">
+          <img  src="assets/img/box.png" class="img-fluid">
         </div>
-        <br>
+        <div class="col-5 ">
+          <p>
+          <h5 class="text-left"><b>Costo Total: </b>{{ productoSelectedAdd.costoDes * productoSelectedAdd.tiempoDes | currency:'USD':true }}</h5>
+          <p>
+          <h5 class="text-left"><b>Costo por Periodo: </b>{{productoSelectedAdd.costoDes}}</h5>
+          <p>
+          <h5 class="text-left"><b>Tiempo de Desarrollo: </b>{{productoSelectedAdd.tiempoDes}}</h5>
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
+
+  <ng-template ngl-modal-footer>
+  <button class="btn btn-danger" (click)="openConf=false">Cancel</button>
+  <button class="btn btn-primary" (click)="desarrollar()">Comenzar Desarrollo</button>
+</ng-template>
+  </ngl-modal>
+
+
+  <ngl-modal header="Confirmación"  [(open)]="openPago" size="x-small" directional="false">
+
+    <div body>
+      <div class="col-12 text-center container">
+        <h5 style="margin-bottom:30px">¿Estas seguro que deseas realizar el pago de "{{productoSelectedPago.nombreProd}}"?</h5>
         <div class="row">
-          <button type="button" class="btn btn-danger offset-2 col-3"  (click)="desarrollar()">Si</button>
-          <button type="button" class="btn btn-primary offset-2 col-3" (click)="modalConfDes.hide()">No</button>
+          <div class="col-4 offset-2">
+            <img  src="assets/img/box.png" class="img-fluid">
+          </div>
+          <div class="col-5 ">
+            <p>
+            <h5 class="text-left"><b>Costo de Pago: </b>{{ productoSelectedPago.costoDes | currency:'USD':true }}</h5>
+            <p>
+            <h5 class="text-left"><b>Periodo de Desarrollo:<br> </b>{{productoSelectedPago.periodosDes + 1}} de {{productoSelectedPago.tiempoDes}} periodos</h5>
+            <p>
+          </div>
         </div>
-
-
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-<div bsModal #modalConfPago="bs-modal" class="modal fade"
-tabindex="-1" role="dialog"
-style="z-index:100000">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class=" col-12 text-center">Confirmación</h4>
-      </div>
-      <div class="modal-body">
-        <div class="row text-center">
-          ¿Estas seguro que deseas pagar el desarrollo del producto {{productoSelectedPago.id}}?
-          <br>
-        </div>
-        <br>
         <div class="row">
-          <button type="button" class="btn btn-danger offset-2 col-3"  (click)="pagarDesarrollo()">Si</button>
-          <button type="button" class="btn btn-primary offset-2 col-3" (click)="modalConfPago.hide()">No</button>
+
         </div>
-
-
+        <br>
       </div>
     </div>
-  </div>
-</div>
+
+    <ng-template ngl-modal-footer>
+    <button class="btn btn-danger" (click)="openPago=false">Cancel</button>
+    <button class="btn btn-primary" (click)="pagarDesarrollo()">Realizar Pago</button>
+  </ng-template>
+    </ngl-modal>
 
 
-<!-- <div class="card-columns" >
-  <div class="card" *ngFor="let producto of productosSinDesarrollar">
-    <img class="card-img-top img-fluid col-6 offset-3 center-block" style="margin-top:30px;" src="assets/img/box.png" alt="Card image cap">
-    <div class="card-block">
-      <h4 class="card-title">{{producto.nombreProd}}</h4>
-      <p class="card-text">
-        Costo de Desarrollo por Perido: {{producto.costoDes}}
-        <br>
-        Timepo de Desarrollo: {{producto.tiempoDes}}
-        <br>
-      </p>
 
-    </div>
-    <div class="card-footer">
-      <div  class="btn btn-primary col-12" (click) ="desarrollar(producto.idProducto,producto.costoDes)">Comenzar a Desarrollar</div>
-    </div>
-  </div>
-
-</div> -->
-
-
-<!-- <div class="card-columns" >
-  <div class="card" *ngFor="let producto of productosEnDesarrollo">
-  <img class="card-img-top img-fluid col-6 offset-3 center-block" style="margin-top:30px;" src="assets/img/box.png" alt="Card image cap">
-    <div class="card-block">
-        <h2 class="text-center card-title">{{producto.nombreProd}}</h2>
-      <p class="card-text">
-        Inicio de Desarrollo: {{producto.periodoInicio}}
-        <br>
-        Tiempo en Desarrollo: {{producto.periodosDes}}
-        </p>
+  <ngl-modal  [(open)]="openLoad" size="small" directional="false">
+    <div body>
+          <h2 class="col-12 text-center">Iniciando Desarrollo de Producto</h2>
+      <h6 class="col-12 text-center">Realizando Operación</h6>
+      <div style="position:relative; height:6.25rem; z-index:0;">
+        <ngl-spinner size="large" type="brand"></ngl-spinner>
+      </div>
 
     </div>
-    <div class="card-footer">
-      <div  class="btn btn-primary col-12" (click) ="pagarDesarrollo(producto.idProducto,producto.costoDes)">Pago de Desarrollo</div>
-    </div>
-  </div>
-
-</div> -->
+    </ngl-modal>
 
 
 
+    <ngl-modal  [(open)]="openLoadPago" size="small" directional="false">
+      <div body>
+            <h2 class="col-12 text-center">Realizando Pago de Desarrollo</h2>
+        <h6 class="col-12 text-center">Realizando Operación</h6>
+        <div style="position:relative; height:6.25rem; z-index:0;">
+          <ngl-spinner size="large" type="brand"></ngl-spinner>
+        </div>
 
-
-
-
-
-<!-- <div class="card-columns" >
-  <div class="card" *ngFor="let producto of productosDesarollados">
-  <img class="card-img-top img-fluid col-6 offset-3 center-block" style="margin-top:30px;" src="assets/img/box.png" alt="Card image cap">
-    <div class="card-block">
-        <h2 class="text-center card-title">{{producto.nombreProd}}</h2>
-      <p class="text-center card-text">
-        Producto desarrollado
-    </div>
-  </div>
-
-</div> -->
+      </div>
+      </ngl-modal>
