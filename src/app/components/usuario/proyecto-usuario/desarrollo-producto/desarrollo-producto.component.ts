@@ -24,6 +24,7 @@ export class DesarrolloProductoComponent implements OnInit {
     this.productosSinDesarrollar = this._desarrolloProducto.returnProductosSinDesarrollar();
     this.productosEnDesarrollo = this._desarrolloProducto.returnProductosEnDesarrollo();
     this.productosDesarollados = this._desarrolloProducto.returnProductosDesarrollados();
+    console.log(this.productosEnDesarrollo);
     setTimeout(() => {
      this.productoSelectedAdd=this.productosSinDesarrollar[0];
    }, 2000);
@@ -40,6 +41,11 @@ export class DesarrolloProductoComponent implements OnInit {
 
   pagarDesarrollo(){
     this._desarrolloProducto.pagarDesarrollo(this.productoSelectedPago.id,this.productoSelectedPago.costo)
+  }
+
+  revisaPeriodo(producto){
+    console.log(producto.ultimoPeriodoDes==localStorage.getItem('numeroPeriodo'));
+    return producto.ultimoPeriodoDes==localStorage.getItem('numeroPeriodo');
   }
 
   confPago(id,costo){
