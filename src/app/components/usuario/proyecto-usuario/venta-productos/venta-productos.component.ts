@@ -45,8 +45,8 @@ export class VentaProductosComponent implements OnInit {
 
 
   progressVenta(){
-    this.modalProgressVenta.show();
-    this.pService.start();
+    //this.modalProgressVenta.show();
+    //this.pService.start();
     this.valueBar=0;
     for(let i=0;i<=100;i++){
       setTimeout(function() {
