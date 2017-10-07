@@ -15,7 +15,24 @@ export class VentaProductosComponent implements OnInit {
   productos=[];
   zonas=[];
   ventasForm:FormGroup;
-  valueBar:number;
+  valueBar:number
+  ventaO:any={
+    idZona:null,
+    cantiadVenta:null,
+    cantidadAlmacen:null
+
+  }
+  selectedVenta:any={
+    venta:this.ventaO,
+    idProducto:null
+  };
+
+  vendiendo:boolean=false;
+  produciendo:boolean=false;
+  openConf:boolean=false;
+  openLoad:boolean=false;
+
+
   @ViewChild('modalProgressVenta') public modalProgressVenta:ModalDirective;
 
   constructor(private _operacionService:OperacionService,
@@ -43,25 +60,35 @@ export class VentaProductosComponent implements OnInit {
 
 
   progressVenta(){
-    this.modalProgressVenta.show();
-    this.valueBar=0;
-    for(let i=0;i<=100;i++){
-      setTimeout(function() {
+    this.vendiendo=false;
+    this.openLoad=true;
+    this.produciendo=true;
+    setTimeout(()=>{this.produciendo=false;this.vendiendo=true;}, 2000);
+    setTimeout(()=>this.openLoad=false, 4000);
 
-      console.log(this.valueBar)
-    }, 1000);
-      this.valueBar=i;
-    }
+
 
   }
 
-  cobrarVenta(form,id){
-    var p = id;
-    var idZ = form.idZona;
-    var cv = form.cantidadVenta;
-    var ca = form.cantidadAlmacen;
+  cobrarVenta(){
+    this.openConf=false;
+    this.progressVenta();
+    console.log(this.selectedVenta);
+    var p = this.selectedVenta.idProducto;
+    var idZ = this.selectedVenta.venta.idZona;
+    var cv = this.selectedVenta.ventacantidadVenta;
+    var ca = this.selectedVenta.venta.cantidadAlmacen;
     this._operacionService.registerOperacion(p,idZ,ca,cv);
-      this.progressVenta();
+
+  }
+
+  selectVenta(venta,idProducto){
+    this.openConf=true;
+    this.selectedVenta={
+      venta:venta,
+      idProducto:idProducto
+    }
+
   }
 
   getNameByIdProducto(id:number){

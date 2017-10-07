@@ -26,6 +26,9 @@ export class DesarrolloMercadoComponent implements OnInit {
   zonaForm:FormGroup;
   productoSelectedAdd:any;
   productoSelectedPago:any;
+  openConf:boolean=false;
+  openPago:boolean=false;
+  openLoad:boolean=false;
 
   constructor(private _zonasService: ZonasService,
               private _desarrolloZonaService:DesarrolloZonaService,
@@ -36,6 +39,16 @@ export class DesarrolloMercadoComponent implements OnInit {
     this.productosZonaSinDesarrollar = this._desarrolloZonaService.returnProductosDeZonaSinDesarrollar();
     this.productosZonaEnDesarrollo = this._desarrolloZonaService.returnProductosDeZonaEnDesarrollo();
     this.productosZonaDesarrollados = this._desarrolloZonaService.returnProductosDeZonaDesarrollados();
+    this.productoSelectedAdd={
+      idZona:null,
+      idProducto:null
+    }
+
+    this.productoSelectedPago={
+      idZona:null,
+      idProducto:null,
+      nombreZona:null
+    }
     setTimeout(() => {
      this.productoSelectedAdd={
        idZona:this.productosZonaSinDesarrollar[0].idZona,
@@ -51,10 +64,7 @@ export class DesarrolloMercadoComponent implements OnInit {
       'idProducto':new FormControl('',Validators.required)
     });
 
-    this.productoSelectedAdd={
-      idProducto:null,
-      idZona:null
-    };
+
 
     console.log(this.productosZonaDesarrollados);
    }
@@ -105,7 +115,10 @@ export class DesarrolloMercadoComponent implements OnInit {
   }
 
   pagarDesarrollo(){
-    this.modalConfPago.hide();
+    this.openPago=false;
+    this.openLoad=true;
+
+    setTimeout(()=>this.openLoad=false,2000);
     console.log(this.productoSelectedPago.idProducto)
     var costo = this.getCosto(this.productoSelectedPago.idZona,this.productoSelectedPago.idProducto);
     var x = {
@@ -120,7 +133,9 @@ export class DesarrolloMercadoComponent implements OnInit {
   }
 
   desarrollaZona(producto){
-    this.modalConfDes.hide();
+    this.openConf=false;
+    this.openLoad=true;
+    setTimeout(()=>this.openLoad=false,2000);
     this.quitaProducto(producto.idZona,producto.idProducto);
     var x = {
       Producto_idProducto:producto.idProducto,
@@ -146,14 +161,14 @@ export class DesarrolloMercadoComponent implements OnInit {
     }
   }
 
-  confPago(idZona,idProducto){
-
+  confPagoF(idZona,idProducto,nombreZona){
+    this.openPago=true;
     this.productoSelectedPago={
       idZona:idZona,
-      idProducto:idProducto
+      idProducto:idProducto,
+      nombreZona:nombreZona
     };
     console.log(this.productoSelectedPago)
-    this.modalConfPago.show();
   }
 
 

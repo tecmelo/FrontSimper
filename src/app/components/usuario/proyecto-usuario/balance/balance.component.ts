@@ -21,6 +21,9 @@ export class BalanceComponent implements OnInit {
   opciones:boolean=false;
   periodo:number;
   periodos = [];
+  openConf:boolean=false;
+  openBien:boolean=false;
+  openLoad:boolean=false;
 
   public status: any = {
     isFirstOpen: true,
@@ -68,6 +71,10 @@ export class BalanceComponent implements OnInit {
   }
 
   pasarPeriodo(){
+    this.openConf=false;
+    this.openLoad=true;
+    setTimeout(()=>{this.openLoad=false,this.openBien=true;}, 2000);
+
     var p = localStorage.getItem('numeroPeriodo');
     var proyecto = localStorage.getItem('idProyecto');
     let periodoNuevo = parseInt(p) + 1;
@@ -90,7 +97,6 @@ export class BalanceComponent implements OnInit {
     });
     this._desarrolloProducto.actualizarPD();
     this._desarrolloZona.actualizarZonasDes();
-    this.confModal.show();
   }
 
   openBalances(){
