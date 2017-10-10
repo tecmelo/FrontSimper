@@ -46,6 +46,7 @@ export class OperacionService {
       "unidadesAlmacenadas":uniA,
       "unidadesVendidas":uniV
     }
+    console.log("Objeto de venta",x)
     this.addOperacion(x).subscribe();
   }
 

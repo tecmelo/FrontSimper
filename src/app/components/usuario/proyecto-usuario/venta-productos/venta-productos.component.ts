@@ -76,8 +76,9 @@ export class VentaProductosComponent implements OnInit {
     console.log(this.selectedVenta);
     var p = this.selectedVenta.idProducto;
     var idZ = this.selectedVenta.venta.idZona;
-    var cv = this.selectedVenta.ventacantidadVenta;
+    var cv = this.selectedVenta.venta.cantidadVenta;
     var ca = this.selectedVenta.venta.cantidadAlmacen;
+    console.log(p,idZ,cv,ca);
     this._operacionService.registerOperacion(p,idZ,ca,cv);
 
   }
