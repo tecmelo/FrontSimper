@@ -74,6 +74,7 @@ import { OperacionComponent } from './components/usuario/proyecto-usuario/operac
 declare var require : any;
 import 'd3';
 import 'nvd3';
+import { EstadoResultadosComponent } from './components/usuario/proyecto-usuario/estado-resultados/estado-resultados.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import 'nvd3';
     BalanceFinalComponent,
     BalanceHomeComponent,
     OperacionComponent,
+    EstadoResultadosComponent,
   ],
   imports: [
     FlashMessagesModule,

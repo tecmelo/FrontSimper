@@ -7,9 +7,11 @@ import { BalanceInicialComponent } from './balance-inicial/balance-inicial.compo
 import { BalanceFinalComponent } from './balance-final/balance-final.component';
 import { BalanceHomeComponent } from './balance-home/balance-home.component';
 import { OperacionComponent } from './operacion/operacion.component';
+import { EstadoResultadosComponent} from './estado-resultados/estado-resultados.component';
 
 export const PROYECTO_ROUTES: Routes = [
   { path: 'compraMaquinaria', component: CompraMaquinariaComponent },
+  { path: 'estadoResultados', component: EstadoResultadosComponent},
   { path: 'desarrolloProducto', component: DesarrolloProductoComponent },
   { path: 'desarrolloMercado', component: DesarrolloMercadoComponent },
   { path: 'produccion', component: VentaProductosComponent },
