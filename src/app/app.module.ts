@@ -13,6 +13,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NvD3Module } from 'ng2-nvd3';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { CurrencyMaskModule } from "ng2-currency-mask";
 //Rutas
 import {app_routing} from './app.routes'
 
@@ -112,6 +113,7 @@ import 'nvd3';
     AlertModule.forRoot(),
     TabsModule.forRoot(),
     app_routing,
+    CurrencyMaskModule,
     NglModule.forRoot(),
     AccordionModule.forRoot(),
     NgbModule.forRoot(),
