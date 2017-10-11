@@ -75,7 +75,7 @@ export class VentaProductosComponent implements OnInit {
     this.progressVenta();
     console.log(this.selectedVenta);
     var p = this.selectedVenta.idProducto;
-    var idZ = this.selectedVenta.venta.idZona;
+    var idZ = parseInt(this.selectedVenta.venta.idZona);
     var cv = this.selectedVenta.venta.cantidadVenta;
     var ca = this.selectedVenta.venta.cantidadAlmacen;
     console.log(p,idZ,cv,ca);
