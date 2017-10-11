@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ResultadosService} from '../../../../services/resultados.service';
 
+
 @Component({
   selector: 'app-balance-inicial',
   templateUrl: './balance-inicial.component.html',
