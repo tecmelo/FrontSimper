@@ -1,15 +1,15 @@
 <h3 class="text-center">Balance General</h3>
 
-<table class="table table-bordered table-responsive offset-3" *ngFor="let balance of balanceInicial">
+<table class="table table-hover  table-responsive offset-3" *ngFor="let balance of balanceInicial">
   <thead>
     <tr>
       <th colspan="6" class="text-center">Posición Financiera Final</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th colspan="4" class="text-center">A menos de un año</th>
-      <th colspan="2" class="text-center">A menos de un año</th>
+    <tr class="thead-inverse">
+      <th colspan="4" class="text-center bg-primary">A menos de un año</th>
+      <th colspan="2" class="text-center bg-warning">A menos de un año</th>
     </tr>
     <tr>
       <td>Caja Bancos</td>
@@ -54,17 +54,17 @@
       <td class="text-right">{{balance.IVAPorEnterar + balance.imptosPorPagar + balance.proveedores + balance.PTUPorPagar + balance.prestamosMenosAnio |currency:'USD':true:'1.0-0' }}</td>
     </tr>
 
-    <tr>
-      <th class="text-center" colspan="4">A más de un año</th>
-      <th class="text-center">A más de un año</th>
-      <td></td>
+    <tr class="thead-inverse">
+      <th class="text-center bg-primary" colspan="4">A más de un año</th>
+      <th class="text-center bg-warning">A más de un año</th>
+
     </tr>
 
-    <tr>
-      <th class="text-center"></th>
-      <td>I.O.</td>
-      <td>Dep. Acum</td>
-      <td>Neto</td>
+    <tr class="thead-inverse">
+      <th class="text-center bg-success"></th>
+      <th class="text-center bg-success">I.O.</th>
+      <th class="text-center bg-success">Dep. Acum</th>
+      <th class="text-center bg-success">Neto</th>
     </tr>
 
 

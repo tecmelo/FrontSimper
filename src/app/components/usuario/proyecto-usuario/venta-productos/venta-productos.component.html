@@ -35,7 +35,7 @@
           <div class="col-12">
 
             <input class="form-control" formControlName="cantidadVenta" value="0"
-            currencyMask>
+            type="number">
           </div>
 
 
@@ -86,7 +86,7 @@ style="z-index:100000">
 
   <div body>
     <div class="col-12 text-center container">
-      <h5 style="margin-bottom:30px">¿Estas seguro que deseas vender el producto "{{selectedVenta.idProducto}}", en la zona "{{selectedVenta.venta.idZona}}" ?</h5>
+      <h5 style="margin-bottom:30px">¿Estas seguro que deseas vender el producto "{{getNameByIdProducto(selectedVenta.idProducto)}}", en la zona "{{getNameByIdZona(selectedVenta.venta.idZona)}}" ?</h5>
       <div class="row">
         <div class="col-3 offset-2">
           <img  src="assets/img/machine.png" class="img-fluid">
@@ -107,7 +107,7 @@ style="z-index:100000">
 
   <ng-template ngl-modal-footer>
   <button class="btn btn-danger" (click)="openConf=false">Cancel</button>
-  <button class="btn btn-primary" (click)="cobrarVenta()"></button>
+  <button class="btn btn-primary" (click)="cobrarVenta()">Vender</button>
 </ng-template>
   </ngl-modal>
 
@@ -124,7 +124,3 @@ style="z-index:100000">
 
     </div>
     </ngl-modal>
-
-
-
-    
