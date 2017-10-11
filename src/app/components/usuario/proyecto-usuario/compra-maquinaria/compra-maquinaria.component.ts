@@ -19,7 +19,7 @@ export class CompraMaquinariaComponent implements OnInit {
   maquinasCompradas:any[]=[];
   maqSelectedAdd:any={
     idMaquinaria:null,
-    roducto_idProducto:null,
+    Producto_idProducto:null,
     cantidadProd:null,
     costo:null,
     depAcum:null,

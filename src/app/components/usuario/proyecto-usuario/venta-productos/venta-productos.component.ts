@@ -51,14 +51,6 @@ export class VentaProductosComponent implements OnInit {
   ngOnInit() {
   }
 
-
-  venta(form,id){
-    this._operacionService.registerOperacion(id,form.idZona,form.cantidadAlmacen,form.cantidadVenta);
-
-  }
-
-
-
   progressVenta(){
     this.vendiendo=false;
     this.openLoad=true;
@@ -72,15 +64,29 @@ export class VentaProductosComponent implements OnInit {
 
   cobrarVenta(){
     this.openConf=false;
-    this.progressVenta();
-    console.log(this.selectedVenta);
     var p = this.selectedVenta.idProducto;
-    var idZ = parseInt(this.selectedVenta.venta.idZona);
+    var idZ = this.selectedVenta.venta.idZona;
     var cv = this.selectedVenta.venta.cantidadVenta;
     var ca = this.selectedVenta.venta.cantidadAlmacen;
-    console.log(p,idZ,cv,ca);
-    this._operacionService.registerOperacion(p,idZ,ca,cv);
+    var x = {
+      "Producto_idProducto":p,
+      "Zona_idZonas":idZ,
+      "Proyecto_idProyecto":parseInt(localStorage.getItem('idProyecto')),
+      "Usuario_idUsuario":parseInt(localStorage.getItem('idUsuario')),
+      "numeroPeriodo":parseInt(localStorage.getItem('numeroPeriodo')),
+      "unidadesAlmacenadas":ca,
+      "unidadesVendidas":cv
+    }
 
+    this._operacionService.validarOperacion(x).subscribe(data => {
+      if(data.success){
+        this.progressVenta();
+        this._operacionService.registerOperacion(x);
+      }
+      else{
+        alert(data.msg);
+      }
+    });
   }
 
   selectVenta(venta,idProducto){
