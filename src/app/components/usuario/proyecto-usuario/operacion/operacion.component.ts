@@ -13,6 +13,16 @@ export class OperacionComponent implements OnInit {
   auxiliares=[];
   auxiliaresAnteriores=[];
   auxiliarC=[];
+  opne:boolean=false;
+  almacenArticuloTerm:boolean=false;
+  presGlobalVentas:boolean=false;
+  presGlobalProduccion:boolean=false;
+  presGlobalConsumoMP:boolean=false;
+  presGlobalComprasMP:boolean=false;
+  presGlobalCostoTrans:boolean=false;
+  presGlobalCostoDist:boolean=false;
+  presGlobalCostoAdmon:boolean=false;
+
 
   constructor(private _productoService:ProductoService, private _operacionService:OperacionService, private _resultadosService:ResultadosService) {
     this._resultadosService.vender();

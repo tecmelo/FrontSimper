@@ -1,97 +1,114 @@
 <h3 class="text-center">Resultado de Operacion</h3>
 
-<h4>Almacen de Artículo Terminado</h4>
-<hr>
-<table class="table table-bordered table-responsive">
 
-  <tbody>
-    <tr>
-      <th class="text-center">Producto</th>
-      <th class="text-center">Unidades</th>
-      <th class="text-center">Costo de Producción</th>
-      <th class="text-center">TOTAL</th>
-    </tr>
 
-    <tr *ngFor="let producto of auxiliaresAnteriores">
-      <td>{{getNameByIdProducto(producto.Producto_idProducto)}}</td>
-      <td>{{producto.unidadesAlmacenadas}}</td>
-      <td>{{(producto.inventarioFinal / producto.unidadesAlmacenadas) | number}}</td>
-      <td>{{producto.inventarioFinal | number}}</td>
-    </tr>
 
-  </tbody>
-</table>
 
-<hr>
-<h4>Presupuesto Global de Ventas e IVA</h4>
-<hr>
+<div class="col-10 offset-1">
+  <ngl-section [(open)]="almacenArticuloTerm" title="Almacen de Articulo Terminado">
 
-<table class="table table-bordered table-responsive">
+      <div class="col-12">
+        <table class="table table-bordered table-responsive">
 
-  <tbody>
-    <tr>
-      <th class="text-center">Producto</th>
-      <th class="text-center">Unidades a Vender</th>
-      <th class="text-center">Precio de Venta</th>
-      <th class="text-center">Ventas en $</th>
-      <th class="text-center">IVA (15%)</th>
-      <th class="text-center">Importe</th>
-    </tr>
+          <tbody>
+            <tr>
+              <th class="text-center">Producto</th>
+              <th class="text-center">Unidades</th>
+              <th class="text-center">Costo de Producción</th>
+              <th class="text-center">TOTAL</th>
+            </tr>
 
-    <tr *ngFor="let producto of auxiliares">
-      <td>{{getNameByIdProducto(producto.Producto_idProducto)}}</td>
-      <td>{{producto.unidadesVendidas}}</td>
-      <td>{{getPrecioVenta(producto.Producto_idProducto)}}</td>
-      <td>{{producto.Ventas - producto.IVAxVentas}}</td>
-      <td>{{0}}</td>
-      <td>{{producto.Ventas}}</td>
-    </tr>
+            <tr *ngFor="let producto of auxiliaresAnteriores">
+              <td>{{getNameByIdProducto(producto.Producto_idProducto)}}</td>
+              <td>{{producto.unidadesAlmacenadas}}</td>
+              <td>{{(producto.inventarioFinal / producto.unidadesAlmacenadas) | number}}</td>
+              <td>{{producto.inventarioFinal | number}}</td>
+            </tr>
 
-  </tbody>
-</table>
+          </tbody>
+        </table>
+      </div>
+  </ngl-section>
+</div>
 
+
+<div class="col-10 offset-1">
+  <ngl-section [(open)]="presGlobalVentas" title="Presupuesto Global de Ventas e IVA">
+    <table class="table table-bordered table-responsive">
+
+      <tbody>
+        <tr>
+          <th class="text-center">Producto</th>
+          <th class="text-center">Unidades a Vender</th>
+          <th class="text-center">Precio de Venta</th>
+          <th class="text-center">Ventas en $</th>
+          <th class="text-center">IVA (15%)</th>
+          <th class="text-center">Importe</th>
+        </tr>
+
+        <tr *ngFor="let producto of auxiliares">
+          <td>{{getNameByIdProducto(producto.Producto_idProducto)}}</td>
+          <td>{{producto.unidadesVendidas}}</td>
+          <td>{{getPrecioVenta(producto.Producto_idProducto)}}</td>
+          <td>{{producto.Ventas - producto.IVAxVentas}}</td>
+          <td>{{0}}</td>
+          <td>{{producto.Ventas}}</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </ngl-section>
+</div>
 
 <hr>
 <h4>Presupuesto Global de Producción</h4>
 <hr>
 
-<table class="table table-bordered table-responsive">
 
-  <tbody>
-    <tr>
-      <th class="text-center align-middle" rowspan="2">Producto</th>
-      <th class="text-center align-middle" rowspan="2">Unidades a Vender</th>
-      <th class="text-center align-middle" rowspan="2">Inventario Final</th>
-      <th class="text-center align-middle" rowspan="2">Inventario Inicial</th>
-      <th class="text-center align-middle" rowspan="2">Unidades a Producir</th>
-      <th class="text-center align-middle" colspan="2">Materia Prima</th>
-      <th class="text-center align-middle" colspan="2" >Costo de Transformación</th>
-      <th class="text-center align-middle" rowspan="2">Costo de Producción Unitario</th>
-      <th class="text-center align-middle" rowspan="2">Costo de Producción Total</th>
-    </tr>
-    <tr>
-      <th class="text-center align-middle">Costo Unitario</th>
-      <th class="text-center align-middle">Costo Total</th>
-      <th class="text-center align-middle">Costo Unitario</th>
-      <th class="text-center align-middle">Costo Total</th>
-    </tr>
+<div class="col-10 offset-1">
+  <ngl-section [(open)]="presGlobalProduccion" title="resupuesto Global de Producción">
+    <table class="table table-bordered table-responsive">
 
-    <tr *ngFor="let producto of auxiliares">
-      <td>{{getNameByIdProducto(producto.Producto_idProducto)}}</td>
-      <td>{{producto.unidadesVendidas}}</td>
-      <td>{{producto.unidadesAlmacenadas}}</td>
-      <td>{{getUnidadesAlmacenadasAnterior(producto.Producto_idProducto)}}</td>
-      <td>{{producto.unidadesProducidas}}</td>
-      <td>{{getMPPuniProd(producto.Producto_idProducto)}}</td>
-      <td>{{producto.materiaCosumida}}</td>
-      <td>{{(producto.costoTransformacionVentas + producto.costoTransformacionMaq)/producto.unidadesProducidas | number}}</td>
-      <td>{{producto.costoTransformacionVentas + producto.costoTransformacionMaq}}</td>
-      <td>{{getMPPuniProd(producto.Producto_idProducto) + (producto.costoTransformacionVentas + producto.costoTransformacionMaq)/producto.unidadesProducidas | number}}</td>
-      <td>{{producto.costoTransformacionVentas + producto.costoTransformacionMaq + producto.materiaCosumida}}</td>
-    </tr>
+      <tbody>
+        <tr>
+          <th class="text-center align-middle" rowspan="2">Producto</th>
+          <th class="text-center align-middle" rowspan="2">Unidades a Vender</th>
+          <th class="text-center align-middle" rowspan="2">Inventario Final</th>
+          <th class="text-center align-middle" rowspan="2">Inventario Inicial</th>
+          <th class="text-center align-middle" rowspan="2">Unidades a Producir</th>
+          <th class="text-center align-middle" colspan="2">Materia Prima</th>
+          <th class="text-center align-middle" colspan="2" >Costo de Transformación</th>
+          <th class="text-center align-middle" rowspan="2">Costo de Producción Unitario</th>
+          <th class="text-center align-middle" rowspan="2">Costo de Producción Total</th>
+        </tr>
+        <tr>
+          <th class="text-center align-middle">Costo Unitario</th>
+          <th class="text-center align-middle">Costo Total</th>
+          <th class="text-center align-middle">Costo Unitario</th>
+          <th class="text-center align-middle">Costo Total</th>
+        </tr>
 
-  </tbody>
-</table>
+        <tr *ngFor="let producto of auxiliares">
+          <td>{{getNameByIdProducto(producto.Producto_idProducto)}}</td>
+          <td>{{producto.unidadesVendidas}}</td>
+          <td>{{producto.unidadesAlmacenadas}}</td>
+          <td>{{getUnidadesAlmacenadasAnterior(producto.Producto_idProducto)}}</td>
+          <td>{{producto.unidadesProducidas}}</td>
+          <td>{{getMPPuniProd(producto.Producto_idProducto)}}</td>
+          <td>{{producto.materiaCosumida}}</td>
+          <td>{{(producto.costoTransformacionVentas + producto.costoTransformacionMaq)/producto.unidadesProducidas | number}}</td>
+          <td>{{producto.costoTransformacionVentas + producto.costoTransformacionMaq}}</td>
+          <td>{{getMPPuniProd(producto.Producto_idProducto) + (producto.costoTransformacionVentas + producto.costoTransformacionMaq)/producto.unidadesProducidas | number}}</td>
+          <td>{{producto.costoTransformacionVentas + producto.costoTransformacionMaq + producto.materiaCosumida}}</td>
+        </tr>
+
+      </tbody>
+    </table>
+  <ngl-section>
+</div>
+
+
 
 
 
