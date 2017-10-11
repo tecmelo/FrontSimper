@@ -22,7 +22,7 @@ export class OperacionComponent implements OnInit {
   presGlobalCostoTrans:boolean=false;
   presGlobalCostoDist:boolean=false;
   presGlobalCostoAdmon:boolean=false;
-
+  presGlobalCostoVenta:boolean=false;
 
   constructor(private _productoService:ProductoService, private _operacionService:OperacionService, private _resultadosService:ResultadosService) {
     this._resultadosService.vender();
