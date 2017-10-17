@@ -68,6 +68,7 @@ export class VentaProductosComponent implements OnInit {
     var idZ = this.selectedVenta.venta.idZona;
     var cv = this.selectedVenta.venta.cantidadVenta;
     var ca = this.selectedVenta.venta.cantidadAlmacen;
+    console.log(idZ)
     var x = {
       "Producto_idProducto":p,
       "Zona_idZonas":idZ,
