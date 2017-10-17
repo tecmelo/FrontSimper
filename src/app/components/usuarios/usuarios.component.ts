@@ -32,7 +32,7 @@ export class UsuariosComponent implements OnInit {
   @ViewChild('modalCopia') public modalCopia:ModalDirective;
   @ViewChild('modalErrBalance') public modalErrBalance:ModalDirective;
 
-  
+
   idAdmin;
   usuarioDelete:usuario={
     idUsuario:0,
@@ -44,7 +44,14 @@ export class UsuariosComponent implements OnInit {
   };
 
   public alerts: any = [];
-  userSelected:any;
+  userSelected:any={
+    idUsuario:0,
+    nombreUsuario:"",
+    apPat:"",
+    apMat:"",
+    contra:"",
+    user:"",
+  };
   userNew:usuario;
   administradores = new Array();
   usuarios:usuario[]=new Array();

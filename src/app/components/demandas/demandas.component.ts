@@ -59,6 +59,8 @@ export class DemandasComponent implements OnInit {
               private router:Router) {
 
 
+
+
     }
 
 
@@ -70,18 +72,19 @@ export class DemandasComponent implements OnInit {
     this.zonas=this._demandaService.returnZonasNormales();
     console.log(this.zonas);
     this.productos=this._productosService.returnProductos();
+
     this.newForm = this._fb.group({
-            nombreZona: [''],
+            nombreZona: ['',Validators.required],
             productos: this._fb.array([
                 this.initProductoOfNew(0,0,0),
             ])
         });
 
         this.productoZona=new FormGroup({
-          'idZona':new FormControl('',Validators.required),
-          'idProducto':new FormControl('',Validators.required),
-          'costoDes':new FormControl('',Validators.required),
-          'tiempoDes':new FormControl('',Validators.required),
+          'idZona':new FormControl(''),
+          'idProducto':new FormControl(''),
+          'costoDes':new FormControl(''),
+          'tiempoDes':new FormControl(''),
 
         });
 
@@ -89,20 +92,59 @@ export class DemandasComponent implements OnInit {
 
 
         this.editForm = this._fb.group({
-                idZona: [],
+                idZona: [''],
                 nombreZona: [''],
                 productos: this._fb.array([])
             });
 
+
+//             this.newForm.controls.productos.valueChanges.subscribe(data => {
+//               console.log("entrando evento",)
+//               for(let i=0;i<data.length;i++){
+//                 for(let j=i+1;j<data.length;j++){
+//                   //console.log(data[j].Producto_idProducto,data[i].Producto_idProducto)
+//                   if(data[j].Producto_idProducto==data[i].Producto_idProducto)
+//                     alert("repetido");
+//                     console.log(this.newForm.controls.productos.get(j.toString()).get("Producto_idProducto"))
+//
+//                     if(!data[i]==data.length)
+//                       this.newForm.controls.productos.get(j.toString()).reset()
+//                 }
+//
+//
+//               }
+// })
+
+
+
   }
+
+
+noRepeat(){
+  let productos=this.newForm.controls.productos.value;
+  let repeat:number=0;
+  for(let i=0;i<productos.length;i++)
+    for(let j=i+1;j<productos.length;j++)
+      if(productos[i].Producto_idProducto==productos[j].Producto_idProducto)
+        return false
+      else
+        return true
+  return null
+
+}
+
+validaNew(){
+  console.log(this.newForm.valid && this.noRepeat())
+  return "Hola"
+}
 
 
 
   initProductoOfNew(id:number,costo:number,tiempo:number){
     return this._fb.group({
-            Producto_idProducto:[id],
-            costoDes:[costo],
-            tiempoDes:[tiempo]
+            Producto_idProducto:[id,Validators.required],
+            costoDes:[costo,Validators.required],
+            tiempoDes:[tiempo,Validators.required]
         });
     }
 
@@ -115,9 +157,10 @@ export class DemandasComponent implements OnInit {
 
     inputProducto(form:FormGroup,id:number,costo:number,tiempo:number){
       const control = <FormArray>form.controls['productos'];
-      console.log(id,costo,tiempo);
-      control.push(this.initProductoOfNew(id,costo,tiempo));
-      console.log(control.value);
+      if(form.controls.productos.valid){
+        control.push(this.initProductoOfNew(id,costo,tiempo));
+      }else
+        alert("Completa campos del producto anterior para agregar uno nuevo")
 
     }
 
@@ -135,6 +178,10 @@ export class DemandasComponent implements OnInit {
 
 
 
+    }
+
+    evento(){
+      console.log("Evento de Selecr Producto")
     }
 
     deleteProducto(i:number,form:FormGroup){
@@ -187,8 +234,8 @@ export class DemandasComponent implements OnInit {
 
 
 
-  guardaZona(zona:zona){
-    this._demandaService.guardarZona(zona);
+  guardaZona(zona:any){
+    //this._demandaService.guardarZona(zona);
     this.modalNew.hide();
 
     this.alerts.push({
@@ -214,6 +261,15 @@ export class DemandasComponent implements OnInit {
     });
 
   }
+
+  validaCampo(i,campo){
+    if(this.newForm.controls.productos.get(i+"").get(campo).valid)
+      return false;
+    else
+      return true;
+  }
+
+
 
   cerrarEdit(){
     this.modalEdit.hide();
