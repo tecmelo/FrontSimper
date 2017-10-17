@@ -21,6 +21,7 @@ export class ProductosComponent implements OnInit {
   @ViewChild('modalEdit') public modalEdit:ModalDirective;
   @ViewChild('modalNew') public modalNew:ModalDirective;
   @ViewChild('modalConfDelete') public modalConfDelete:ModalDirective;
+  @ViewChild('modalCopia') public modalCopia:ModalDirective;
 
   public alerts: any = [];
   productos:producto[] = new Array();
@@ -104,13 +105,21 @@ export class ProductosComponent implements OnInit {
 
 
   guarda(producto:producto){
-    this._productoService.guardarProducto(producto);
+
+    if(!this.buscaRepetidos(producto)){
+      this._productoService.guardarProducto(producto);
+      this.alerts.push({
+        type: 'success',
+        msg: `Producto "${(producto.nombreProd)}" agregado`,
+        timeout: 2000
+      });
+    }
+    else{
+      alert("Rpetido")
+    }
     this.modalNew.hide();
-    this.alerts.push({
-      type: 'success',
-      msg: `Producto "${(producto.nombreProd)}" agregado`,
-      timeout: 2000
-    });
+
+
 
   }
 
@@ -137,6 +146,23 @@ export class ProductosComponent implements OnInit {
     });
   }
 
+  copiaVariables(producto){
+    this.newForm.get('costoDes').setValue(producto.costoDes)
+    this.newForm.get('tiempoDes').setValue(producto.tiempoDes)
+    this.newForm.get('precioVenta').setValue(producto.precioVenta)
+    this.newForm.get('costosFijosFabri').setValue(producto.costosFijosFabri)
+    this.newForm.get('costoVarUniFabri').setValue(producto.costoVarUniFabri)
+    this.newForm.get('gastosFijosDist').setValue(producto.gastosFijosDist)
+    this.newForm.get('depDistribucion').setValue(producto.depDistribucion)
+    this.newForm.get('costoVarUniDist').setValue(producto.costoVarUniDist)
+    this.newForm.get('depAdmon').setValue(producto.depAdmon)
+    this.newForm.get('gastosFijosAdmon').setValue(producto.gastosFijosAdmon)
+    this.newForm.get('costosMPPUniProd').setValue(producto.costosMPPUniProd)
+    this.newForm.get('uniMP').setValue(producto.uniMP)
+    this.newForm.get('costoUni').setValue(producto.costoUni)
+    this.modalCopia.hide();
+  }
+
 
 
 
@@ -158,6 +184,24 @@ confDelete(producto:producto){
   this.productoDelete=producto;
   console.log(this.productoDelete);
   this.modalConfDelete.show();
+
+}
+
+
+buscaRepetidos(producto){
+  console.log(this.productos)
+  for(let prod of this.productos){
+    if(prod.nombreProd==producto.nombreProd){
+      console.log(true)
+      return true
+    }
+
+    else{
+      console.log(false);
+
+    }
+
+  }
 
 }
 

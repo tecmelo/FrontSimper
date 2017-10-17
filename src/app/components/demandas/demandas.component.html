@@ -104,7 +104,23 @@
         <form [formGroup]="newForm" (ngSubmit)="guardaZona(newForm.value)" class="offset-1"  >
 
 
-            <div class="form-group row">
+          <div class="form-group row text-center" >
+            <label class="col-5 col-form-label">Nombre</label>
+            <div class="col-6 has-success"
+            [ngClass]="{'has-danger': !newForm.get('nombreZona').valid}">
+
+
+              <input class="form-control"
+                     type="text"
+                     formControlName="nombreZona" >
+                     <div class="form-control-feedback" style="font-size:10px;"
+                     *ngIf="!newForm.controls['nombreZona'].valid">
+                       El nombre es requerido
+                     </div>
+            </div>
+          </div>
+
+            <!-- <div class="form-group row">
               <label class="col-7 col-form-label text-center">Nombre Zona</label>
               <div class="col-4">
 
@@ -113,7 +129,7 @@
                        placeholder="Nombre"
                        formControlName="nombreZona">
               </div>
-            </div>
+            </div> -->
 
           <div class="col-11">
             <b>Productos Demandados:</b>
@@ -123,44 +139,79 @@
 
                   <div class="" [formGroupName]="i">
 
-                    <!-- <div class="row form-group">
-                      <label class="col-6 offset-1 col-form-label text-center">Producto: {{i+1}} </label>
-                      <label class="col-5 col-form-label offset-1 text-center">Tiempo Desarrollo</label>
-                      <div class="col-5">
-                        <select formControlName="idProducto" class="form-control">
-                          <option *ngFor="let option of select" value={{option.value}}>{{option.label}}</option>
-                        </select>
-                      </div>
-                    </div> -->
+
 
                     <div class="form-group row">
                         <button type="button" class="btn btn-danger row" (click)="deleteProducto(i,newForm)">X</button>
                       <hr>
                       <label class="col-5 col-form-label text-center offset-1">Producto: {{i+1}}</label>
                       <div class="col-5 " >
-                        <select formControlName="Producto_idProducto" class="form-control">
+                        <select formControlName="Producto_idProducto" class="form-control" valueChanges="evento()">
                           <option *ngFor="let producto of productos" value={{producto.idProducto}}>{{producto.nombreProd}}</option>
                         </select>
+
+                        <div class="form-control-feedback text-center " style="font-size:10px;"
+                        [ngClass]="{'has-danger': validaCampo(i,'Producto_idProducto')}"
+                        *ngIf="validaCampo(i,'Producto_idProducto')">
+                          Debes seleccionar un producto
+                        </div>
                       </div>
                     </div>
 
-                      <!-- <input type="text" formControlName="costoDes"> -->
-                      <div class="form-group row">
-                        <label class="col-5 col-form-label offset-1 text-center">Costo Desarrollo</label>
-                        <div class="input-group  col-5">
-                          <span class="input-group-addon">$</span>
-                          <input type="text" class="form-control" formControlName="costoDes">
-                        </div>
+
+                    <div class="form-group row text-center">
+                      <label class="col-5 col-form-label">Costo Desarrollo</label>
+
+                      <div class="input-group col-6 has-success"
+                      [ngClass]="{'has-danger': validaCampo(i,'costoDes')}">
+                        <span class="input-group-addon">$</span>
+                        <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }"
+                        class="form-control"
+                        formControlName="costoDes">
+
+                      </div>
+
+                      <div class="form-control-feedback offset-5 text-center col-6"
+                      style="font-size:10px;" [ngClass]="{'has-danger': validaCampo(i,'costoDes')}"
+                      *ngIf="validaCampo(i,'costoDes')">
+                        El costo es requerido
                       </div>
 
 
+                    </div>
+
+
+                    <div class="form-group row text-center">
+                      <label class="col-5 col-form-label">Tiempo de Desarrollo</label>
+
+                      <div class="input-group col-6 has-success"
+                      [ngClass]="{'has-danger': validaCampo(i,'tiempoDes')}">
+                        <span class="input-group-addon">$</span>
+                        <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }"
+                        class="form-control"
+                        formControlName="tiempoDes">
+
+                      </div>
+
+                      <div class="form-control-feedback offset-5 text-center col-6"
+                      style="font-size:10px;" [ngClass]="{'has-danger': validaCampo(i,'tiempoDes')}"
+                      *ngIf="validaCampo(i,'tiempoDes')">
+                        El costo es requerido
+                      </div>
+
+
+                    </div>
+                    {{validaNew()}}
+
+
+<!--
                       <div class="form-group row">
                         <label class="col-5 col-form-label offset-1 text-center">Tiempo Desarrollo</label>
                         <div class="input-group  col-5">
                           <span class="input-group-addon">$</span>
                           <input type="text" class="form-control" formControlName="tiempoDes">
                         </div>
-                      </div>
+                      </div> -->
 
 
                       <!-- <input type="text" formControlName="tiempoDes"> -->
@@ -177,7 +228,7 @@
           <button type="button" class=" btn btn-primary" (click)="inputProducto(newForm)">Agregar</button>
 
               <div class="modal-footer">
-                <button type="submit" class="btn btn-outline-success" >
+                <button type="submit" class="btn btn-outline-success" [disabled]="!newForm.valid"   >
                   Guardar
                 </button>
 

@@ -2,14 +2,19 @@
 
 
 <div class="container">
-  <h2 class="text-center ">Administradores</h2>
+  <div class="row">
+    <h2 class="text-center col-2 offset-5 ">Administradores</h2>
+    <button type="button" (click)="openNew()" class="btn btn-warning col-1 offset-4">Agregar</button>
+
+  </div>
+
   <hr>
   <div class="text-center" *ngFor="let alert of alerts" style="z-index:10000;width:100%; ">
     <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout"><h3>{{ alert.msg }}</h3></alert>
   </div>
 </div>
 
-<div class="container" style="height:550px;overflow-y:scroll ">
+<div class="container" style="height:1000px;overflow-y:scroll ">
 
 
 <!--++++++++++++++++++++++++++++++   Tarjeta de Administrador    +++++++++++++++++++++++++++++++++++-->
@@ -152,7 +157,6 @@
 </div>
 
 <!--- Boton de Acción de Formulario de Edición--->
-<button type="button" (click)="openNew()" class="btn btn-warning btn-floating">Agregar</button>
 
 
 

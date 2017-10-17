@@ -1,5 +1,10 @@
 <div class="container">
-  <h2 class="text-center ">Usuarios</h2>
+  <div class="row">
+    <h2 class="text-center col-2 offset-5">Usuarios</h2>
+    <button type="button" (click)="openNew()" class="btn btn-warning offset-4 col-1">Agregar</button>
+
+  </div>
+
   <hr>
   <div class="text-center" *ngFor="let alert of alerts" style="z-index:10000;width:100%; ">
     <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout"><h3>{{ alert.msg }}</h3></alert>
@@ -11,7 +16,7 @@
 
 
 <!--++++++++++++++++++++++++++++++   Tarjeta de Usuario    +++++++++++++++++++++++++++++++++++-->
-<div class="container" style="overflow:scroll; height:550px;">
+<div class="container contain">
 
 
 <div class="card-columns" >
@@ -63,11 +68,11 @@
         </div>
   </ng-template> -->
 
-  <div bsModal #modalNew="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div bsModal  ngDraggable #modalNew="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="offset-1">Agrega Usuario</h4>
+          <h4 class="col-12 text-center">Agrega Usuario</h4>
         </div>
         <div class="modal-body">
 
@@ -238,7 +243,6 @@
 
 
 <!--- Boton de Acción de Formulario de Edición--->
-<button type="button" (click)="openNew()" class="btn btn-warning btn-floating">Agregar</button>
 
 
 
@@ -250,7 +254,7 @@
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="offset-1">Edita Usuario</h4>
+        <h4 class="col-12 text-center">Edita Usuario</h4>
       </div>
       <div class="modal-body">
         <form [formGroup]="editForm" (ngSubmit)="editaUsuario(editForm.value)"  >
@@ -430,7 +434,7 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class=" ">Confirmación</h4>
+        <h4 class="col-12 text-center ">Confirmación</h4>
       </div>
       <div class="modal-body">
 
@@ -467,7 +471,7 @@
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="offset-1">Variables de Proyectos</h4>
+        <h2 class="col-12 text-center">Variables de Proyectos de {{userSelected.nombreUsuario}}</h2>
       </div>
       <div class="modal-body">
 
@@ -482,8 +486,8 @@
       </div>
 
       <div class="modal-footer">
-        <button  type="button" class="btn btn-outline-danger" (click)="modalVars.hide()">
-        Cancelar
+        <button  type="button" class="btn btn-danger" (click)="modalVars.hide()">
+        Salir
         </button>
 
       </div>
@@ -500,7 +504,7 @@
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="offset-1">Variables Iniciales</h4>
+        <h2 class="col-12 text-center">Variables Iniciales</h2>
       </div>
       <div class="modal-body">
 
@@ -523,7 +527,7 @@
 
               <div class="input-group col-4">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="cajaBancos">
+                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="cajaBancos">
               </div>
 
             </div> -->
@@ -533,7 +537,8 @@
 
               <div class="input-group col-6">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" formControlName="cuentasPorCobrar">
+                <input class="form-control" formControlName="cuentasPorCobrar"
+                currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }">
               </div>
 
             </div>
@@ -543,17 +548,19 @@
 
               <div class="input-group col-6">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="IVAAcreditable">
+                <input  class="form-control" aria-label="Amount (to the nearest dollar)"
+                formControlName="IVAAcreditable"
+                currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }">
               </div>
 
             </div>
 
             <div class="form-group row text-center">
-              <label class="col-5 col-form-label">Almacen de Artivulo Terminado</label>
+              <label class="col-5 col-form-label">Almacen de Articulo Terminado</label>
 
               <div class="input-group col-6">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="almacenArtTerm">
+                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="almacenArtTerm">
               </div>
 
             </div>
@@ -564,7 +571,7 @@
 
               <div class="input-group col-6">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="almacenMateriales">
+                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="almacenMateriales">
               </div>
 
             </div>
@@ -575,7 +582,7 @@
 
               <div class="input-group col-6">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="terreno">
+                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="terreno">
               </div>
 
             </div>
@@ -586,7 +593,7 @@
 
               <div class="input-group col-6">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="edifInsta">
+                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="edifInsta">
               </div>
 
             </div>
@@ -596,7 +603,7 @@
 
               <div class="input-group col-6">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="maqEquipo">
+                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="maqEquipo">
               </div>
 
             </div>
@@ -607,7 +614,7 @@
 
               <div class="input-group col-6">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="mueblesEnseres">
+                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="mueblesEnseres">
               </div>
 
             </div>
@@ -617,7 +624,7 @@
 
               <div class="input-group col-6">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="eqTrans">
+                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="eqTrans">
               </div>
 
             </div>
@@ -628,7 +635,7 @@
 
               <div class="input-group col-6">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="pagosAnticipado">
+                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="pagosAnticipado">
               </div>
 
             </div>
@@ -639,7 +646,7 @@
 
               <div class="input-group col-6">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="gastosAmortizacion">
+                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="gastosAmortizacion">
               </div>
 
             </div>
@@ -649,7 +656,7 @@
 
               <div class="input-group col-6">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="IVAPorEnterar">
+                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="IVAPorEnterar">
               </div>
 
             </div>
@@ -659,7 +666,7 @@
 
               <div class="input-group col-6">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="imptosPorPagar">
+                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="imptosPorPagar">
               </div>
 
             </div>
@@ -669,7 +676,7 @@
 
               <div class="input-group col-6">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="proveedores">
+                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="proveedores">
               </div>
 
             </div>
@@ -679,7 +686,7 @@
 
               <div class="input-group col-6">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="PTUPorPagar">
+                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="PTUPorPagar">
               </div>
 
             </div>
@@ -690,7 +697,7 @@
 
               <div class="input-group col-6">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="capitalSocial">
+                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="capitalSocial">
               </div>
 
             </div>
@@ -701,7 +708,7 @@
 
               <div class="input-group col-6">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="reservaLegal">
+                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="reservaLegal">
               </div>
 
             </div>
@@ -711,7 +718,7 @@
 
               <div class="input-group col-6">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="utilidadAcum">
+                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="utilidadAcum">
               </div>
 
             </div>
@@ -721,7 +728,7 @@
 
               <div class="input-group col-6">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="prestamosMenosAnio">
+                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="prestamosMenosAnio">
               </div>
 
             </div>
@@ -732,7 +739,7 @@
 
               <div class="input-group col-6">
                 <span class="input-group-addon">$</span>
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="prestamosMasAnio">
+                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control" aria-label="Amount (to the nearest dollar)" formControlName="prestamosMasAnio">
               </div>
 
             </div>
@@ -768,7 +775,7 @@
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="offset-1">Copia de Variables Iniciales</h4>
+        <h4 class="col-12 text-center">Copia de Variables Iniciales</h4>
       </div>
       <div class="modal-body">
       <accordion *ngFor="let usuario of usuarios" [closeOthers]="1">
@@ -917,14 +924,15 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="offset-1">Maquinaria Inicial</h4>
+        <h2 class="col-12 text-center">Maquinaria Inicial</h2>
       </div>
       <div class="modal-body">
 
         <div class="row">
 
           <div class=" col-5 offset-1" style="margin-top:10px">
-            <span class="text-center" style="margin-bottom:10px;"><h3>Maquinarias Existentes</h3></span>
+            <span class="text-center" style="margin-bottom:20px;"><h3>Maquinarias Existentes</h3></span>
+
             <div class="card" *ngFor="let maquina of maquinas">
               <div class="card-block">
                 <div class="row">
@@ -945,14 +953,7 @@
 
 
           <div class=" col-5" style="margin-top:10px">
-            <span class="text-center" style="margin-bottom:10px;" ><h3>Maquinarias Asignadas</h3></span>
-            <!-- <a class="list-group-item list-group-item-action  align-items-start active" *ngFor="let maq of maquinariaU">
-              <div class="d-flex w-100 justify-content-between">
-                <h4 class="mb-2 col-6">{{getNameByIdMaq(maq.idMaquinaria)}}</h4>
-                <button type="button" class="btn btn-danger" (click)= "eliminaMaquinaria(maq)">Eliminar</button>
-                <h4><span class="badge badge-success">{{maq.cantidad}}</span></h4>
-              </div>
-            </a> -->
+            <span class="text-center" style="margin-bottom:20px;" ><h3>Maquinarias Asignadas</h3></span>
 
             <div class="card" *ngFor="let maq of maquinariaU">
               <div class="card-block">
@@ -993,7 +994,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="offset-1">Zonas de Mercado Desarrolladas</h4>
+        <h2 class="col-12 text-center">Zonas de Mercado Desarrolladas</h2>
       </div>
       <div class="modal-body">
 
@@ -1111,28 +1112,13 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="offset-1">Productos Iniciales Desarrollados</h4>
+        <h2 class="col-12 text-center">Productos Iniciales Desarrollados</h2>
       </div>
       <div class="modal-body">
 
         <div class="row">
-
-          <!-- <div class="list-group col-5 offset-1" style="margin-top:10px">
-            <span class="text-center" style="margin-bottom:10px;"><h3>Productos Existentes</h3></span>
-            <a class="list-group-item list-group-item-action flex-column align-items-start active"
-            *ngFor="let producto of productos"
-            style="margin-top:10px">
-              <div class="d-flex w-100 justify-content-between">
-                <h4 class="mb-1">{{producto.nombreProd}}</h4>
-                <button type="button" class="btn btn-success" (click)="agregarProducto(producto)">Agregar</button>
-              </div>
-              <small class="mb-1"></small>
-            </a>
-
-
-
-          </div> -->
           <div class="list-group col-5 offset-1" style="margin-top:10px">
+          <span class="text-center" style="margin-bottom:10px;"><h3>Productos de Desarrollo</h3></span>
           <div class="card" *ngFor="let producto of productos">
             <div class="card-block">
               <div class="row">
@@ -1169,6 +1155,7 @@
 
           </div> -->
           <div class="list-group col-5" style="margin-top:10px">
+            <span class="text-center" style="margin-bottom:10px;"><h3>Productos Existentes</h3></span>
           <div class="card" *ngFor="let producto of productosU">
             <div class="card-block">
               <div class="row">
@@ -1204,7 +1191,7 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class=" ">Error en Balance</h4>
+        <h4 class="col-12 text-center ">Error en Balance</h4>
       </div>
       <div class="modal-body">
 
