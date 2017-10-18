@@ -62,6 +62,15 @@ export class OperacionService {
     return this.http.post('http://localhost:3000/operacion/getAll/',x,this.headers).map(res => res.json());
   }
 
+  getProductosV(){
+    var x = {
+      "numeroPeriodo":localStorage.getItem('numeroPeriodo'),
+      "idProyecto":localStorage.getItem('idProyecto'),
+      "idUsuario":localStorage.getItem('idUsuario')
+    }
+    return this.http.post('http://localhost:3000/operacion/productosventa/',x,this.headers).map(res=>res.json());
+  }
+
   returnAuxiliares(){
     this.auxiliares.length = 0;
     this.getAuxiliares().subscribe(data => {
