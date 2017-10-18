@@ -27,6 +27,8 @@ export class VentaProductosComponent implements OnInit {
     idProducto:null
   };
 
+  ventas:any;
+
   vendiendo:boolean=false;
   produciendo:boolean=false;
   openConf:boolean=false;
@@ -41,6 +43,9 @@ export class VentaProductosComponent implements OnInit {
     this.zonas=this._zonasService.returnZonasNormales();
     this.productos=this._productoService.returnProductos();
     this.productosOperacion = this._operacionService.returnProductosOperacion();
+    this.ventas=this._operacionService.returnAllOperaciones();
+
+
     this.ventasForm=new FormGroup({
       'idZona':new FormControl(),
       'cantidadVenta':new FormControl(),
@@ -49,6 +54,7 @@ export class VentaProductosComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.ventas);
   }
 
   progressVenta(){

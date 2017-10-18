@@ -62,6 +62,20 @@ export class OperacionService {
     return this.http.post('http://localhost:3000/operacion/getAll/',x,this.headers).map(res => res.json());
   }
 
+  returnAllOperaciones(){
+    let operaciones:any[]=[];
+    this.getAllOperaciones().subscribe(data=>{
+
+      for(let key in data.datos){
+        console.log(data.datos[key]);
+        operaciones.push(data.datos[key]);
+      }
+      console.log(operaciones);
+
+    });
+    return operaciones;
+  }
+
   getProductosV(){
     var x = {
       "numeroPeriodo":localStorage.getItem('numeroPeriodo'),

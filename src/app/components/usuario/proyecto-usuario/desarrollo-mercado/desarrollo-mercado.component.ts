@@ -88,6 +88,16 @@ export class DesarrolloMercadoComponent implements OnInit {
 
   }
 
+
+  validaPago(producto){
+    if(producto.ultimoPeriodoDes==localStorage.getItem('numeroPeriodo'))
+      return true
+    else
+      return false
+  }
+
+  
+
   getCosto(idZona,idProducto){
     for(let zona of this.zonas){
       if(zona.idZona == idZona){

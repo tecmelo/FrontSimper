@@ -161,7 +161,8 @@
 
 
               <button type="button" (click)="confPagoF(zona.idZona,producto.idProducto,zona.nombreZona)"
-              class="btn btn-primary col-2" style="height:85px;">Pagar</button>
+              class="btn btn-primary col-2" style="height:85px;"
+              [disabled]="validaPago(producto)">Pagar</button>
 
           </div>
           </div>
