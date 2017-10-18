@@ -117,24 +117,35 @@ maquinaDelete:maquinaria={
         this.selected=select;
   }
 
- guarda(maquina:maquinaria,content){
-   let reason
-   console.log(maquina);
-   this.ngbactivemodal.close(this.closeResult);
-   this._maquinariasService.guardarMaquina(maquina);
-   this.modalNew.hide();
+ guarda(maquina:maquinaria){
+   if(!this.buscaRepetidos(maquina)){
+     this._maquinariasService.guardarMaquina(maquina);
+     this.modalNew.hide();
 
-   this.alerts.push({
-     type: 'success',
-     msg: `Maquina "${(maquina.nombreMaq)}" agregada`,
-     timeout: 2000
-   });
+     this.alerts.push({
+       type: 'success',
+       msg: `Maquina "${(maquina.nombreMaq)}" agregada`,
+       timeout: 2000
+     });
+   }else{
+     alert("Repetidos")
+   }
 
-  //   .subscribe(() => {
-  //    //this.flashMessage.show('Registered', {cssClass: 'alert-success', timeout: 3000});
-  //    //this.router.navigate(['/login']);
-  //  });
 
+
+ }
+
+ buscaRepetidos(maquinaS){
+   console.log("Bus")
+   for(let maquina of this.maquinas){
+     if(maquina.nombreMaq==maquinaS.nombreMaq){
+       console.log(true)
+       return true
+     }
+     else{
+       console.log(false)
+     }
+   }
  }
 
  editaMaquina(maquina:maquinaria){

@@ -40,7 +40,7 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class=" ">Confirmación</h4>
+        <h4 class="col-12 text-center ">Confirmación</h4>
       </div>
       <div class="modal-body">
 
@@ -94,18 +94,18 @@
 </ng-template> -->
 
 
-<div bsModal #modalNew="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div ngDraggable bsModal #modalNew="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="offset-1">Agrega Zona de Demanda</h4>
+        <h4 class="col-12 text-center">Agrega Zona de Demanda</h4>
       </div>
       <div class="modal-body">
         <form [formGroup]="newForm" (ngSubmit)="guardaZona(newForm.value)" class="offset-1"  >
 
 
           <div class="form-group row text-center" >
-            <label class="col-5 col-form-label">Nombre</label>
+            <label class="col-12 col-form-label text-center">Nombre</label>
             <div class="col-6 has-success"
             [ngClass]="{'has-danger': !newForm.get('nombreZona').valid}">
 
@@ -135,7 +135,7 @@
             <b>Productos Demandados:</b>
               <hr>
             <div formArrayName="productos">
-              <div *ngFor="let producto of newForm.controls.productos.controls; let i=index" class="form-control">
+              <div *ngFor="let producto of newForm.controls.productos.controls; let i=index" class="form-control" style="margin-top:15px">
 
                   <div class="" [formGroupName]="i">
 
@@ -144,8 +144,8 @@
                     <div class="form-group row">
                         <button type="button" class="btn btn-danger row" (click)="deleteProducto(i,newForm)">X</button>
                       <hr>
-                      <label class="col-5 col-form-label text-center offset-1">Producto: {{i+1}}</label>
-                      <div class="col-5 " >
+                      <label class="col-4 col-form-label text-center offset-1">Producto: {{i+1}}</label>
+                      <div class="col-6" >
                         <select formControlName="Producto_idProducto" class="form-control" valueChanges="evento()">
                           <option *ngFor="let producto of productos" value={{producto.idProducto}}>{{producto.nombreProd}}</option>
                         </select>
@@ -201,7 +201,6 @@
 
 
                     </div>
-                    {{validaNew()}}
 
 
 <!--
@@ -220,12 +219,23 @@
 
                 </div>
               </div>
+              <div class="row"  *ngIf="repetido" style="margin-top:20px;">
+                <div class="col-12 text-center" style="color:red">
+                  No puedes agregar productos repetidos
+                </div>
+
+              </div>
             </div>
+            <div class="row" style="margin-top:20px; margin-bottom:20px;">
+              <button type="button" class=" btn btn-primary" (click)="inputProducto(newForm)">Agregar</button>
+
+            </div>
+
           </div>
 
 
 
-          <button type="button" class=" btn btn-primary" (click)="inputProducto(newForm)">Agregar</button>
+
 
               <div class="modal-footer">
                 <button type="submit" class="btn btn-outline-success" [disabled]="!newForm.valid"   >
@@ -270,11 +280,11 @@
 
 
 
-<div bsModal #modalEdit="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div ngDraggable bsModal #modalEdit="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="offset-1">Edita Zona de Demanda</h4>
+        <h4 class="col-12 text-center">Edita Zona de Demanda</h4>
       </div>
       <div class="modal-body">
         <form [formGroup]="editForm" (ngSubmit)="editaZona(editForm.value)"  >
@@ -330,13 +340,27 @@
         <br>
 
           <div class="form-group row">
-              <div class="offset-1 col-6">
-                <select class="form-control" [(ngModel)]="preSelected" [ngModelOptions]="{standalone: true}"> >
+              <!-- <div class="offset-1 col-6">
+                <select class="form-control" [(ngModel)]="preSelected" [ngModelOptions]="{standalone: true}">
                   <option *ngFor="let producto of productos" [value]="producto.idProducto">{{producto.nombreProd}}</option>
                 </select>
+          </div> -->
+
+          <div class="col-6 offset-1" >
+            <select  class="form-control" [(ngModel)]="preSelected" [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let producto of productos" [value]="producto.idProducto">{{producto.nombreProd}}</option>
+            </select>
+
+            <div class="form-control-feedback text-center " style="font-size:10px;"
+            [ngClass]="{'has-danger': preSelected==null}"
+            *ngIf="preSelected==null">
+              Debes seleccionar un producto
+            </div>
           </div>
-          <button type="button" class=" btn btn-primary col-3" (click)="agregaProd(editForm.get('idZona').value,preSelected,0,0)">Agregar</button>
+          <button type="button" class=" btn btn-primary col-3" (click)="agregaProd(editForm.get('idZona').value,preSelected,0,0)" [disabled]="preSelected==null">Agregar</button>
           </div>
+
+
 
 
               <div class="modal-footer">
@@ -367,7 +391,7 @@
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="offset-1">Edita Producto de Zona</h4>
+        <h4 class="col-12 text-center">Edita Producto de Zona</h4>
       </div>
       <div class="modal-body">
 

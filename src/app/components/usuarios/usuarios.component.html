@@ -476,10 +476,10 @@
       <div class="modal-body">
 
         <div class="list-group">
-          <button type="button" class="list-group-item list-group-item-action" (click)="openVariables()">Valores de Balance</button>
-          <button type="button" class="list-group-item list-group-item-action" (click)="openMaqInit()">Maquinarias Iniciales</button>
-          <button type="button" class="list-group-item list-group-item-action" (click)="openModalProdInit()">Productos Iniciales</button>
-          <button type="button" class="list-group-item list-group-item-action" (click)="openModalZonaInit()">Zonas Iniciales</button>
+          <button type="button" class="list-group-item list-group-item-action" (click)="openVariables()">Valores de Balance Iniciales</button>
+          <button type="button" class="list-group-item list-group-item-action" (click)="openMaqInit()">Maquinaria Existente</button>
+          <button type="button" class="list-group-item list-group-item-action" (click)="openModalProdInit()">Productos Existentes</button>
+          <button type="button" class="list-group-item list-group-item-action" (click)="openModalZonaInit()">Zonas Existentes</button>
         </div>
 
 
@@ -504,8 +504,10 @@
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="col-12 text-center">Variables Iniciales</h2>
+        <h2 class="col-12 text-center">Variables Iniciales de Balance</h2>
       </div>
+      <h5 class="col-12 text-center" style="margin-top:10px">({{userSelected.nombreUsuario}} {{userSelected.apPat}})</h5>
+
       <div class="modal-body">
 
         <form [formGroup]="variablesForm" class="offset-1" (ngSubmit)="balanceCero(variablesForm.value)" >
@@ -531,7 +533,15 @@
               </div>
 
             </div> -->
+            <div class="row">
+              <div class="col-12">
+                <h5>Valores de Activo</h5>
+                <div class="container">
+                <hr>
+                </div>
 
+              </div>
+            </div>
             <div class="form-group row text-center">
               <label class="col-5 col-form-label">Cuentas Por Cobrar</label>
 
@@ -650,6 +660,18 @@
               </div>
 
             </div>
+
+            <div class="row">
+              <div class="col-12">
+
+                <div class="container">
+                <h5>Valores de Pasivo</h5>
+                <hr>
+                </div>
+
+              </div>
+            </div>
+
 
             <div class="form-group row text-center">
               <label class="col-5 col-form-label">IVA por Enterar</label>
@@ -979,7 +1001,7 @@
 
       <div class="modal-footer">
         <button  type="button" class="btn btn-outline-danger" (click)="modalMaqInit.hide()">
-        Cancelar
+        Salir
         </button>
 
       </div>
@@ -1098,7 +1120,7 @@
 
       <div class="modal-footer">
         <button  type="button" class="btn btn-outline-danger" (click)="modalZonaInit.hide()">
-        Cancelar
+        Salir
         </button>
 
       </div>
@@ -1178,7 +1200,7 @@
 
       <div class="modal-footer">
         <button  type="button" class="btn btn-outline-danger" (click)="modalProdInit.hide()">
-        Cancelar
+        Salir
         </button>
 
       </div>

@@ -30,9 +30,10 @@ export class DemandasComponent implements OnInit {
     }
   ];
   editForm:FormGroup;
+  repetidoEdit:boolean=false;
   newForm:FormGroup;
   productoZona:FormGroup;
-
+  repetido:boolean=false;
   userForm: FormGroup;
   productos:producto[] = [];
   selectedValue:select[]=[
@@ -98,22 +99,31 @@ export class DemandasComponent implements OnInit {
             });
 
 
-//             this.newForm.controls.productos.valueChanges.subscribe(data => {
-//               console.log("entrando evento",)
-//               for(let i=0;i<data.length;i++){
-//                 for(let j=i+1;j<data.length;j++){
-//                   //console.log(data[j].Producto_idProducto,data[i].Producto_idProducto)
-//                   if(data[j].Producto_idProducto==data[i].Producto_idProducto)
-//                     alert("repetido");
-//                     console.log(this.newForm.controls.productos.get(j.toString()).get("Producto_idProducto"))
-//
-//                     if(!data[i]==data.length)
-//                       this.newForm.controls.productos.get(j.toString()).reset()
-//                 }
-//
-//
-//               }
-// })
+            this.newForm.controls.productos.valueChanges.subscribe(data => {
+              const control = <FormArray>this.newForm.controls['productos'];
+              console.log("entrando evento",)
+              for(let i=0;i<data.length;i++){
+                for(let j=i+1;j<data.length;j++){
+                  //console.log(data[j].Producto_idProducto,data[i].Producto_idProducto)
+
+                  if(data[j].Producto_idProducto==data[i].Producto_idProducto){
+                    control.removeAt(j)
+                    this.repetido=true;
+
+                  }
+
+                    //console.log(this.newForm.controls.productos.get(j.toString()).get("Producto_idProducto"))
+
+                    if(!data[i]==data.length){
+                      //control.removeAt(data.lenght-1);
+                    }
+
+                }
+
+
+
+              }
+})
 
 
 
@@ -156,6 +166,7 @@ validaNew(){
     }
 
     inputProducto(form:FormGroup,id:number,costo:number,tiempo:number){
+      this.repetido=false;
       const control = <FormArray>form.controls['productos'];
       if(form.controls.productos.valid){
         control.push(this.initProductoOfNew(id,costo,tiempo));
@@ -165,8 +176,17 @@ validaNew(){
     }
 
     agregaProd(idZona,idProducto,costo,tiempo){
-      this._demandaService.addProducto(idZona,idProducto,costo,tiempo);
-      this.inputProducto(this.editForm,idProducto,0,0);
+      for(let prod of this.editForm.controls.productos.value)
+        if(prod.Producto_idProducto==this.preSelected){
+          alert("producto repetido");
+          return;
+        }
+
+          this._demandaService.addProducto(idZona,idProducto,costo,tiempo);
+          this.inputProducto(this.editForm,idProducto,0,0);
+
+
+
     }
 
     guardaProductoZona(productoZona){
@@ -186,7 +206,7 @@ validaNew(){
 
     deleteProducto(i:number,form:FormGroup){
       const control = <FormArray>form.controls['productos'];
-      console.log(control.get(i.toString()).value);
+      console.log(i);
       control.removeAt(i);
 
 
@@ -235,14 +255,29 @@ validaNew(){
 
 
   guardaZona(zona:any){
-    //this._demandaService.guardarZona(zona);
-    this.modalNew.hide();
+    if(!this.buscaRepetidos(zona)){
+      this._demandaService.guardarZona(zona);
+      this.modalNew.hide();
 
-    this.alerts.push({
-      type: 'success',
-      msg: `Zona "${(zona.nombreZona)}" agregada`,
-      timeout: 2000
-    });
+      this.alerts.push({
+        type: 'success',
+        msg: `Zona "${(zona.nombreZona)}" agregada`,
+        timeout: 2000
+      });
+    }else{
+      alert("Repetido")
+    }
+
+  }
+
+  buscaRepetidos(zonaS){
+    for(let zona of this.zonas){
+      if(zona.nombreZona==zonaS.nombreZona){
+        return true
+      }
+
+
+    }
 
   }
 

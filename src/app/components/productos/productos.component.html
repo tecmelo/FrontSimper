@@ -1,6 +1,10 @@
 
 <div class="container">
-  <h2 class="text-center">Productos</h2>
+  <div class="row">
+    <h2 class="text-center offset-4 col-4">Productos</h2>
+    <button type="button" (click)="openNew(newModal)" class="btn btn-warning offset-3 col-1">Agregar</button>
+  </div>
+
   <hr>
   <div class="text-center" *ngFor="let alert of alerts" style="z-index:10000;width:100%; ">
     <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout"><h3>{{ alert.msg }}</h3></alert>
@@ -32,7 +36,7 @@
         <h6 class="card-subtitle " style="margin-bottom:15px"><b>Costo de Desarrollo:</b> {{producto.costoDes | currency:'USD':true }}</h6>
         <h6 class="card-subtitle " style="margin-bottom:15px"><b>Periodos de Desarrollo:</b> {{producto.tiempoDes}}</h6>
         <h6 class="card-subtitle " style="margin-bottom:15px"><b>Suma de Costos Fijos:</b> {{producto.costosFijosFabri | currency:'USD':true}}</h6>
-        <h6 class="card-subtitle " style="margin-bottom:15px"><b>Suma de Costos Variables Unitarios:</b> {{producto.costosFijosFabri | currency:'USD':true}}</h6>
+        <h6 class="card-subtitle " style="margin-bottom:15px"><b>Suma de Costos Variables Unitarios:</b> {{producto.costoVarUniDist + producto.costoVarUniFabri + producto.costosMPPUniProd| currency:'USD':true}}</h6>
 
 
       </div>
@@ -51,7 +55,7 @@
 
 </div>
 <!--- +++++++++++++++++++++++++++ Formulario para agregar +++++++++++++++++++++++++++++++++++++++++ -->
-<div bsModal #modalNew="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div ngDraggable bsModal #modalNew="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-">
     <div class="modal-content">
       <div class="modal-header">
@@ -74,6 +78,7 @@
                      </div>
             </div>
           </div>
+
 
           <div class="form-group row text-center" >
             <label class="col-5 col-form-label">Costo de Desarrollo</label>
@@ -115,9 +120,13 @@
             *ngIf="!newForm.controls['tiempoDes'].valid">
               El costo es requerido
             </div>
-
-
           </div>
+
+          <div class="container">
+            <hr>
+          </div>
+
+
 
           <div class="form-group row text-center">
             <label class="col-5 col-form-label">Precio de Venta</label>
@@ -136,12 +145,12 @@
             *ngIf="!newForm.controls['precioVenta'].valid">
               El costo es requerido
             </div>
-
-
           </div>
 
+
+
           <div class="form-group row text-center">
-            <label class="col-5 col-form-label">Costo Fijo de Fabricación</label>
+            <label class="col-5 col-form-label">Costos Fijos de Fabricación</label>
 
             <div class="input-group col-6 has-success"
             [ngClass]="{'has-danger': !newForm.get('costosFijosFabri').valid}">
@@ -156,88 +165,8 @@
             </div>
           </div>
 
-
-
-
-            <!-- <div class="form-group row text-center">
-              <label class="col-5 col-form-label">Gastos Fijos de Distribución</label>
-
-              <div class="input-group col-6 has-success"
-              [ngClass]="{'has-danger': !newForm.get('gastosFijosDist').valid}">
-                <span class="input-group-addon">$</span>
-                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control"
-                formControlName="gastosFijosDist">
-              </div>
-
-              <div class="form-control-feedback offset-5 text-center col-6"
-              style="font-size:10px;"
-              [ngClass]="{'has-danger': !newForm.get('gastosFijosDist').valid}"
-              *ngIf="!newForm.controls['gastosFijosDist'].valid">
-                El costo es requerido
-              </div>
-
-            </div> -->
-
-            <div class="form-group row text-center">
-              <label class="col-5 col-form-label">Depreciación por Administración </label>
-
-              <div class="input-group col-6 has-success"
-              [ngClass]="{'has-danger': !newForm.get('depAdmon').valid}">
-                <span class="input-group-addon">$</span>
-                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control"
-                formControlName="depAdmon">
-              </div>
-
-              <div class="form-control-feedback offset-5 text-center col-6"
-              style="font-size:10px;"
-              [ngClass]="{'has-danger': !newForm.get('depAdmon').valid}"
-              *ngIf="!newForm.controls['depAdmon'].valid">
-                El costo es requerido
-              </div>
-
-            </div>
-
-
-            <div class="form-group row text-center">
-              <label class="col-5 col-form-label">Depreciación por Distribución </label>
-
-              <div class="input-group col-6 has-success"
-              [ngClass]="{'has-danger': !newForm.get('depDistribucion').valid}">
-                <span class="input-group-addon">$</span>
-                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control"
-                formControlName="depDistribucion">
-              </div>
-
-              <div class="form-control-feedback offset-5 text-center col-6"
-              style="font-size:10px;"
-              [ngClass]="{'has-danger': !newForm.get('depDistribucion').valid}"
-              *ngIf="!newForm.controls['depDistribucion'].valid">
-                El costo es requerido
-              </div>
-
-            </div>
-
-
-            <div class="form-group row text-center">
-              <label class="col-5 col-form-label">Gastos Fijo de Distribución</label>
-
-              <div class="input-group col-6 has-success"
-              [ngClass]="{'has-danger': !newForm.get('costosFijosFabri').valid}">
-                <span class="input-group-addon">$</span>
-                <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control"
-                formControlName="gastosFijosDist">
-              </div>
-              <div class="form-control-feedback offset-5 text-center col-6" style="font-size:10px;"
-              [ngClass]="{'has-danger': !newForm.get('costosFijosFabri').valid}"
-              *ngIf="!newForm.controls['costosFijosFabri'].valid">
-                El costo es requerido
-              </div>
-            </div>
-
-
-
           <div class="form-group row text-center">
-            <label class="col-5 col-form-label">Costo Variable de Fabricación</label>
+            <label class="col-5 col-form-label">Costo Variable Unitario de Fabricación</label>
 
             <div class="input-group col-6 has-success"
             [ngClass]="{'has-danger': !newForm.get('costoVarUniFabri').valid}">
@@ -254,6 +183,44 @@
 
           </div>
 
+
+          <div class="form-group row text-center">
+            <label class="col-5 col-form-label">Gastos Fijos de Distribución</label>
+
+            <div class="input-group col-6 has-success"
+            [ngClass]="{'has-danger': !newForm.get('costosFijosFabri').valid}">
+              <span class="input-group-addon">$</span>
+              <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control"
+              formControlName="gastosFijosDist">
+            </div>
+            <div class="form-control-feedback offset-5 text-center col-6" style="font-size:10px;"
+            [ngClass]="{'has-danger': !newForm.get('costosFijosFabri').valid}"
+            *ngIf="!newForm.controls['costosFijosFabri'].valid">
+              El costo es requerido
+            </div>
+          </div>
+
+
+          <div class="form-group row text-center">
+            <label class="col-5 col-form-label">Depreciación por Distribución </label>
+
+            <div class="input-group col-6 has-success"
+            [ngClass]="{'has-danger': !newForm.get('depDistribucion').valid}">
+              <span class="input-group-addon">$</span>
+              <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control"
+              formControlName="depDistribucion">
+            </div>
+
+            <div class="form-control-feedback offset-5 text-center col-6"
+            style="font-size:10px;"
+            [ngClass]="{'has-danger': !newForm.get('depDistribucion').valid}"
+            *ngIf="!newForm.controls['depDistribucion'].valid">
+              El costo es requerido
+            </div>
+
+          </div>
+
+
           <div class="form-group row text-center">
             <label class="col-5 col-form-label">Costo Variable Unitario de Distribución</label>
             <div class="input-group col-6 has-success"
@@ -268,9 +235,8 @@
             *ngIf="!newForm.controls['costoVarUniDist'].valid">
               El costo es requerido
             </div>
-
-
           </div>
+
 
           <div class="form-group row text-center">
             <label class="col-5 col-form-label">Gastos Fijos de Administración</label>
@@ -286,6 +252,27 @@
             style="font-size:10px;"
             [ngClass]="{'has-danger': !newForm.get('gastosFijosAdmon').valid}"
             *ngIf="!newForm.controls['gastosFijosAdmon'].valid">
+              El costo es requerido
+            </div>
+
+          </div>
+
+
+
+          <div class="form-group row text-center">
+            <label class="col-5 col-form-label">Depreciación por Administración </label>
+
+            <div class="input-group col-6 has-success"
+            [ngClass]="{'has-danger': !newForm.get('depAdmon').valid}">
+              <span class="input-group-addon">$</span>
+              <input currencyMask [options]="{ prefix: '', thousands: ',', precision:'0' }" class="form-control"
+              formControlName="depAdmon">
+            </div>
+
+            <div class="form-control-feedback offset-5 text-center col-6"
+            style="font-size:10px;"
+            [ngClass]="{'has-danger': !newForm.get('depAdmon').valid}"
+            *ngIf="!newForm.controls['depAdmon'].valid">
               El costo es requerido
             </div>
 
@@ -312,8 +299,6 @@
 
           </div>
 
-
-
           <div class="form-group row text-center">
             <label class="col-5 col-form-label">Unidades de MP por unidad producida</label>
             <div class="input-group col-6 has-success"
@@ -329,6 +314,7 @@
               El costo es requerido
             </div>
           </div>
+
 
           <div class="form-group row text-center">
             <label class="col-5 col-form-label">Costo Unitario</label>
@@ -347,7 +333,15 @@
           </div>
 
 
+
+
+
+
+
+
               <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" (click)="modalCopia.show()">Copias Variables</button>
+
                 <button type="submit" class="btn btn-outline-success" [disabled]="!newForm.valid">
                   Guardar
                 </button>
@@ -356,7 +350,6 @@
                 Cancelar
                 </button>
 
-                <button type="button" class="btn btn-info" (click)="modalCopia.show()">Copias Variables</button>
 
 
               </div>
@@ -372,12 +365,11 @@
 
 
 <!--- Boton de Acción de Formulario de Edición--->
-<button type="button" (click)="openNew(newModal)" class="btn btn-warning btn-floating">Agregar</button>
 
 
 
 <!--- Modal de edición +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
-<div bsModal #modalEdit="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div ngDraggable bsModal #modalEdit="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
@@ -565,7 +557,7 @@
 
 
           <div class="form-group row text-center">
-            <label class="col-5 col-form-label">Costo Variable de Fabricación</label>
+            <label class="col-5 col-form-label">Costo Variable Unitario de Fabricación</label>
 
             <div class="input-group col-6 has-success"
             [ngClass]="{'has-danger': !editForm.get('costoVarUniFabri').valid}">

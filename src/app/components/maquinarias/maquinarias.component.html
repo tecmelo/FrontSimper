@@ -1,5 +1,10 @@
 <div class="container">
-  <h2 class="text-center">Maquinarias</h2>
+  <div class="row">
+    <h2 class="col-4 offset-4 text-center">Maquinarias</h2>
+    <button type="button" (click)="openNew()" class="btn btn-warning col-1 offset-3">Agregar</button>
+
+  </div>
+
   <hr>
   <div class="text-center" *ngFor="let alert of alerts" style="z-index:10000;width:100%; ">
     <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout"><h3>{{ alert.msg }}</h3></alert>
@@ -9,7 +14,7 @@
 
 
 
-<div class="container" style="overflow:scroll; height:550px;">
+<div class="container" style="overflow:scroll; height:1000px;">
 
 
 
@@ -18,16 +23,15 @@
   <div class="card" *ngFor="let maquina of maquinas">
     <div class="card-block">
       <div class="row">
-        <img src="assets/img/machine.png" alt="Card image cap" style="height:80px;margin-top:25px; margin-left:20px;margin-bottom:20px;">
+        <img src="assets/img/machine.png" alt="Card image cap" style="height:70px;margin-top:20px; margin-left:20px;margin-bottom:20px;">
 
         <div class="col-8">
           <h4 class="card-title">{{maquina.nombreMaq}}</h4>
-          <p class="card-text">Costo: {{maquina.costo}}
-            <br>
-            Producción: {{maquina.cantidadProd}}u
-            <br>
-            Producto: {{getNameById(maquina.Producto_idProducto)}}
-          </p>
+
+          <h6 class="card-subtitle " style="margin-bottom:15px"><b>Costo:</b> {{maquina.costo | currency:'USD':true }}</h6>
+          <h6 class="card-subtitle " style="margin-bottom:15px"><b>Producción:</b> {{maquina.cantidadProd}}u</h6>
+          <h6 class="card-subtitle " style="margin-bottom:15px"><b>Producto:</b> {{getNameById(maquina.Producto_idProducto)}}</h6>
+
         </div>
       </div>
 
@@ -66,11 +70,11 @@
 
 </ng-template> -->
 
-<div bsModal #modalEdit="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div ngDraggable bsModal #modalEdit="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="offset-1">Edita Maquinaria</h4>
+        <h4 class="col-12 text-center">Edita Maquinaria</h4>
       </div>
       <div class="modal-body">
         <form [formGroup]="editForm" (ngSubmit)="editaMaquina(editForm.value)" class="offset-1"  >
@@ -199,7 +203,6 @@
 
 <!--- Boton para abrir formulario par agregar nueva maquinaria -->
 
-<button type="button" (click)="openNew()" class="btn btn-warning btn-floating">Agregar</button>
 
 
 <!-- Formulario para agregar un nuevo producto -->
@@ -222,11 +225,11 @@
 </ng-template> -->
 
 
-<div bsModal #modalNew="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div ngDraggable bsModal #modalNew="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="offset-1">Agrega Maquinaria</h4>
+        <h4 class="col-12 text-center">Agrega Maquinaria</h4>
       </div>
       <div class="modal-body">
 
@@ -348,7 +351,7 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class=" ">Confirmación</h4>
+        <h4 class="col-12 text-center ">Confirmación</h4>
       </div>
       <div class="modal-body">
 

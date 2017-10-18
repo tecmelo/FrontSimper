@@ -44,11 +44,11 @@
 
 
 <!--- +++++++++++++++++++++++++++ Formulario para agregar +++++++++++++++++++++++++++++++++++++++++ -->
-<div bsModal #modalNew="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div ngDraggable bsModal  #modalNew="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Agregar Administrador</h4>
+        <h4 class="modal-title col-12 text-center">Agregar Administrador</h4>
       </div>
       <div class="modal-body">
         <form [formGroup]="newForm" (ngSubmit)="guarda(newForm.value)"  >
@@ -166,7 +166,7 @@
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Editar Administrador</h4>
+        <h4 class="modal-title text-center col-12">Editar Administrador</h4>
       </div>
       <div class="modal-body">
 
@@ -293,7 +293,7 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class=" ">Confirmación</h4>
+        <h4 class="col-12 text-center ">Confirmación</h4>
       </div>
       <div class="modal-body">
 

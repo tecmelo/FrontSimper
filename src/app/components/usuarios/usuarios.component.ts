@@ -151,15 +151,29 @@ export class UsuariosComponent implements OnInit {
 
 
   guarda(usuario:usuario){
-    console.log(usuario)
-    this._usuariosService.guardarUsuario(usuario);
-    this.modalNew.hide();
+    if(!this.buscaRepetidos(usuario)){
+      this._usuariosService.guardarUsuario(usuario);
+      this.modalNew.hide();
 
-    this.alerts.push({
-      type: 'success',
-      msg: `Usuario "${(usuario.nombreUsuario)}" agregado`,
-      timeout: 2000
-    });
+      this.alerts.push({
+        type: 'success',
+        msg: `Usuario "${(usuario.nombreUsuario)}" agregado`,
+        timeout: 2000
+      });
+    }else{
+      alert("Repetidos")
+    }
+
+  }
+
+
+  buscaRepetidos(user){
+    for(let usuario of this.usuarios){
+      if(usuario.nombreUsuario+" "+usuario.apPat+" "+usuario.apMat==user.nombreUsuario+" "+user.apPat+" "+user.apMat){
+        return true
+      }
+    
+    }
   }
 
   editaUsuario(usuario:usuario){

@@ -64,14 +64,32 @@ export class AdministradoresComponent implements OnInit {
 
 
   guarda(admin:admin){
-    this._administradoresService.guardarAdministrador(admin);
-    this.modalNew.hide();
 
-    this.alerts.push({
-      type: 'success',
-      msg: `Administrador "${(admin.nombreAdmin)}" agregado`,
-      timeout: 2000
-    });
+    if(!this.buscaRepetidos(admin)){
+      this._administradoresService.guardarAdministrador(admin);
+      this.modalNew.hide();
+
+      this.alerts.push({
+        type: 'success',
+        msg: `Administrador "${(admin.nombreAdmin)}" agregado`,
+        timeout: 2000
+      });
+    }else{
+      alert("repetidos")
+    }
+
+
+  }
+
+  buscaRepetidos(admin){
+    for(let admiS of this.administradores){
+      if(admin.nombreAdmin+" "+admin.apPat+" "+admin.apMat==admiS.nombreAdmin+" "+admiS.apPat+" "+admiS.apMat){
+        return true
+      }
+
+      
+
+    }
 
   }
 

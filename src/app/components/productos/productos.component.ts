@@ -189,17 +189,11 @@ confDelete(producto:producto){
 
 
 buscaRepetidos(producto){
-  console.log(this.productos)
   for(let prod of this.productos){
     if(prod.nombreProd==producto.nombreProd){
-      console.log(true)
       return true
     }
 
-    else{
-      console.log(false);
-
-    }
 
   }
 
