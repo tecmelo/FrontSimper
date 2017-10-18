@@ -29,16 +29,14 @@ export class OperacionService {
   }
 
   registerOperacion(x){
-    var uniA = 0;
-    var uniV = 0;
-    if(x.unidadesAlmacenadas != null){
-      uniA = x.unidadesAlmacenadas;
+    if(x.unidadesAlmacenadas == null){
+      x.unidadesAlmacenadas = 0;
     }
-    if(x.unidadesVendidas != null){
-      uniV = x.unidadesVendidas;
+    if(x.unidadesVendidas == null){
+      x.unidadesVendidas = 0;
     }
     console.log(x)
-    this.addOperacion(x).subscribe();
+    this.addOperacion(x).subscribe(data => console.log(data));
   }
 
   //Peticiones
@@ -64,34 +62,13 @@ export class OperacionService {
     return this.http.post('http://localhost:3000/operacion/getAll/',x,this.headers).map(res => res.json());
   }
 
-  getOperacion(idProducto,numPeriodo){
+  getProductosV(){
     var x = {
-      "idProducto":idProducto,
-      "numeroPeriodo":numPeriodo,
-      "idProyecto":localStorage.getItem('idProyecto'),
-      "idUsuario":localStorage.getItem('idUsuario')
-    }
-    return this.http.post('http://localhost:3000/operacion/getOperacion/',x,this.headers).map(res => res.json());
-  }
-
-  getOperacionA(idProducto){
-    var x = {
-      "idProducto":idProducto,
       "numeroPeriodo":localStorage.getItem('numeroPeriodo'),
       "idProyecto":localStorage.getItem('idProyecto'),
       "idUsuario":localStorage.getItem('idUsuario')
     }
-    return this.http.post('http://localhost:3000/operacion/getOperacion/',x,this.headers).map(res => res.json());
-  }
-
-  getOperacionB(idProducto){
-    var x = {
-      "idProducto":idProducto,
-      "numeroPeriodo":parseInt(localStorage.getItem('numeroPeriodo'))-1,
-      "idProyecto":localStorage.getItem('idProyecto'),
-      "idUsuario":localStorage.getItem('idUsuario')
-    }
-    return this.http.post('http://localhost:3000/operacion/getOperacion/',x,this.headers).map(res => res.json());
+    return this.http.post('http://localhost:3000/operacion/productosventa/',x,this.headers).map(res=>res.json());
   }
 
   returnAuxiliares(){
