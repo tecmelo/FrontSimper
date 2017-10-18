@@ -87,7 +87,7 @@ export class VentaProductosComponent implements OnInit {
     this._operacionService.validarOperacion(x).subscribe(data => {
       if(data.success){
         this.progressVenta();
-        this._operacionService.registerOperacion(x);
+        this.ventas = this._operacionService.registerOperacion(x);
       }
       else{
         alert(data.msg);
