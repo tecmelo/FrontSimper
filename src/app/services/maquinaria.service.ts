@@ -30,6 +30,20 @@ export class MaquinariaService {
     return this.establecerValores();
   }
 
+  getMaquinariasPC(){
+    return this.http.get('http://localhost:3000/maquinaria/maquinariaspc/'+localStorage.getItem('idProyecto')).map(res => res.json());
+  }
+
+  returnMPC(){
+    var mpc = [];
+    this.getMaquinariasPC().subscribe(data => {
+      for(let key in data.datos){
+        mpc.push(data.datos[key]);
+      }
+    });
+    return mpc;
+  }
+
   setMaquina(maquina:maquinaria){
     let headers = new Headers({
       'Content-Type':'application/json'

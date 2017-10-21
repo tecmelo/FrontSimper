@@ -150,6 +150,7 @@ returnUsuarios(){
       this._usuarioMaquinariaService.getMaquinariasU(idUsuario).subscribe(data => {
         for(let key$ in data.datos){
           var x = {
+            Balance_numeroPeriodo:0,
             Maquinaria_idMaquinaria:data.datos[key$].idMaquinaria,
             Maquinaria_idProducto:data.datos[key$].Producto_idProducto,
             Proyectos_idProyecto:idProyecto,
