@@ -14,11 +14,80 @@ export class BalanceHomeComponent implements OnInit {
   productosDesarollados:any[] = [];
   productosZonaDesarrollados:any[] =[];
   productos = new Array();
-
+  options:any;
+  data:any;
+  selectedTabProd:any="Productos en Desarrollo";
+  selectedTabZona:any="Zonas en Desarrollo";
   constructor(private _desarrolloProducto:DesarrolloProductoService,
               private _desarrolloZonaService:DesarrolloZonaService,
               private _CompraMaquinariaService:CompraMaquinariaService,
               private _productosService:ProductoService) {
+                this.options = {
+      chart: {
+        type: 'discreteBarChart',
+        height: 450,
+        margin : {
+          top: 20,
+          right: 20,
+          bottom: 50,
+          left: 55
+        },
+        x: function(d){return d.label;},
+        y: function(d){return d.value;},
+        showValues: true,
+        valueFormat: function(d){
+          return d3.format(',.4f')(d);
+        },
+        duration: 500,
+        xAxis: {
+          axisLabel: 'X Axis'
+        },
+        yAxis: {
+          axisLabel: 'Y Axis',
+          axisLabelDistance: -10
+        }
+      }
+    };
+
+    this.data = [
+      {
+        key: "Cumulative Return",
+        values: [
+          {
+            "label" : "Producto X" ,
+            "value" : 20
+          } ,
+          {
+            "label" : "Producto c" ,
+            "value" : 30
+          } ,
+          {
+            "label" : "Producto B" ,
+            "value" : 50
+          } ,
+          {
+            "label" : "Producto A" ,
+            "value" : 20
+          } ,
+          {
+            "label" : "Producto Z" ,
+            "value" : 30
+          } ,
+          {
+            "label" : "Producto l" ,
+            "value" : 10
+          } ,
+          {
+            "label" : "Producto Q" ,
+            "value" : 50
+          } ,
+          {
+            "label" : "Producto R" ,
+            "value" : 30
+          }
+        ]
+      }
+    ];
   }
 
   ngOnInit() {
