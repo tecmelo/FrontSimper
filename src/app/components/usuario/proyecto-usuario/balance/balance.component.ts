@@ -105,7 +105,7 @@ export class BalanceComponent implements OnInit {
   }
 
   modalPasarPeriodo(){
-    this.confModal.hide();
+    this.openBien=false;
     this.router.navigate(['Usuario/proyecto/home']);
   }
 

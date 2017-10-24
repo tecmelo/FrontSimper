@@ -11,7 +11,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
   styleUrls: ['./compra-maquinaria.component.css']
 })
 export class CompraMaquinariaComponent implements OnInit {
-  maquinas:maquinaria[]=new Array();
+  maquinas = new Array();
   directional: boolean = false;
   openLoad: boolean;
   openConf:boolean;
@@ -52,7 +52,7 @@ export class CompraMaquinariaComponent implements OnInit {
     private _productosService:ProductoService,
     private _maquinariaService:MaquinariaService) {
     this.productos = this._productosService.returnProductos();
-    this.maquinas = this._maquinariaService.returnMaquinas();
+    this.maquinas = this._maquinariaService.returnMPC();
     this.maquinasCompradas = this._CompraMaquinariaService.returnMaquinasCompradas();
     console.log(this.maquinasCompradas)
     setTimeout(() => {
@@ -94,6 +94,7 @@ comprar(){
     this.openLoad=true;
     setTimeout(()=>this.openLoad=false, 2000);
     var x = {
+      Balance_numeroPeriodo:localStorage.getItem('numeroPeriodo'),
       Maquinaria_idMaquinaria:this.maqSelectedAdd.idMaquinaria,
       Producto_idProducto :this.maqSelectedAdd.Producto_idProducto,
       Proyectos_idProyecto:parseInt(localStorage.getItem('idProyecto'))

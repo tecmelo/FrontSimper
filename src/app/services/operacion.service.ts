@@ -29,14 +29,19 @@ export class OperacionService {
   }
 
   registerOperacion(x){
+    let operaciones:any[]=[];
     if(x.unidadesAlmacenadas == null){
       x.unidadesAlmacenadas = 0;
     }
     if(x.unidadesVendidas == null){
       x.unidadesVendidas = 0;
     }
-    console.log(x)
-    this.addOperacion(x).subscribe(data => console.log(data));
+    this.addOperacion(x).subscribe(data => {
+      for(let key in data.datos){
+        operaciones.push(data.datos[key]);
+      }
+    });
+    return operaciones;
   }
 
   //Peticiones
@@ -67,10 +72,8 @@ export class OperacionService {
     this.getAllOperaciones().subscribe(data=>{
 
       for(let key in data.datos){
-        console.log(data.datos[key]);
         operaciones.push(data.datos[key]);
       }
-      console.log(operaciones);
 
     });
     return operaciones;
