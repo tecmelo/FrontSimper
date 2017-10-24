@@ -15,17 +15,21 @@ export class VentaProductosComponent implements OnInit {
   productos=[];
   zonas=[];
   ventasForm:FormGroup;
+  almacenForm:FormGroup;
   valueBar:number
   ventaO:any={
     idZona:null,
-    cantiadVenta:null,
-    cantidadAlmacen:null
-
+    cantiadVenta:null
   }
   selectedVenta:any={
     venta:this.ventaO,
     idProducto:null
   };
+
+  selectedAlmacen={
+    alamcen:null,
+    idProducto:null
+  }
 
   ventas:any;
 
@@ -49,8 +53,17 @@ export class VentaProductosComponent implements OnInit {
     this.ventasForm=new FormGroup({
       'idZona':new FormControl(),
       'cantidadVenta':new FormControl(),
-      'cantidadAlmacen':new FormControl()
+
     });
+
+    this.almacenForm=new FormGroup({
+      'idZona':new FormControl(),
+      'almacenForm':new FormControl(),
+
+    });
+
+
+
   }
 
   ngOnInit() {
@@ -101,6 +114,16 @@ export class VentaProductosComponent implements OnInit {
       venta:venta,
       idProducto:idProducto
     }
+
+    console.log(this.selectVenta)
+
+  }
+
+
+  selectAlamcen(almacen,idProducto){
+    this.selectedAlmacen.idProducto=idProducto;
+    this.selectedAlmacen.alamcen=almacen;
+    console.log(this.selectedAlmacen)
 
   }
 

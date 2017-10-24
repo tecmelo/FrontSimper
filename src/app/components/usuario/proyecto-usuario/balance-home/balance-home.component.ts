@@ -3,6 +3,7 @@ import { DesarrolloProductoService } from '../../../../services/desarrollo-produ
 import { DesarrolloZonaService } from '../../../../services/desarrollo-zona.service';
 import { CompraMaquinariaService } from '../../../../services/compra-maquinaria.service';
 import { ProductoService } from '../../../../services/producto.service';
+import {ResultadosService} from '../../../../services/resultados.service';
 
 @Component({
   selector: 'app-balance-home',
@@ -16,12 +17,14 @@ export class BalanceHomeComponent implements OnInit {
   productos = new Array();
   options:any;
   data:any;
+  balanceFinal:any;
   selectedTabProd:any="Productos en Desarrollo";
   selectedTabZona:any="Zonas en Desarrollo";
   constructor(private _desarrolloProducto:DesarrolloProductoService,
               private _desarrolloZonaService:DesarrolloZonaService,
               private _CompraMaquinariaService:CompraMaquinariaService,
-              private _productosService:ProductoService) {
+              private _productosService:ProductoService,
+              private _resultadosService:ResultadosService) {
                 this.options = {
       chart: {
         type: 'discreteBarChart',
@@ -95,6 +98,7 @@ export class BalanceHomeComponent implements OnInit {
     this.maquinasCompradas = this._CompraMaquinariaService.returnMaquinasCompradas();
     this.productosDesarollados = this._desarrolloProducto.returnProductosDesarrollados();
     this.productosZonaDesarrollados = this._desarrolloZonaService.returnProductosDeZonaDesarrollados();
+    this.balanceFinal = this._resultadosService.getBalanceFinal();
   }
 
   getNameById(id:number){
