@@ -74,7 +74,7 @@ export class VentaProductosComponent implements OnInit {
     this.openLoad=true;
     this.produciendo=true;
     setTimeout(()=>{this.produciendo=false;this.vendiendo=true;}, 1000);
-    setTimeout(()=>this.openLoad=false, 2000);
+    setTimeout(()=>this.openLoad=false, 1000);
 
 
 

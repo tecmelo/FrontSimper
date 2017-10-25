@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {ProyectosService} from '../../../../services/proyectos.service';
 import {DesarrolloProductoService} from '../../../../services/desarrollo-producto.service';
+import {ResultadosService} from '../../../../services/resultados.service';
 import {DesarrolloZonaService} from '../../../../services/desarrollo-zona.service';
 import {AuxiliarService} from '../../../../services/auxiliar.service';
 import {BalanceService} from '../../../../services/balance.service';
@@ -21,6 +22,7 @@ export class BalanceComponent implements OnInit {
   opciones:boolean=false;
   periodo:number;
   periodos = [];
+  balanceFinal:any;
   openConf:boolean=false;
   openBien:boolean=false;
   openLoad:boolean=false;
@@ -33,10 +35,12 @@ export class BalanceComponent implements OnInit {
   constructor(private _proyectoService:ProyectosService,
               private _balanceService:BalanceService,
               private _auxiliarService:AuxiliarService,
+              private _resultadosService:ResultadosService,
               private _desarrolloZona:DesarrolloZonaService,
               private router:Router,
               private _desarrolloProducto:DesarrolloProductoService) {
 
+              this.balanceFinal = this._resultadosService.getBalanceFinal();
    }
 
   ngOnInit() {
@@ -71,32 +75,41 @@ export class BalanceComponent implements OnInit {
   }
 
   pasarPeriodo(){
-    this.openConf=false;
-    this.openLoad=true;
-    setTimeout(()=>{this.openLoad=false,this.openBien=true;}, 2000);
+    var cajaBancosFinal = 0;
+    for(let b of this.balanceFinal){
+      cajaBancosFinal += b.cajaBancos;
+    }
+    if(cajaBancosFinal < 0){
+      alert("Necesitas un prestamo")
+    }
+    else{
+      this.openConf=false;
+      this.openLoad=true;
+      setTimeout(()=>{this.openLoad=false,this.openBien=true;}, 2000);
 
-    var p = localStorage.getItem('numeroPeriodo');
-    var proyecto = localStorage.getItem('idProyecto');
-    let periodoNuevo = parseInt(p) + 1;
-    this._balanceService.getBalanceByIds(proyecto,p).subscribe(data => {
-      var dep = data.datos[0].maqEquipo*.10;
-      this._balanceService.crearBalance(proyecto,data.datos[0],periodoNuevo).subscribe(data => {
-        if(data.success){
-          localStorage.setItem('numeroPeriodo',periodoNuevo.toString());
-          localStorage.setItem('numeroRPeriodos',periodoNuevo.toString());
+      var p = localStorage.getItem('numeroPeriodo');
+      var proyecto = localStorage.getItem('idProyecto');
+      let periodoNuevo = parseInt(p) + 1;
+      this._balanceService.getBalanceByIds(proyecto,p).subscribe(data => {
+        var dep = data.datos[0].maqEquipo*.10;
+        this._balanceService.crearBalance(proyecto,data.datos[0],periodoNuevo).subscribe(data => {
+          if(data.success){
+            localStorage.setItem('numeroPeriodo',periodoNuevo.toString());
+            localStorage.setItem('numeroRPeriodos',periodoNuevo.toString());
 
-          this.periodo = this.periodo + 1 ;
-          var y = {
-            nombre: "Periodo "+this.periodo,
-            numero: this.periodo
+            this.periodo = this.periodo + 1 ;
+            var y = {
+              nombre: "Periodo "+this.periodo,
+              numero: this.periodo
+            }
+            this.periodos.push(y);
+            this.crearAuxiliar(periodoNuevo,proyecto,dep);
           }
-          this.periodos.push(y);
-          this.crearAuxiliar(periodoNuevo,proyecto,dep);
-        }
+        });
       });
-    });
-    this._desarrolloProducto.actualizarPD();
-    this._desarrolloZona.actualizarZonasDes();
+      this._desarrolloProducto.actualizarPD();
+      this._desarrolloZona.actualizarZonasDes();
+    }
   }
 
   openBalances(){
