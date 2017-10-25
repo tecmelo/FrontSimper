@@ -81,47 +81,29 @@
     </div>
 
 
-    <div class="col-4">
+    <div class=" offset-1 col-4" style="height:500px">
       <div class="row">
         <h2 class=" col-12 text-center">Relación de Ventas </h2>
         <hr>
       </div>
 
 
-      <div class="row">
-        <div class="card col-12" *ngFor="let venta of ventas" >
-          <div class="card-block">
-            <div class="row">
-              <img  src="assets/img/money.png" style="height:60px;margin-left:10px;">
-
-              <div class="col-7">
-                <h4 class="card-subtitle" style="margin-bottom:10px">Producto: {{getNameByIdProducto(venta.Producto_idProducto)}} </h4>
-                <h4 class="card-subtitle" style="margin-bottom:10px">Zona: {{getNameByIdZona(venta.Zona_idZonas)}} </h4>
-
-              </div>
-              <!-- <div class=" col-3 ">
-                <button type="button" class="btn btn-success" (click)= "agregarMaquinaria(maquina)"><i class="fa fa-plus" aria-hidden="true"></i></button>
-              </div> -->
-            </div>
-          </div>
-          <div class="card-footer">
-            <div class="row">
-              <img src="assets/img/box.png" style="height:35px;margin-left:10px;margin-top:6px; margin-right:10px">
-              <div class="col-6">
-                <span class="row sma">Cantidad Vendida: {{venta.unidadesVendidas}}</span>
-                <span class="row sma">Cantidad Almacenada: {{venta.unidadesAlmacenadas}}</span>
-              </div>
-
-            </div>
-
-
-          </div>
-
-        </div>
-      </div>
-
-
-
+      <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col-12 text-center">Producto</th>
+      <th scope="col-12 text-center">Zona</th>
+      <th scope="col-12 text-center">Unidades Vendidas</th>
+      </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let venta of ventas">
+      <td>{{getNameByIdProducto(venta.Producto_idProducto)}}</td>
+      <td>{{getNameByIdZona(venta.Zona_idZonas)}}</td>
+      <td class="col-12 text-right">{{venta.unidadesVendidas}}</td>
+    </tr>
+  </tbody>
+</table>
 
     </div>
 
