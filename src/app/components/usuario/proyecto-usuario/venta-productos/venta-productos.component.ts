@@ -27,9 +27,10 @@ export class VentaProductosComponent implements OnInit {
   };
 
   selectedAlmacen={
-    alamcen:null,
+    almacen:null,
     idProducto:null
   }
+  openConfAlmacen:boolean=false;
 
   ventas:any;
 
@@ -57,9 +58,7 @@ export class VentaProductosComponent implements OnInit {
     });
 
     this.almacenForm=new FormGroup({
-      'idZona':new FormControl(),
-      'almacenForm':new FormControl(),
-
+      'cantidadAlmacen':new FormControl(),
     });
 
 
@@ -74,10 +73,19 @@ export class VentaProductosComponent implements OnInit {
     this.vendiendo=false;
     this.openLoad=true;
     this.produciendo=true;
-    setTimeout(()=>{this.produciendo=false;this.vendiendo=true;}, 2000);
-    setTimeout(()=>this.openLoad=false, 4000);
+    setTimeout(()=>{this.produciendo=false;this.vendiendo=true;}, 1000);
+    setTimeout(()=>this.openLoad=false, 2000);
 
 
+
+  }
+
+  progressAlmacen(){
+      this.produciendo=true;
+      this.vendiendo=false;
+      this.openLoad=true;
+      setTimeout(()=>this.openLoad=false, 2000);
+      setTimeout(()=>{this.produciendo=false}, 2000);
 
   }
 
@@ -120,10 +128,11 @@ export class VentaProductosComponent implements OnInit {
   }
 
 
-  selectAlamcen(almacen,idProducto){
+  selectAlmacen(almacen,idProducto){
+    this.openConfAlmacen=true;
     this.selectedAlmacen.idProducto=idProducto;
-    this.selectedAlmacen.alamcen=almacen;
-    console.log(this.selectedAlmacen)
+    this.selectedAlmacen.almacen=almacen.cantidadAlmacen;
+    console.log(almacen,this.selectedAlmacen)
 
   }
 
@@ -133,6 +142,12 @@ export class VentaProductosComponent implements OnInit {
        return producto.nombreProd;
     }
     return "id no encontrado";
+
+  }
+
+  cobrarAlmacen(){
+    this.openConfAlmacen=false;
+    this.progressAlmacen()
 
   }
 
