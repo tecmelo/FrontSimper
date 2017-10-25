@@ -5,28 +5,22 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class CreditosService {
-  creditos:credito[]=new Array();
+  creditos=new Array();
 
   constructor(private http:Http) { }
 
    establecerValores(){
      this.creditos.length = 0;
      this.getCreditos().subscribe(data => {
-       for(let key$ in data){
-           this.creditos.push(data[key$]);
+       for(let key$ in data.datos){
+           this.creditos.push(data.datos[key$]);
        }
      });
      return this.creditos;
    }
 
    getCreditos(){
-     return this.http.get('http://localhost:3000/prestamo/').map(res => {
-       return res.json();
-     });
-   }
-
-   returnCreditos(){
-     return this.establecerValores();
+     return this.http.get('http://localhost:3000/prestamo/').map(res => res.json());
    }
 
   setCreditos(credito:credito){

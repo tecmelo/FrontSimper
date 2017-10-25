@@ -17,10 +17,11 @@
           <img  src="assets/img/credit.png"  style="height:100px;margin-left:30px">
 
           <div class="col-7">
-            <h4 class="card-title">{{credito.nombrePrestamo}}</h4>
+            <h4 class="card-title">{{credito.nombreCredito}}</h4>
             <p class="card-text">
-
-
+              Monto minimo: {{credito.montoMax}}<br>
+              Monto máximo: {{credito.montoMin}}<br>
+              Plazo: {{credito.plazo}} años
             </p>
 
           </div>
@@ -42,7 +43,7 @@
 
 
 
-<!--         Formulario para Agregar Nuevo Credito------------------------------->
+<!--         Formulario para Agregar Nuevo Credito
 <div bsModal #modalNew="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md">
     <div class="modal-content">
@@ -165,8 +166,9 @@
     </div>
   </div>
 </div>
+-->
 
-<!--- Formulario para editar credito -->
+<!--- Formulario para editar credito
 <div bsModal #modalEdit="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md">
     <div class="modal-content">
@@ -175,75 +177,6 @@
       </div>
       <div class="modal-body">
         <form [formGroup]="editForm" (ngSubmit)="editaCredito(editForm.value)"  >
-          <!-- <div>
-            <div class="form-group row">
-                <label class="col-4 col-form-label">Id:</label>
-                <div class="col-8">
-
-                  <input class="form-control"
-                         type="text"
-                         placeholder="id"
-                         formControlName="idPrestamos">
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label class="col-4 col-form-label">Nombre de Prestamo</label>
-                <div class="col-8">
-
-                  <input class="form-control"
-                         type="text"
-                         placeholder="Nombre"
-                         formControlName="nombrePrestamo">
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label class="col-4 col-form-label">Costo de Maquinaria</label>
-                <div class="col-8">
-
-                  <input class="form-control"
-                         type="text"
-                         placeholder="Costo de Maquinaria"
-                         formControlName="intereses">
-                </div>
-              </div>
-
-            </div>
-
-            <div class="form-group row">
-              <label class="col-4 col-form-label">Plazo de Pago</label>
-              <div class="col-md-8">
-
-                <input class="form-control"
-                       type="text"
-                       placeholder="Depreciación Acumulada"
-                       formControlName="plazoPago">
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-4 col-form-label">Monto Máximo</label>
-              <div class="col-md-8">
-
-                <input class="form-control"
-                       type="text"
-                       placeholder="Capacidad en Unidades"
-                       formControlName="monto">
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-4 col-form-label">Tipo de Credito</label>
-              <div class="col-md-8">
-
-                <input class="form-control"
-                       type="text"
-                       placeholder=""
-                       formControlName="tipoPrestamo">
-              </div>
-            </div> -->
-
 
                         <div class="form-group row text-center" >
                           <label class="col-7 col-form-label">Nombre Prestamo</label>
@@ -388,3 +321,5 @@
     </div>
   </div>
 </div>
+
+-->

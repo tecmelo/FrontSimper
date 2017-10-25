@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {CreditosService} from '../../services/creditos.service';
-import {credito} from '../../app.interfaces';
 import {NgbModal, ModalDismissReasons,NgbActiveModal,NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
@@ -17,19 +16,12 @@ export class CreditosComponent implements OnInit {
 @ViewChild('modalNew') public modalNew:ModalDirective;
 @ViewChild('modalConfDelete') public modalConfDelete:ModalDirective;
 
-  creditos:credito[] = new Array();
+  creditos = [];
   closeResult:string;
   newForm:FormGroup;
   editForm:FormGroup;
   public alerts: any = [];
-  creditoDelete: credito =  {
-    idPrestamos:0,
-    nombrePrestamo:"",
-    intereses:0,
-    plazoPago:0,
-    monto:0,
-    tipoPrestamo:""
-  }
+  creditoDelete;
 
   constructor(private _creditosService:CreditosService,
               private modalService: NgbModal,
@@ -51,7 +43,8 @@ export class CreditosComponent implements OnInit {
             'monto':new FormControl('',Validators.required),
             'tipoPrestamo':new FormControl('',Validators.required),
           });
-          this.creditos=this._creditosService.returnCreditos();
+          this.creditos = this._creditosService.establecerValores();
+          console.log(this.creditos);
 
   }
 
@@ -60,7 +53,7 @@ export class CreditosComponent implements OnInit {
 
   }
 
-  agregaCredito(credito:credito){
+  agregaCredito(credito){
     let reason
     this._creditosService.guardarCredito(credito);
     this.modalNew.hide();
@@ -72,7 +65,7 @@ export class CreditosComponent implements OnInit {
     });
   }
 
-  editaCredito(credito:credito){
+  editaCredito(credito){
     console.log(credito);
     this._creditosService.setCreditos(credito).subscribe();
     this.modalEdit.hide();
