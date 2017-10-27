@@ -30,12 +30,6 @@ export class OperacionService {
 
   registerOperacion(x){
     let operaciones:any[]=[];
-    if(x.unidadesAlmacenadas == null){
-      x.unidadesAlmacenadas = 0;
-    }
-    if(x.unidadesVendidas == null){
-      x.unidadesVendidas = 0;
-    }
     this.addOperacion(x).subscribe(data => {
       for(let key in data.datos){
         operaciones.push(data.datos[key]);
@@ -149,8 +143,16 @@ export class OperacionService {
     return this.http.post('http://localhost:3000/operacion/validate/',x,this.headers).map(res => res.json());
   }
 
+  validarAlmacen(x){
+    return this.http.post('http://localhost:3000/operacion/validateAlmacen/',x,this.headers).map(res => res.json());
+  }
+
   addOperacion(x){
     return this.http.post('http://localhost:3000/operacion/register/',x,this.headers).map(res => res.json());
+  }
+
+  addAlmacen(x){
+    return this.http.post('http://localhost:3000/operacion/registerAlmacen/',x,this.headers).map(res => res.json());
   }
 
 }

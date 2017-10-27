@@ -94,14 +94,12 @@ export class VentaProductosComponent implements OnInit {
     var p = this.selectedVenta.idProducto;
     var idZ = this.selectedVenta.venta.idZona;
     var cv = this.selectedVenta.venta.cantidadVenta;
-    var ca = this.selectedVenta.venta.cantidadAlmacen;
     var x = {
       "Producto_idProducto":p,
       "Zona_idZonas":idZ,
       "Proyecto_idProyecto":parseInt(localStorage.getItem('idProyecto')),
       "Usuario_idUsuario":parseInt(localStorage.getItem('idUsuario')),
       "numeroPeriodo":parseInt(localStorage.getItem('numeroPeriodo')),
-      "unidadesAlmacenadas":ca,
       "unidadesVendidas":cv
     }
 
@@ -123,8 +121,6 @@ export class VentaProductosComponent implements OnInit {
       idProducto:idProducto
     }
 
-    console.log(this.selectVenta)
-
   }
 
 
@@ -132,8 +128,6 @@ export class VentaProductosComponent implements OnInit {
     this.openConfAlmacen=true;
     this.selectedAlmacen.idProducto=idProducto;
     this.selectedAlmacen.almacen=almacen.cantidadAlmacen;
-    console.log(almacen,this.selectedAlmacen)
-
   }
 
   getNameByIdProducto(id:number){
@@ -146,8 +140,24 @@ export class VentaProductosComponent implements OnInit {
   }
 
   cobrarAlmacen(){
-    this.openConfAlmacen=false;
-    this.progressAlmacen()
+    var x = {
+      Producto_idProducto:this.selectedAlmacen.idProducto,
+      unidadesAlmacenadas:this.selectedAlmacen.almacen,
+      Balance_numeroPeriodo:localStorage.getItem('numeroPeriodo'),
+      Proyecto_idProyecto:localStorage.getItem('idProyecto')
+    }
+
+    this._operacionService.validarAlmacen(x).subscribe(data => {
+      if(data.success){
+        this.openConfAlmacen=false;
+        this.progressAlmacen();
+        this._operacionService.addAlmacen(x).subscribe();
+      }
+      else{
+        alert(data.msg);
+        this.openConfAlmacen=false;
+      }
+    });
 
   }
 
